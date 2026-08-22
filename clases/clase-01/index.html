@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<!-- CABECERA:INICIO -->
+<!-- CABECERA:INICIO 
 <header class="cabecera">
   <div class="cabecera__interior">
     <a class="marca" href="../../index.html">
@@ -25,7 +25,7 @@
     </nav>
   </div>
 </header>
-<!-- CABECERA:FIN -->
+ CABECERA:FIN -->
 
 <main>
 <article class="clase">
@@ -89,6 +89,67 @@
     responsabilidad del grupo, y nada de lo que ocurre después lo es.
   </p>
 </div>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 640 240" role="img" aria-labelledby="proceso-linea-title proceso-linea-desc">
+    <title id="proceso-linea-title">Alcance de la celda dentro de la línea de producción</title>
+    <desc id="proceso-linea-desc">Línea de cuatro etapas en secuencia: fabricación, embolsado y empaquetado, pick and place en cajas, y paletizado. Solo la etapa de pick and place queda dentro del alcance del grupo; las otras tres son anteriores o posteriores a la celda.</desc>
+    <defs>
+      <marker id="flecha-proceso" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto-suave)"/>
+      </marker>
+    </defs>
+
+    <!-- zona: alcance del grupo -->
+    <rect x="320" y="40" width="144" height="128" rx="8"
+          fill="none" stroke="var(--acento)" stroke-width="0.8" stroke-dasharray="4,4"/>
+    <rect x="340" y="44" width="104" height="12" rx="2" fill="var(--fondo)"/>
+    <text x="392" y="52" fill="var(--acento-texto)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.14em">ALCANCE DEL GRUPO</text>
+
+    <!-- conexiones -->
+    <line x1="136" y1="112" x2="168" y2="112" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#flecha-proceso)"/>
+    <line x1="280" y1="112" x2="336" y2="112" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#flecha-proceso)"/>
+    <line x1="448" y1="112" x2="504" y2="112" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#flecha-proceso)"/>
+
+    <rect x="288" y="92" width="40" height="12" rx="2" fill="var(--fondo)"/>
+    <text x="308" y="100" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">ENTRA</text>
+    <rect x="456" y="92" width="40" height="12" rx="2" fill="var(--fondo)"/>
+    <text x="476" y="100" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">SALE</text>
+
+    <!-- etapas -->
+    <rect x="24" y="72" width="112" height="80" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="80" y="116" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Fabricación</text>
+
+    <rect x="168" y="72" width="112" height="80" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="224" y="108" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Embolsado y</text>
+    <text x="224" y="124" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">empaquetado</text>
+
+    <rect x="336" y="72" width="112" height="80" rx="6" fill="var(--acento-claro)" stroke="var(--acento)" stroke-width="1"/>
+    <text x="392" y="108" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Pick &amp; place</text>
+    <text x="392" y="124" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="middle">en cajas</text>
+
+    <rect x="504" y="72" width="112" height="80" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="560" y="116" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Paletizado</text>
+
+    <!-- referencias -->
+    <line x1="24" y1="200" x2="616" y2="200" stroke="var(--borde)" stroke-width="0.8"/>
+    <text x="24" y="216" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" letter-spacing="0.14em">REFERENCIAS</text>
+    <rect x="112" y="208" width="12" height="12" rx="2" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="132" y="216" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" letter-spacing="0.06em">FUERA DE ALCANCE</text>
+    <rect x="280" y="208" width="12" height="12" rx="2" fill="var(--acento-claro)" stroke="var(--acento)" stroke-width="1"/>
+    <text x="300" y="216" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" letter-spacing="0.06em">ALCANCE DEL GRUPO</text>
+  </svg>
+  <figcaption>
+    La línea completa, con el recorte marcado. <strong>Entra</strong> el producto
+    ya embolsado sobre la cinta y <strong>sale</strong> la caja cerrada y
+    controlada. Fabricación y embolsado vienen dados; paletizado queda para
+    después. El grupo diseña una sola etapa, pero tiene que respetar el ritmo que
+    le imponen las de al lado.
+  </figcaption>
+</figure>
 
 <h3>Cada grupo, un caso distinto</h3>
 <p>
