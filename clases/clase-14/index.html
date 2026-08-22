@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 14 · Equipos secundarios y calidad — Robótica Industrial UNAB</title>
+<meta name="description" content="Transportadores, armadoras de cajas, etiquetado, sellado y controles de calidad en línea.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 14</p>
+    <p class="clase__numero">Clase 14 · Unidad 4 · Integración, calidad y cierre</p>
+    <h1>Equipos secundarios y calidad</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Identificar los equipos anexos que la celda necesita para funcionar de verdad.</li>
+  <li>Seleccionar y justificar esos equipos sin diseñarlos.</li>
+  <li>Definir los controles de calidad en línea y qué se hace con lo que falla.</li>
+</ul>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Qué se pide acá</div>
+  <p>
+    Estos equipos <strong>no se diseñan</strong>: se seleccionan de catálogo y se
+    justifican. Lo que se evalúa es que la celda esté completa —que el proyecto
+    no termine en «y después, mágicamente, la caja aparece armada»—.
+  </p>
+</div>
+
+<h2>Equipos secundarios</h2>
+
+<h3>Transporte</h3>
+<ul>
+  <li>
+    <strong>Cinta transportadora:</strong> ancho, velocidad y tipo de banda según
+    el producto. En alimenticia, banda sanitaria y estructura lavable.
+  </li>
+  <li>
+    <strong>Acumuladores:</strong> tramos que almacenan producto para absorber
+    diferencias de ritmo entre etapas. Sin acumulación, cualquier microparada
+    aguas abajo frena toda la línea. Es lo que sostiene el OEE que declararon.
+  </li>
+  <li>
+    <strong>Desviadores:</strong> derivan producto a otra vía. Necesarios si hay
+    rechazo o dos destinos.
+  </li>
+</ul>
+
+<h3>Manejo de cajas</h3>
+<ul>
+  <li>
+    <strong>Armadora o formadora de cajas:</strong> toma la plancha de cartón,
+    la forma y sella el fondo. Su cadencia tiene que acompañar la de la celda.
+  </li>
+  <li>
+    <strong>Encajonado:</strong> si el robot no coloca directamente en la caja
+    final, hace falta una mesa de encajado o un equipo dedicado.
+  </li>
+  <li>
+    <strong>Selladora de cinta:</strong> cierra la caja llena. Suele ser el
+    equipo más barato de la línea y el que más se olvida en los proyectos.
+  </li>
+</ul>
+
+<h3>Identificación</h3>
+<ul>
+  <li>
+    <strong>Etiquetado y codificado:</strong> lote, fecha de vencimiento, código
+    de barras. En alimenticia y farmacéutica no es opcional: es requisito legal
+    de trazabilidad.
+  </li>
+</ul>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">La cadencia se verifica en cadena</div>
+  <p>
+    De nada sirve un robot que cumple 18 s por caja si la armadora tarda 30 s en
+    entregar una caja vacía. El equipo más lento define la producción real de la
+    línea. Revisen que cada equipo secundario acompañe el ritmo, y si no, cómo lo
+    compensan.
+  </p>
+</div>
+
+<h2>Calidad en línea</h2>
+<p>
+  Los controles se integran con los equipos secundarios: son estaciones que el
+  producto atraviesa antes de salir de la celda.
+</p>
+
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Control</th><th>Qué detecta</th><th>Dónde es habitual</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Báscula de chequeo</strong></td>
+        <td>Peso final fuera de rango: faltan unidades, o el producto vino incompleto.</td>
+        <td>Prácticamente todas las líneas de empaque.</td>
+      </tr>
+      <tr>
+        <td><strong>Inspección visual</strong></td>
+        <td>Defectos superficiales, etiqueta ausente o mal puesta, caja mal cerrada.</td>
+        <td>Cosmética, alimenticia, farmacéutica.</td>
+      </tr>
+      <tr>
+        <td><strong>Detector de metales / rayos X</strong></td>
+        <td>Contaminación física dentro del producto.</td>
+        <td>Alimenticia y farmacéutica. Suele ser exigencia normativa.</td>
+      </tr>
+      <tr>
+        <td><strong>Lectura de código</strong></td>
+        <td>Código de barras ilegible o incorrecto: rompe la trazabilidad.</td>
+        <td>Toda línea con requisito de trazabilidad.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>El punto de rechazo</h3>
+<div class="caja caja--nota">
+  <div class="caja__titulo">Detectar no es resolver</div>
+  <p>
+    Un control que detecta un defecto y no hace nada con él no sirve. Hay que
+    definir <strong>qué pasa físicamente</strong> con la caja que falla: un
+    desviador que la saca de la línea, una vía de descarte, un contenedor, y
+    quién y cuándo la revisa. Ese circuito se dibuja en el layout como cualquier
+    otro flujo.
+  </p>
+</div>
+
+<h3>Y esto vuelve al GRAFCET</h3>
+<p>
+  Un rechazo es una <strong>divergencia OR</strong> en la secuencia: según el
+  resultado del control, la caja sigue a paletizado o se desvía. Si el GRAFCET
+  de la <a href="../clase-04/">clase 04</a> no tiene esa rama, hay que agregarla.
+</p>
+
+<h2>Práctica</h2>
+<p>
+  Cada grupo lista los equipos secundarios que su celda necesita, con marca y
+  modelo de referencia, cadencia y justificación; define los controles de calidad
+  aplicables a su industria; y actualiza el layout con las estaciones de control
+  y la vía de descarte.
+</p>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir el <strong>punto 10 del informe</strong>: equipos secundarios y calidad,
+    con la selección justificada, la verificación de cadencia en cadena y el
+    circuito de rechazo. Layout actualizado y GRAFCET con la rama de descarte.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li>Catálogos de fabricantes de equipos de fin de línea.</li>
+  <li><a href="../clase-03/">Clase 03</a> — cadencia y OEE.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-13/"><span>Clase anterior</span><strong>13 · Programación básica del robot</strong></a>
+  <a class="siguiente" href="../clase-15/"><span>Clase siguiente</span><strong>15 · Mantenimiento y accesibilidad del diseño</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

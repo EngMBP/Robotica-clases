@@ -1,0 +1,205 @@
+{
+  "_ayuda": "Este archivo es la fuente de verdad del sitio. Editá acá los títulos, fechas y estados, después ejecutá: python herramientas/generar.py",
+  "_base_url": "Solo la usa 404.html, porque GitHub Pages lo sirve desde cualquier ruta. Si el sitio queda en usuario.github.io/robotica/, poné \"/robotica/\".",
+  "_modalidad": "Campo opcional de cada clase: \"virtual\", \"presencial\" o vacío. Si lo completás, aparece en el encabezado de la clase.",
+
+  "curso": {
+    "materia": "Robótica Industrial",
+    "universidad": "UNAB",
+    "universidad_larga": "Universidad Nacional de Almirante Brown",
+    "carrera": "Tecnicatura",
+    "ciclo": "2026",
+    "comision": "",
+    "docente": "",
+    "aula_virtual": "",
+    "repositorio": "",
+    "base_url": "/"
+  },
+
+  "menu": [
+    { "texto": "Clases", "url": "index.html" },
+    { "texto": "Proyecto", "url": "proyecto.html" },
+    { "texto": "Cursada", "url": "cursada.html" },
+    { "texto": "Programa", "url": "programa.html" },
+    { "texto": "Recursos", "url": "recursos.html" }
+  ],
+
+  "clases": [
+    {
+      "numero": 1,
+      "slug": "clase-01",
+      "titulo": "Presentación de la materia y del proyecto",
+      "resumen": "Objetivo del proyecto integrador, asignación de productos y metas de producción, conformación de los grupos.",
+      "unidad": "Unidad 1 · Herramientas de diseño y análisis de proceso",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "publicada"
+    },
+    {
+      "numero": 2,
+      "slug": "clase-02",
+      "titulo": "Modelado CAD de piezas · Relevamiento del producto",
+      "resumen": "Primeros pasos en OnShape: extrusión, corte y redondeos. En paralelo, investigación del producto asignado.",
+      "unidad": "Unidad 1 · Herramientas de diseño y análisis de proceso",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 3,
+      "slug": "clase-03",
+      "titulo": "Ensamblajes CAD · OEE y tiempo de ciclo",
+      "resumen": "Relaciones de posición e importación de componentes comerciales. Cálculo del tiempo de ciclo a partir de la meta de producción.",
+      "unidad": "Unidad 1 · Herramientas de diseño y análisis de proceso",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 4,
+      "slug": "clase-04",
+      "titulo": "Planos en CAD · Secuencia funcional y GRAFCET",
+      "resumen": "Vistas, cotas y líneas de corte. Diagrama de secuencia del proceso según la norma IEC 60848.",
+      "unidad": "Unidad 1 · Herramientas de diseño y análisis de proceso",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 5,
+      "slug": "clase-05",
+      "titulo": "Selección del robot",
+      "resumen": "SCARA, delta, antropomorfo y cartesiano. Tabla comparativa y lectura de hojas de datos reales.",
+      "unidad": "Unidad 2 · Selección y diseño de la celda",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 6,
+      "slug": "clase-06",
+      "titulo": "Diseño del gripper",
+      "resumen": "Ventosa de vacío, pinza mecánica o gripper magnético, con memoria de cálculo propia de la fuerza de sujeción.",
+      "unidad": "Unidad 2 · Selección y diseño de la celda",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 7,
+      "slug": "clase-07",
+      "titulo": "Acople al robot y neumática aplicada",
+      "resumen": "Brida de muñeca, cambio rápido de herramienta y dimensionamiento de cilindros neumáticos.",
+      "unidad": "Unidad 2 · Selección y diseño de la celda",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 8,
+      "slug": "clase-08",
+      "titulo": "Posicionamiento del producto en la cinta",
+      "resumen": "Guías mecánicas, sensores de presencia y visión artificial: tres niveles de complejidad y de costo.",
+      "unidad": "Unidad 2 · Selección y diseño de la celda",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 9,
+      "slug": "clase-09",
+      "titulo": "Layout de la celda · Entrega intermedia",
+      "resumen": "Disposición de la celda, flujo de material y entrega del hito de avance del proyecto.",
+      "unidad": "Unidad 2 · Selección y diseño de la celda",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 10,
+      "slug": "clase-10",
+      "titulo": "Seguridad industrial en celdas robotizadas",
+      "resumen": "Vallado, cortinas de luz, paro de emergencia y distancias de seguridad según ISO 10218 y ISO 13855.",
+      "unidad": "Unidad 3 · Seguridad, fabricación y documentación",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 11,
+      "slug": "clase-11",
+      "titulo": "Procesos de manufactura",
+      "resumen": "Panorama de torneado, fresado, corte láser, estampado, plegado y tratamientos, con tips de diseño.",
+      "unidad": "Unidad 3 · Seguridad, fabricación y documentación",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 12,
+      "slug": "clase-12",
+      "titulo": "Tolerancias, ajustes y planos de fabricación",
+      "resumen": "Ajustes ISO con juego, indistinto y aprieto. Codificación de planos y control de revisiones.",
+      "unidad": "Unidad 3 · Seguridad, fabricación y documentación",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 13,
+      "slug": "clase-13",
+      "titulo": "Programación básica del robot",
+      "resumen": "Puntos, trayectorias y simulación de la celda en RoboDK, sin necesidad de robot físico.",
+      "unidad": "Unidad 3 · Seguridad, fabricación y documentación",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 14,
+      "slug": "clase-14",
+      "titulo": "Equipos secundarios y calidad",
+      "resumen": "Transportadores, armadoras de cajas, etiquetado, sellado y controles de calidad en línea.",
+      "unidad": "Unidad 4 · Integración, calidad y cierre",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 15,
+      "slug": "clase-15",
+      "titulo": "Mantenimiento y accesibilidad del diseño",
+      "resumen": "Preventivo vs. correctivo, desgaste de componentes, plan de repuestos y tiempo de cambio de formato.",
+      "unidad": "Unidad 4 · Integración, calidad y cierre",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    },
+    {
+      "numero": 16,
+      "slug": "clase-16",
+      "titulo": "Defensa final del proyecto",
+      "resumen": "Pitch comercial ante la gerencia: proceso actual vs. propuesto y mejora de productividad.",
+      "unidad": "Unidad 4 · Integración, calidad y cierre",
+      "fecha": "",
+      "duracion": "",
+      "modalidad": "",
+      "estado": "pendiente"
+    }
+  ]
+}

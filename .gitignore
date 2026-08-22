@@ -1,0 +1,16 @@
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Archivos temporales de Office / LibreOffice
+~$*
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# Editores
+.vscode/
+.idea/

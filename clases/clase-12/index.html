@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 12 · Tolerancias, ajustes y planos de fabricación — Robótica Industrial UNAB</title>
+<meta name="description" content="Ajustes ISO con juego, indistinto y aprieto. Codificación de planos y control de revisiones.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 12</p>
+    <p class="clase__numero">Clase 12 · Unidad 3 · Seguridad, fabricación y documentación</p>
+    <h1>Tolerancias, ajustes y planos de fabricación</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Entender qué es un ajuste y cuándo hace falta especificar tolerancias.</li>
+  <li>Aplicar ajustes ISO a las piezas del proyecto.</li>
+  <li>Definir un sistema de codificación de planos y un control de revisiones.</li>
+</ul>
+
+<h2>Tolerancias y ajustes</h2>
+
+<h3>Por qué existe la tolerancia</h3>
+<p>
+  Ninguna pieza sale con la medida exacta del plano. La tolerancia declara
+  <strong>cuánta desviación es aceptable</strong> sin que la pieza deje de
+  cumplir su función. No es un detalle de prolijidad: sin tolerancia, el plano no
+  se puede verificar ni rechazar.
+</p>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">La tolerancia se paga</div>
+  <p>
+    Cada grado de precisión adicional encarece la pieza y alarga el plazo. Se
+    ajusta solamente donde hay una función que lo exige: un alojamiento de
+    rodamiento, una espiga de centrado. El resto va con tolerancia general.
+  </p>
+</div>
+
+<h3>Los tres tipos de ajuste</h3>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Ajuste</th><th>Qué pasa al montar</th><th>Dónde se usa</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Con juego</strong></td>
+        <td>Siempre queda holgura entre eje y agujero.</td>
+        <td>Partes que deben deslizar o girar; guías; montajes que se desarman seguido.</td>
+      </tr>
+      <tr>
+        <td><strong>Indistinto</strong> (de transición)</td>
+        <td>Según las medidas reales, puede quedar con leve juego o leve aprieto.</td>
+        <td>Centrado preciso con posibilidad de desarmar: espigas de posicionamiento.</td>
+      </tr>
+      <tr>
+        <td><strong>Con aprieto</strong></td>
+        <td>El eje siempre es mayor que el agujero: entra a presión o con temperatura.</td>
+        <td>Uniones fijas que transmiten esfuerzo y no se desarman.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Cómo se especifican</h3>
+<p>
+  El sistema ISO combina una <strong>letra</strong>, que indica la posición de la
+  zona de tolerancia —mayúscula para agujeros, minúscula para ejes—, con un
+  <strong>número</strong>, que indica la amplitud, o grado de calidad. Cuanto
+  menor el número, más estrecha la tolerancia y más cara la pieza.
+</p>
+<p>
+  Lo habitual es trabajar con <strong>sistema de agujero base</strong>: se fija la
+  tolerancia del agujero y se varía la del eje para conseguir el ajuste buscado.
+  Es más económico, porque el agujero se hace con herramienta de medida
+  normalizada y el eje se rectifica a medida.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">En el proyecto</div>
+  <p>
+    Los lugares donde va a hacer falta ajuste son pocos y bien identificables: el
+    centrado del adaptador contra la brida del robot, los alojamientos de guías
+    del gripper, los pasadores de posicionamiento. Todo lo demás vive con
+    tolerancia general.
+  </p>
+</div>
+
+<h2>Codificación de planos</h2>
+
+<h3>Numeración jerárquica</h3>
+<p>
+  Un proyecto genera decenas de planos. Sin un sistema, en dos semanas nadie sabe
+  cuál es el vigente. La convención habitual es jerárquica: conjunto,
+  subconjunto y pieza, de modo que el código diga <em>dónde</em> vive la pieza
+  dentro del proyecto.
+</p>
+<pre><code>PRY-000        Conjunto general de la celda
+PRY-100        Subconjunto gripper
+PRY-101        Cuerpo del gripper
+PRY-102        Adaptador de brida
+PRY-200        Subconjunto guías de cinta</code></pre>
+<p>
+  El esquema exacto lo define cada grupo; lo que se evalúa es que sea coherente,
+  esté documentado y se respete en todos los planos y en el BOM.
+</p>
+
+<h3>El cajetín</h3>
+<p>
+  <strong>ISO 7200</strong> define qué información lleva el cajetín de un plano:
+  identificación del documento, título, responsable, fecha, escala, material y
+  revisión, entre otros campos. Es lo que convierte a un dibujo en un documento
+  técnico rastreable.
+</p>
+
+<h3>Control de revisiones</h3>
+<p>
+  Todo plano lleva su número de revisión, la fecha, quién hizo el cambio y
+  <strong>por qué</strong>. Ese último campo es el que más se omite y el más
+  valioso.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Conecta con el árbol de ramas</div>
+  <p>
+    El historial de revisiones de los planos es la versión formal del historial
+    de decisiones del informe. Si el gripper cambió de dos a cuatro ventosas, hay
+    una revisión que lo registra y un motivo que lo explica. Las dos cosas son el
+    mismo relato contado en dos documentos.
+  </p>
+</div>
+
+<h2>Práctica</h2>
+<ul>
+  <li>Identificar en el conjunto los puntos que requieren ajuste y decidir de qué tipo es cada uno.</li>
+  <li>Definir el esquema de codificación del proyecto y aplicarlo a todos los planos.</li>
+  <li>Completar los cajetines con la información requerida y abrir la tabla de revisiones.</li>
+</ul>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir los <strong>planos de fabricación</strong> de las piezas propias, con
+    tolerancias donde corresponda, cajetín completo y codificación aplicada.
+    Sumar al informe el punto 12: el sistema de codificación y de control de
+    revisiones utilizado.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li>Norma <strong>ISO 7200</strong> — información del cajetín.</li>
+  <li>Tablas de ajustes ISO de cualquier manual de dibujo técnico.</li>
+  <li><a href="../clase-04/">Clase 04</a> — generación de planos en CAD.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-11/"><span>Clase anterior</span><strong>11 · Procesos de manufactura</strong></a>
+  <a class="siguiente" href="../clase-13/"><span>Clase siguiente</span><strong>13 · Programación básica del robot</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 06 · Diseño del gripper — Robótica Industrial UNAB</title>
+<meta name="description" content="Ventosa de vacío, pinza mecánica o gripper magnético, con memoria de cálculo propia de la fuerza de sujeción.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 06</p>
+    <p class="clase__numero">Clase 06 · Unidad 2 · Selección y diseño de la celda</p>
+    <h1>Diseño del gripper</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Conocer las tecnologías de agarre disponibles y sus condiciones de uso.</li>
+  <li>Elegir una tecnología a partir de las características del producto asignado.</li>
+  <li>Construir una herramienta de cálculo propia para justificar la fuerza de sujeción.</li>
+</ul>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Libertad total de tecnología</div>
+  <p>
+    No hay una solución impuesta. Ventosa de vacío, pinza mecánica de dedos,
+    gripper magnético o una combinación: lo que decide es la justificación
+    técnica frente al producto asignado.
+  </p>
+</div>
+
+<h2>Tecnologías de agarre</h2>
+
+<h3>Ventosa de vacío</h3>
+<p>
+  Es la opción dominante en empaque. Rápida, liviana, barata y con muy poca
+  intrusión sobre el producto.
+</p>
+<ul>
+  <li><strong>Necesita:</strong> superficie lisa, continua y no porosa, y un área de apoyo suficiente.</li>
+  <li><strong>Falla con:</strong> materiales porosos, superficies muy curvas o irregulares, films flojos que se deforman al aspirar, productos con polvo o humedad superficial.</li>
+  <li><strong>Variantes:</strong> plana, con fuelle para compensar diferencias de altura, de silicona o de goma según compatibilidad alimentaria.</li>
+</ul>
+
+<h3>Pinza mecánica de dedos</h3>
+<p>
+  Dos o tres dedos que cierran sobre el producto, con accionamiento neumático o
+  eléctrico.
+</p>
+<ul>
+  <li><strong>Sirve para:</strong> productos rígidos, cilíndricos, con forma irregular o sin cara plana disponible.</li>
+  <li><strong>Cuidados:</strong> el producto debe soportar la fuerza de cierre; en envases flexibles hay riesgo de deformación o de marca.</li>
+  <li><strong>Ventaja:</strong> el agarre no depende de la calidad de la superficie.</li>
+</ul>
+
+<h3>Gripper magnético</h3>
+<p>
+  Solo para materiales ferromagnéticos: latas, tapas metálicas, piezas de acero.
+  Muy simple y robusto, pero con un problema típico —el desprendimiento
+  controlado— que hay que resolver con expulsor.
+</p>
+
+<h3>Soluciones híbridas y multipick</h3>
+<p>
+  Nada impide combinar tecnologías, ni tomar varias unidades por ciclo. El
+  <strong>multipick</strong> es la palanca más fuerte para cumplir un tiempo de
+  ciclo exigente: si el gripper toma cuatro unidades a la vez, el tiempo por pick
+  se divide por cuatro. El costo es más peso en la brida y un layout de toma más
+  complejo.
+</p>
+
+<h2>Memoria de cálculo del gripper</h2>
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Acá no hay fórmula para copiar</div>
+  <p>
+    Cada grupo arma su <strong>propia herramienta de cálculo</strong> —una
+    planilla— para justificar la fuerza de sujeción. La idea es que entiendan la
+    lógica y puedan reutilizar esa herramienta en cualquier otro proyecto, no que
+    reemplacen números en una fórmula cerrada.
+  </p>
+</div>
+
+<h3>Las preguntas que la herramienta tiene que responder</h3>
+<ol>
+  <li>
+    <strong>¿Cuánto pesa lo que sostengo?</strong> El producto, más lo que el
+    gripper agarra junto con él.
+  </li>
+  <li>
+    <strong>¿Con qué aceleración lo muevo?</strong> Este es el punto que más se
+    subestima. En reposo hay que vencer el peso; en un ciclo rápido, la
+    aceleración del robot puede multiplicar varias veces la fuerza necesaria. Un
+    delta acelerando fuerte exige mucho más que el peso estático del producto.
+  </li>
+  <li>
+    <strong>¿En qué dirección actúa la fuerza?</strong> No es lo mismo sostener
+    en vertical —la fuerza se opone directamente al peso— que sostener en
+    lateral, donde el producto se sostiene por rozamiento y el coeficiente de
+    fricción entra en juego.
+  </li>
+  <li>
+    <strong>¿Qué margen de seguridad tomo?</strong> Y sobre todo: por qué ese
+    valor. Producto frágil, superficie sucia, vacío que puede caer, dispersión de
+    la fricción: cada uno justifica más o menos margen.
+  </li>
+  <li>
+    <strong>¿Qué pasa si falla el suministro?</strong> Si se corta el aire o la
+    energía en pleno traslado, ¿el producto cae? La respuesta puede obligar a un
+    elemento de retención o a una válvula de seguridad.
+  </li>
+</ol>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">La aceleración es el dato oculto</div>
+  <p>
+    Un producto de 200 g sostenido con la fuerza justa para 200 g se cae apenas
+    el robot arranca. La fuerza de sujeción se dimensiona para la condición más
+    exigente del ciclo, no para el producto en reposo sobre la mesa.
+  </p>
+</div>
+
+<h3>Y además, el gripper es una pieza que hay que diseñar</h3>
+<p>
+  El elemento comercial —ventosa, pinza— se compra; el <strong>cuerpo que lo
+  vincula al robot</strong> lo diseña el grupo. Esa pieza va a CAD, a planos de
+  fabricación y al BOM. Consideren desde ahora:
+</p>
+<ul>
+  <li>Peso propio: cada gramo se descuenta de la carga útil del robot.</li>
+  <li>Rigidez: si flexa, se pierde repetibilidad.</li>
+  <li>Regulación: ¿se puede ajustar la posición de las ventosas si cambia el formato?</li>
+  <li>Accesibilidad: cambiar una ventosa gastada no debería requerir desarmar el conjunto. Se retoma en la <a href="../clase-15/">clase 15</a>.</li>
+</ul>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir dos cosas:
+  </p>
+  <ol>
+    <li>
+      La <strong>herramienta de cálculo</strong> del gripper —planilla— con la
+      tecnología elegida, los datos de entrada, los supuestos declarados y el
+      resultado de fuerza necesaria.
+    </li>
+    <li>
+      El <strong>modelo CAD preliminar</strong> del gripper, con el componente
+      comercial importado y el cuerpo de vinculación diseñado por el grupo.
+    </li>
+  </ol>
+  <p>Sumar al árbol de ramas las tecnologías de agarre que descartaron y por qué.</p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="https://www.schmalz.com/">Schmalz</a> — tecnología de vacío y criterios de selección de ventosas.</li>
+  <li><a href="https://www.festo.com/">FESTO</a> — pinzas neumáticas y eléctricas.</li>
+  <li><a href="../clase-02/">Clase 02</a> — ficha de relevamiento del producto.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-05/"><span>Clase anterior</span><strong>05 · Selección del robot</strong></a>
+  <a class="siguiente" href="../clase-07/"><span>Clase siguiente</span><strong>07 · Acople al robot y neumática aplicada</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

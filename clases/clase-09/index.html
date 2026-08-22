@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 09 · Layout de la celda · Entrega intermedia — Robótica Industrial UNAB</title>
+<meta name="description" content="Disposición de la celda, flujo de material y entrega del hito de avance del proyecto.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 09</p>
+    <p class="clase__numero">Clase 09 · Unidad 2 · Selección y diseño de la celda</p>
+    <h1>Layout de la celda · Entrega intermedia</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Entrega intermedia</div>
+  <p>
+    Esta clase concentra el <strong>hito de avance del proyecto</strong>. Al
+    final está el detalle exacto de lo que se entrega y cómo se revisa.
+  </p>
+</div>
+
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Componer el layout de la celda integrando todos los elementos definidos hasta acá.</li>
+  <li>Verificar alcance del robot e interferencias sobre el modelo CAD.</li>
+  <li>Presentar el avance del proyecto y recibir observaciones.</li>
+</ul>
+
+<h2>Qué es el layout de una celda</h2>
+<p>
+  Es la disposición física de todo lo que compone la celda, vista en planta: por
+  dónde entra el producto, dónde está el robot, dónde se arma y se llena la caja,
+  por dónde sale, dónde se para el operador y qué superficie ocupa todo eso.
+</p>
+<p>
+  Hasta ahora cada grupo resolvió componentes por separado. El layout es donde se
+  descubre si esos componentes conviven.
+</p>
+
+<h3>Elementos que tienen que aparecer</h3>
+<ul>
+  <li>Cinta de entrada del producto y zona de toma.</li>
+  <li>Robot, con su base o pórtico de montaje y su volumen de trabajo dibujado.</li>
+  <li>Posición de la caja durante el llenado.</li>
+  <li>Alimentación de cajas vacías y evacuación de cajas llenas.</li>
+  <li>Equipos secundarios previstos, aunque todavía no estén elegidos en detalle.</li>
+  <li>Vallado o dispositivos de protección, con sus accesos.</li>
+  <li>Tablero eléctrico, unidad de mantenimiento neumática y recorrido de servicios.</li>
+  <li>Puesto del operador y zonas de circulación.</li>
+</ul>
+
+<h2>Criterios de diseño del layout</h2>
+
+<h3>El flujo de material no se cruza consigo mismo</h3>
+<p>
+  El producto entra por un lado y sale por otro. Si el camino de las cajas vacías
+  se cruza con el de las llenas, o si el operador tiene que atravesar la zona de
+  trabajo del robot para reponer insumos, el layout está mal aunque todo entre en
+  el espacio.
+</p>
+
+<h3>El alcance se verifica, no se estima</h3>
+<div class="caja caja--nota">
+  <div class="caja__titulo">Usen el CAD para esto</div>
+  <p>
+    Dibujen el volumen de trabajo del robot en el modelo y verifiquen que la zona
+    de toma y todas las posiciones de la caja caen adentro, con margen. Es la
+    forma de descubrir a tiempo que el robot llega al centro de la caja pero no a
+    la esquina más lejana.
+  </p>
+</div>
+
+<h3>Todo lo que se mantiene, se tiene que poder alcanzar</h3>
+<p>
+  Cambiar una ventosa, limpiar un sensor, destrabar un producto: si esas tareas
+  exigen desarmar media celda, el layout va a fallar en producción. Se retoma en
+  la <a href="../clase-15/">clase 15</a>, pero conviene pensarlo ahora, cuando
+  todavía es barato mover cosas.
+</p>
+
+<h3>El espacio del vallado es parte de la huella</h3>
+<p>
+  La superficie de la celda no es la que ocupan las máquinas: es la que ocupan
+  más el vallado, más la distancia de seguridad que exige la norma, más la
+  apertura de las puertas. Ese cálculo se cierra en la
+  <a href="../clase-10/">clase 10</a>, así que el layout de hoy es una versión
+  que probablemente haya que ajustar.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">El layout puede seguir cambiando</div>
+  <p>
+    Esta entrega es un hito de avance, no un congelamiento del diseño. Se puede
+    seguir modificando hasta la última clase si el propio trabajo lo justifica.
+    Eso sí: cada cambio se registra en el árbol de ramas, con su motivo.
+  </p>
+</div>
+
+<h2>La entrega intermedia</h2>
+
+<h3>Qué se entrega</h3>
+<ol>
+  <li>
+    <strong>Layout de planta</strong> de la celda, acotado, con todos los
+    elementos identificados y el flujo de material indicado.
+  </li>
+  <li>
+    <strong>Selección del robot</strong> con su tabla comparativa y las hojas de
+    datos citadas.
+  </li>
+  <li>
+    <strong>Diseño del gripper</strong>: tecnología elegida, memoria de cálculo y
+    modelo CAD.
+  </li>
+  <li>
+    <strong>Definición del acople</strong> y dimensionamiento neumático.
+  </li>
+  <li>
+    <strong>Sistema de posicionamiento</strong> elegido y justificado.
+  </li>
+  <li>
+    <strong>Estado de avance del informe</strong>: los puntos 1 a 6 de la
+    estructura, aunque estén en borrador.
+  </li>
+</ol>
+
+<h3>Cómo se revisa</h3>
+<p>
+  Presentación breve por grupo y ronda de preguntas. Es la instancia donde el
+  docente juega a fondo de abogado del diablo: cada decisión se pone a prueba.
+  No es eliminatoria —el objetivo es corregir el rumbo con tiempo—, pero
+  condiciona la evaluación final.
+</p>
+
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Entrega</div>
+  <p>
+    Subir todo el paquete al aula virtual antes de la clase, en un único
+    documento más los enlaces al CAD. La presentación es en clase.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="../../proyecto.html">Proyecto integrador</a> — estructura completa del informe.</li>
+  <li><a href="../../cursada.html">Condiciones de cursada</a> — qué se evalúa en esta instancia.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-08/"><span>Clase anterior</span><strong>08 · Posicionamiento del producto en la cinta</strong></a>
+  <a class="siguiente" href="../clase-10/"><span>Clase siguiente</span><strong>10 · Seguridad industrial en celdas robotizadas</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

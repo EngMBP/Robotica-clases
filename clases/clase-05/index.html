@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 05 · Selección del robot — Robótica Industrial UNAB</title>
+<meta name="description" content="SCARA, delta, antropomorfo y cartesiano. Tabla comparativa y lectura de hojas de datos reales.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 05</p>
+    <p class="clase__numero">Clase 05 · Unidad 2 · Selección y diseño de la celda</p>
+    <h1>Selección del robot</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Reconocer las cuatro configuraciones de robot habituales en pick and place y su nicho de aplicación.</li>
+  <li>Leer una hoja de datos de robot e identificar qué parámetros son restrictivos.</li>
+  <li>Construir una tabla comparativa con criterios explícitos.</li>
+  <li>Cruzar el tiempo de ciclo calculado en la <a href="../clase-03/">clase 03</a> con candidatos reales.</li>
+</ul>
+
+<h2>Configuraciones de robot para pick and place</h2>
+
+<h3>SCARA</h3>
+<p>
+  Brazo articulado horizontal con un eje vertical. Rápido y rígido en el plano,
+  con algo de profundidad en Z. Su punto flojo es que casi no maneja
+  orientaciones fuera de la vertical.
+</p>
+<p><strong>Nicho:</strong> electrónica, empaque liviano, ensamblado vertical.</p>
+
+<h3>Delta o araña</h3>
+<p>
+  Tres brazos en paralelo desde una base superior. Los motores están fijos en la
+  base, así que las partes móviles pesan muy poco: es la configuración
+  <strong>más rápida</strong> del mercado. A cambio, su carga útil es baja y su
+  volumen de trabajo tiene forma de casquete, no de cubo.
+</p>
+<p><strong>Nicho:</strong> alimenticia y cosmética a alta cadencia, productos livianos.</p>
+
+<h3>Antropomorfo de 6 ejes</h3>
+<p>
+  El más versátil: llega a cualquier punto con cualquier orientación. Maneja más
+  carga y más alcance que los anteriores, pero es más lento en ciclos cortos y
+  repetitivos, y ocupa más espacio.
+</p>
+<p><strong>Nicho:</strong> productos pesados, movimientos complejos, reorientación del producto.</p>
+
+<h3>Cartesiano o pórtico</h3>
+<p>
+  Ejes lineales perpendiculares. Escala a recorridos largos sin perder precisión
+  y su volumen de trabajo es un prisma bien aprovechable. Es más lento en
+  cambios de dirección y ocupa toda el área que cubre.
+</p>
+<p><strong>Nicho:</strong> recorridos largos sobre la línea, cargas grandes, líneas de empaque extensas.</p>
+
+<h2>Cómo se lee una hoja de datos</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Parámetro</th><th>Qué mirar de verdad</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Carga útil (payload)</td>
+        <td>Es el total en la brida: producto <strong>más el gripper completo</strong>, con sus mangueras y accesorios. Un gripper suele pesar tanto o más que el producto.</td>
+      </tr>
+      <tr>
+        <td>Alcance</td>
+        <td>El máximo es a brazo estirado, donde el robot es más lento y menos preciso. El alcance útil es menor.</td>
+      </tr>
+      <tr>
+        <td>Repetibilidad</td>
+        <td>Dispersión al volver al mismo punto. No es precisión absoluta. Se compara contra la tolerancia del encajado.</td>
+      </tr>
+      <tr>
+        <td>Tiempo de ciclo</td>
+        <td>Los fabricantes lo publican para un ciclo de referencia estándar y con carga nominal. Si el producto o la trayectoria difieren, el número real es peor.</td>
+      </tr>
+      <tr>
+        <td>Momento de inercia admisible</td>
+        <td>Un gripper largo y liviano puede violar el límite de inercia aunque respete el de peso.</td>
+      </tr>
+      <tr>
+        <td>Grado de protección IP</td>
+        <td>Decisivo en alimenticia y farmacéutica: lavado, humedad, polvo.</td>
+      </tr>
+      <tr>
+        <td>Montaje y huella</td>
+        <td>Piso, pared o techo. El delta obliga a un pórtico superior que ocupa altura y complica el acceso.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">La trampa del payload</div>
+  <p>
+    Elegir un robot cuya carga útil sea apenas mayor al peso del producto es el
+    error más común del proyecto. Sumá el gripper, las mangueras y cualquier
+    pieza de adaptación, y dejá margen. Si después hay que agregar una segunda
+    ventosa, el robot ya no da.
+  </p>
+</div>
+
+<h2>La tabla comparativa</h2>
+<p>
+  Cada grupo arma su propia tabla, evaluando candidatos reales contra estos cinco
+  criterios:
+</p>
+<ol>
+  <li><strong>Velocidad de ciclo</strong> — ¿cumple el tiempo por pick calculado?</li>
+  <li><strong>Alcance de trabajo</strong> — ¿cubre la cinta y la caja sin reubicar nada?</li>
+  <li><strong>Carga útil máxima</strong> — producto más gripper, con margen.</li>
+  <li><strong>Precio relativo</strong> — comparativo entre candidatos, no valor absoluto.</li>
+  <li><strong>Huella en planta</strong> — superficie y altura ocupadas, incluido el vallado.</li>
+</ol>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">La tabla no decide sola</div>
+  <p>
+    Casi nunca hay un candidato que gane en las cinco columnas. La decisión final
+    es un compromiso, y lo que se evalúa es <strong>cómo se argumenta ese
+    compromiso</strong>: qué criterio pesó más en este caso y por qué.
+  </p>
+</div>
+
+<h2>Práctica</h2>
+<p>
+  Con el tiempo por pick de la clase 03 y el peso del producto de la clase 02,
+  cada grupo busca <strong>al menos tres candidatos reales</strong> de fabricantes
+  distintos, descarga sus hojas de datos y completa la tabla comparativa.
+</p>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir la <strong>selección del robot justificada</strong>: tabla comparativa
+    con los tres candidatos, hojas de datos citadas con marca, modelo y revisión,
+    y el argumento de la elección final.
+  </p>
+  <p>
+    Incluir también los <strong>descartes</strong>: por qué los otros dos no. Es
+    material directo del árbol de ramas, punto 4 del informe.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="../../recursos.html">Fabricantes de robots</a> — KUKA, ABB, FANUC, Yaskawa, Universal Robots.</li>
+  <li><a href="../clase-03/">Clase 03</a> — tiempo de ciclo requerido.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-04/"><span>Clase anterior</span><strong>04 · Planos en CAD · Secuencia funcional y GRAFCET</strong></a>
+  <a class="siguiente" href="../clase-06/"><span>Clase siguiente</span><strong>06 · Diseño del gripper</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

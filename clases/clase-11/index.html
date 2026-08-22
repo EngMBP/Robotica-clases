@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 11 · Procesos de manufactura — Robótica Industrial UNAB</title>
+<meta name="description" content="Panorama de torneado, fresado, corte láser, estampado, plegado y tratamientos, con tips de diseño.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 11</p>
+    <p class="clase__numero">Clase 11 · Unidad 3 · Seguridad, fabricación y documentación</p>
+    <h1>Procesos de manufactura</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Tener un panorama de los procesos de fabricación habituales en piezas de automatización.</li>
+  <li>Reconocer qué proceso conviene para cada pieza del proyecto.</li>
+  <li>Incorporar criterios de diseño para fabricación al modelo CAD.</li>
+</ul>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Clase panorámica</div>
+  <p>
+    Es un repaso amplio y sin profundidad: el objetivo es que cada grupo sepa
+    hacia dónde mirar cuando tenga que decidir cómo se fabrica su pieza. El
+    contenido se retoma de forma transversal cada vez que una decisión de diseño
+    lo amerite, y se entregan referencias para profundizar según el caso.
+  </p>
+</div>
+
+<h2>Por qué esto importa en un proyecto de robótica</h2>
+<p>
+  El gripper y sus soportes son piezas que alguien tiene que fabricar. Un diseño
+  que en la pantalla se ve impecable puede ser imposible de mecanizar, o costar
+  diez veces más de lo necesario por un detalle que no aportaba nada.
+</p>
+
+<h2>Procesos y tips de diseño</h2>
+
+<h3>Torneado</h3>
+<p>Piezas de revolución: ejes, bujes, adaptadores, boquillas.</p>
+<ul>
+  <li>Evitar cambios de diámetro innecesarios: cada escalón es una operación.</li>
+  <li>Prever salida de herramienta en los cambios de sección.</li>
+  <li>Los agujeros ciegos con fondo plano encarecen; dejar fondo cónico si la función lo permite.</li>
+</ul>
+
+<h3>Fresado</h3>
+<p>Cuerpos prismáticos: placas de adaptación, cuerpos de gripper, soportes.</p>
+<ul>
+  <li>Los rincones internos siempre quedan con radio: es el radio de la fresa. Diseñar con radio, no con esquina viva.</li>
+  <li>Evitar cavidades profundas y angostas: exigen herramienta larga, que flexa y vibra.</li>
+  <li>Cuantas menos veces haya que dar vuelta la pieza en la máquina, más barata y más precisa sale.</li>
+</ul>
+
+<h3>Corte láser</h3>
+<p>
+  Chapa plana: guías, protecciones, soportes livianos, tapas, y también tubo
+  estructural. Es rapidísimo y barato para piezas 2D; si una pieza puede
+  resolverse en chapa plana, casi siempre conviene.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">De dónde salen estos números</div>
+  <p>
+    Los valores de esta sección están tomados de las guías de fabricación
+    publicadas por un proveedor real de corte láser
+    (<a href="https://www.fabworks.com/resources/guidelines/laser-cutting/general">Fabworks</a>),
+    convertidos a sistema métrico. <strong>No son una norma</strong>: cada taller
+    tiene sus propias capacidades. Sirven como orden de magnitud y, sobre todo,
+    como ejemplo de qué hay que preguntarle a un proveedor antes de diseñar.
+  </p>
+</div>
+
+<h4>Capacidades típicas</h4>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Parámetro</th><th>Chapa</th><th>Tubo</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Tamaño máximo de pieza</td>
+        <td>2.440 × 1.195 mm</td>
+        <td>2.440 mm de largo</td>
+      </tr>
+      <tr>
+        <td>Tamaño mínimo de pieza</td>
+        <td>6,4 × 6,4 mm</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Tolerancia de corte</td>
+        <td>±0,13 mm en toda la pieza</td>
+        <td>±0,5 mm en el largo total</td>
+      </tr>
+      <tr>
+        <td>Tolerancia real habitual</td>
+        <td>±0,05 mm</td>
+        <td>±0,25 mm en cotas referidas al extremo</td>
+      </tr>
+      <tr>
+        <td>Agujero mínimo</td>
+        <td>según material y espesor</td>
+        <td>0,5 mm de diámetro</td>
+      </tr>
+      <tr>
+        <td>Peso máximo (pieza plegada)</td>
+        <td>36 kg</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Perfiles</td>
+        <td>acero, inoxidable, aluminio, galvanizado</td>
+        <td>redondo, cuadrado y rectangular</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<p class="calc__nota">
+  Los originales están en pulgadas: ±0.005&Prime; de tolerancia, 96&Prime; × 47&Prime; de
+  chapa, 0.020&Prime; de agujero mínimo en tubo. Redondeé al convertir, así que si
+  una cota es crítica volvé al valor original del proveedor.
+</p>
+
+<h4>Reglas de diseño</h4>
+<ul>
+  <li>
+    <strong>No compenses el kerf.</strong> El kerf es el ancho de material que el
+    láser vaporiza al cortar, y el proveedor ya lo compensa en su máquina. Si lo
+    compensás vos también, la pieza sale con el error duplicado. Modelá la
+    geometría nominal.
+  </li>
+  <li>
+    <strong>El corte sale cónico.</strong> El canto no queda perpendicular:
+    se inclina alrededor del <strong>1&nbsp;% del espesor</strong> —0,01 mm de
+    conicidad por cada 1 mm de chapa—. En chapa fina es despreciable; en 6 mm ya
+    son 0,06 mm, y eso importa si ese canto es una superficie de apoyo o de
+    ajuste.
+  </li>
+  <li>
+    <strong>Los agujeros para insertos se modelan a la medida nominal del
+    inserto</strong>, no al diámetro de calce: el proveedor los reescala solo.
+  </li>
+  <li>
+    <strong>El agujero mínimo depende del espesor.</strong> Como regla práctica
+    de la industria, el diámetro no debería ser menor al espesor de la chapa, y
+    lo mismo vale para el ancho de una ranura o de un nervio entre dos cortes.
+    El valor exacto lo publica cada proveedor por material y espesor.
+  </li>
+</ul>
+
+<h4>Tubo: lo que cambia</h4>
+<ul>
+  <li>
+    Los agujeros van a <strong>al menos un espesor de pared</strong> de
+    distancia de cualquier borde o corte de extremo.
+  </li>
+  <li>
+    En tubo cuadrado, los agujeros van <strong>sobre la cara plana</strong>,
+    nunca pisando el radio de la esquina.
+  </li>
+  <li>
+    Para roscar hace falta el equivalente a <strong>tres hilos completos</strong>
+    de agarre: en paredes de menos de <strong>2,1 mm</strong> conviene inserto
+    roscado.
+  </li>
+  <li>
+    La máquina resuelve en una sola operación cortes rectos, inglete de hasta
+    <strong>±45°</strong>, ingletes compuestos, destajes y lengüetas.
+  </li>
+  <li>
+    El tubo se cotiza sobre un archivo <strong>STEP</strong>, no sobre un plano
+    2D. El radio de las esquinas varía entre coladas: modelá con esquinas vivas.
+  </li>
+</ul>
+
+<div class="calc">
+  <p class="calc__titulo">Verificador de geometría para corte láser</p>
+  <p class="calc__intro">
+    Chequea una pieza de chapa contra las reglas prácticas de arriba y estima la
+    conicidad del canto. Usá punto decimal.
+  </p>
+  <div class="calc__campos">
+    <label>Espesor (mm)
+      <input id="lc-t" type="number" value="3" step="0.1" min="0.1">
+    </label>
+    <label>Ø agujero (mm)
+      <input id="lc-d" type="number" value="4" step="0.1" min="0">
+    </label>
+    <label>Distancia al borde (mm)
+      <input id="lc-b" type="number" value="5" step="0.1" min="0">
+    </label>
+    <label>Nervio entre cortes (mm)
+      <input id="lc-n" type="number" value="4" step="0.1" min="0">
+    </label>
+  </div>
+  <div class="calc__salida" id="lc-out"></div>
+  <p class="calc__nota">
+    El criterio usado es la regla práctica «no menor al espesor». Confirmá
+    siempre el mínimo real contra la tabla del proveedor para ese material.
+  </p>
+</div>
+
+<h3>Estampado</h3>
+<p>Grandes series de piezas de chapa. Herramental caro, costo por pieza bajísimo.</p>
+<ul>
+  <li>No se justifica para las cantidades de un proyecto de celda: se menciona para saber cuándo sí conviene.</li>
+</ul>
+
+<h3>Plegado</h3>
+<p>
+  Convierte una pieza plana en una estructura 3D rígida y barata. Es el proceso
+  que más condiciona el diseño, porque el material <strong>se estira</strong> al
+  plegarse: la chapa desarrollada nunca mide lo que suman las cotas exteriores.
+</p>
+
+<h4>Capacidades típicas</h4>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Parámetro</th><th>Valor de referencia</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Rango de espesor</td><td>0,76 mm a 6,35 mm</td></tr>
+      <tr><td>Largo máximo de pliegue</td><td>de 725 mm (inoxidable de 6,35 mm) a 2.440 mm (chapa fina)</td></tr>
+      <tr><td>Ángulo de plegado</td><td>de 90° a 135° según espesor y herramental</td></tr>
+      <tr><td>Tolerancia de cota</td><td>±0,4 mm por pliegue</td></tr>
+      <tr><td>Tolerancia angular</td><td>±1°</td></tr>
+      <tr><td>Factor K típico</td><td>0,40 a 0,45</td></tr>
+      <tr><td>Materiales habituales</td><td>aluminio 5052-H32, acero 1008 y A36, inoxidable 304, galvanizado G90</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">La tolerancia se acumula pliegue a pliegue</div>
+  <p>
+    Dos cotas separadas por un pliegue se sostienen dentro de ±0,4 mm.
+    <strong>Cada pliegue adicional que las separa suma otros ±0,4 mm.</strong>
+    Si una cota crítica queda del otro lado de tres pliegues, la tolerancia real
+    es de ±1,2 mm. La consecuencia de diseño es directa: acotá siempre desde la
+    cara que importa funcionalmente, no desde el otro extremo de la pieza.
+  </p>
+</div>
+
+<h4>Reglas de diseño</h4>
+<ul>
+  <li>
+    <strong>Pestaña mínima.</strong> Es el tramo recto que queda entre el pliegue
+    y el borde de la chapa. Si es demasiado corto, la pieza no se apoya en la
+    matriz y el pliegue no se puede hacer. Depende de la matriz en V: para chapa
+    de 3,2 mm a 90°, el mínimo ronda los <strong>12,7 mm</strong>. Regla práctica:
+    unos <strong>cuatro espesores</strong>, más 1,6 mm de margen por las dudas.
+  </li>
+  <li>
+    <strong>Zona de distorsión.</strong> Alrededor de todo pliegue hay una franja
+    donde el material se estira y deforma, de aproximadamente el
+    <strong>75&nbsp;% de la pestaña mínima</strong>. No pongas agujeros, roscas ni
+    superficies de apoyo ahí adentro.
+  </li>
+  <li>
+    <strong>Agujeros cerca del pliegue.</strong> Si caen en la zona de
+    distorsión, salen ovalados. Como regla práctica, el borde del agujero debe
+    quedar a más de <strong>2,5 espesores más el radio interior</strong> de la
+    línea de plegado. Si el diseño obliga a acercarlo, se resuelve con un
+    aliviador —una ranura que corta la propagación de la deformación—.
+  </li>
+  <li>
+    <strong>Radio interior.</strong> No lo elegís vos: lo fija el herramental del
+    proveedor. Diseñá con el radio de su tabla de materiales.
+  </li>
+  <li>
+    <strong>Factor K.</strong> El que trae por defecto tu software CAD —entre
+    0,40 y 0,45— está bien. No lo toques salvo que estés trabajando contra una
+    cadena de cotas muy ajustada.
+  </li>
+  <li>
+    <strong>Pliegues enfrentados y escalones.</strong> Si dos líneas de plegado
+    quedan muy cerca, la chapa golpea el costado de la matriz antes de terminar
+    el escalón. Para un escalón, dejá al menos uno o dos espesores entre líneas.
+    En un pliegue invertido —donde el punzón tiene que entrar en un canal que
+    formó un pliegue anterior— lo que limita es el espacio libre del punzón.
+  </li>
+  <li>
+    <strong>Van a quedar marcas.</strong> La matriz deja huella visible en todos
+    los pliegues. Si esa cara es visible o va en contacto con producto
+    alimenticio, hay que preverlo.
+  </li>
+</ul>
+
+<h4>Cómo se ve un pliegue en corte</h4>
+<p>
+  Casi todo lo de arriba se entiende mucho más rápido mirando la sección. La
+  chapa se apoya sobre una <strong>matriz en V</strong> y el <strong>punzón</strong>
+  la empuja hacia adentro: el radio interior que queda es consecuencia del
+  herramental, no una decisión libre del que diseña.
+</p>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 620 300" role="img" aria-label="Corte de una plegadora: punzón bajando sobre la chapa apoyada en una matriz en V.">
+    <!-- punzón -->
+    <path class="dib-util" d="M 250 10 L 370 10 L 370 96 L 322 150 L 310 162 L 298 150 L 250 96 Z"/>
+    <text class="dib-texto dib-texto--suave" x="310" y="60" text-anchor="middle">PUNZÓN</text>
+    <!-- flecha de bajada -->
+    <path class="dib-cota" d="M 310 176 L 310 202"/>
+    <path class="dib-cota" d="M 304 194 L 310 202 L 316 194" fill="none"/>
+    <!-- chapa plegada -->
+    <path class="dib-chapa" d="M 96 214 L 286 214 L 300 200 L 314 214 L 504 214 L 504 232 L 322 232 L 310 244 L 298 232 L 96 232 Z"/>
+    <!-- matriz en V -->
+    <path class="dib-util" d="M 60 246 L 268 246 L 310 288 L 352 246 L 560 246 L 560 292 L 60 292 Z"/>
+    <text class="dib-texto dib-texto--suave" x="150" y="272" text-anchor="middle">MATRIZ EN V</text>
+    <text class="dib-texto dib-texto--suave" x="470" y="272" text-anchor="middle">MATRIZ EN V</text>
+    <!-- cota de la abertura de V -->
+    <path class="dib-cota" d="M 268 258 L 352 258 M 268 252 L 268 264 M 352 252 L 352 264"/>
+    <text class="dib-texto dib-texto--cota" x="310" y="276" text-anchor="middle">V</text>
+    <!-- rótulos -->
+    <text class="dib-texto dib-texto--acento" x="150" y="206" text-anchor="middle">CHAPA</text>
+  </svg>
+  <figcaption>
+    La abertura de la matriz (<strong>V</strong>) es la que fija tanto el radio
+    interior que se obtiene como la pestaña mínima que se puede plegar: la chapa
+    necesita apoyar de los dos lados del canal.
+  </figcaption>
+</figure>
+
+<h4>Perfiles de punzón</h4>
+<p>
+  El punzón no siempre puede entrar donde se necesita. Estos son los tres
+  perfiles habituales y para qué sirve cada uno. Los dibujos son
+  <strong>esquemáticos</strong>: lo que realmente los diferencia está en el
+  gráfico de luz libre de más abajo.
+</p>
+
+<div class="diagramas-grilla">
+  <figure class="diagrama">
+    <svg viewBox="0 0 260 250" role="img" aria-label="Punzón recto: cuerpo vertical con punta a 90 grados.">
+      <path class="dib-util" d="M 96 12 L 164 12 L 164 150 L 130 196 L 96 150 Z"/>
+      <path class="dib-chapa" d="M 20 210 L 118 210 L 130 198 L 142 210 L 240 210 L 240 226 L 138 226 L 130 234 L 122 226 L 20 226 Z"/>
+      <text class="dib-texto" x="130" y="90" text-anchor="middle">RECTO</text>
+    </svg>
+    <figcaption>
+      <strong>Recto.</strong> Esquema. Punzón de uso general, ángulo máximo
+      90°, radio de punta de 4 mm. Es el que se usa salvo que la geometría
+      obligue a otra cosa.
+    </figcaption>
+  </figure>
+
+  <figure class="diagrama">
+    <svg viewBox="0 0 260 250" role="img" aria-label="Punzón agudo: cuerpo delgado terminado en punta muy afilada.">
+      <path class="dib-util" d="M 117.8 196.0 L 100.2 152.4 L 82.8 92.0 L 82.8 12.0 L 177.2 12.0 L 177.2 92.0 L 159.8 152.4 L 142.2 196.0 Z"/>
+      <path class="dib-chapa" d="M 40 208 L 118 208 L 130 196 L 150 226 L 150 246 L 134 246 L 134 232 L 122 214 L 40 224 Z"/>
+      <text class="dib-texto" x="130" y="90" text-anchor="middle">AGUDO</text>
+    </svg>
+    <figcaption>
+      <strong>Agudo.</strong> Esquema. El mejor para retornos cerrados y
+      ángulos grandes: llega hasta <strong>135°</strong>, donde los otros dos se
+      quedan en 90°. Radio de punta de 1 mm.
+    </figcaption>
+  </figure>
+
+  <figure class="diagrama">
+    <svg viewBox="0 0 260 250" role="img" aria-label="Punzón cuello de cisne: cuerpo con un escalón lateral que libera la pestaña ya plegada.">
+      <path class="dib-util" d="M 96 12 L 164 12 L 164 78 L 128 100 L 128 150 L 130 196 L 108 150 L 108 96 L 96 78 Z"/>
+      <path class="dib-chapa" d="M 30 210 L 118 210 L 130 198 L 142 210 L 168 210 L 168 156 L 184 156 L 184 226 L 138 226 L 130 234 L 122 226 L 30 226 Z"/>
+      <text class="dib-texto" x="130" y="52" text-anchor="middle">CUELLO</text>
+      <text class="dib-texto" x="130" y="68" text-anchor="middle">DE CISNE</text>
+    </svg>
+    <figcaption>
+      <strong>Cuello de cisne.</strong> Esquema. El escalón del cuerpo libera
+      una pestaña ya plegada, así el punzón sigue bajando. Ángulo máximo 90°,
+      radio de punta de 1 mm. Es el que más luz libre da en canales angostos.
+    </figcaption>
+  </figure>
+</div>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 620 280" role="img" aria-label="Pliegue invertido: el punzón debe entrar en el canal formado por dos pliegues previos.">
+    <!-- canal ya formado -->
+    <path class="dib-chapa" d="M 150 40 L 168 40 L 168 190 L 452 190 L 452 40 L 470 40 L 470 208 L 150 208 Z"/>
+    <!-- punzon entrando -->
+    <path class="dib-util" d="M 268 8 L 352 8 L 352 120 L 316 168 L 310 176 L 304 168 L 268 120 Z"/>
+    <text class="dib-texto dib-texto--suave" x="310" y="64" text-anchor="middle">PUNZÓN</text>
+    <!-- cotas de luz libre -->
+    <path class="dib-cota" d="M 168 108 L 268 108 M 168 100 L 168 116 M 268 100 L 268 116"/>
+    <path class="dib-cota" d="M 352 108 L 452 108 M 352 100 L 352 116 M 452 100 L 452 116"/>
+    <text class="dib-texto dib-texto--cota" x="218" y="98" text-anchor="middle">luz libre</text>
+    <text class="dib-texto dib-texto--cota" x="402" y="98" text-anchor="middle">luz libre</text>
+    <text class="dib-texto dib-texto--acento" x="310" y="232" text-anchor="middle">canal formado por los pliegues anteriores</text>
+  </svg>
+  <figcaption>
+    <strong>Pliegue invertido.</strong> Cuando el punzón tiene que meterse en un
+    canal que formaron pliegues anteriores —una Z, una U, un cajón—, lo que
+    limita no es el material: es si el punzón <em>entra</em>. Si la luz libre no
+    alcanza, hay que cambiar el orden de plegado, el perfil de punzón, o
+    rediseñar la pieza.
+  </figcaption>
+</figure>
+
+<h4>Verificador de luz libre</h4>
+<p>
+  Este es el dato que decide si un pliegue invertido se puede hacer. En el eje
+  horizontal, la <strong>base interior del canal</strong> ya formado; en el
+  vertical, la <strong>altura máxima de pestaña</strong> que el punzón todavía
+  puede plegar ahí adentro. Debajo de la curva se puede; por encima, choca.
+</p>
+
+<div class="calc">
+  <p class="calc__titulo">Movelo y mirá qué punzón te sirve</p>
+  <p class="calc__intro">
+    Cargá el canal que querés plegar y fijate qué punzón entra. Podés arrastrar
+    el punto directamente sobre el gráfico.
+  </p>
+  <div class="calc__campos calc__campos--ancho">
+    <label>Base interior del canal &mdash; B
+      <input id="lb-r" type="range" min="5" max="301" step="1" value="60">
+    </label>
+    <label>mm
+      <input id="lb-n" type="number" min="5" max="301" step="1" value="60">
+    </label>
+  </div>
+  <div class="calc__campos calc__campos--ancho">
+    <label>Altura de pestaña &mdash; F
+      <input id="lb-rf" type="range" min="5" max="205" step="1" value="45">
+    </label>
+    <label>mm
+      <input id="lb-nf" type="number" min="5" max="205" step="1" value="45">
+    </label>
+  </div>
+  <figure class="diagrama" style="margin:.4rem 0 1rem">
+    <svg id="lb-svg" viewBox="0 0 720 430" style="cursor:ew-resize;touch-action:none" role="img" aria-label="Curvas de luz libre de punzón: altura máxima de pestaña según la base interior del canal, para los perfiles recto, agudo y cuello de cisne.">
+      <line class="dib-eje" x1="74.0" y1="34" x2="74.0" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="74.0" y="362" text-anchor="middle">0</text>
+      <line class="dib-eje" x1="173.4" y1="34" x2="173.4" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="173.4" y="362" text-anchor="middle">50</text>
+      <line class="dib-eje" x1="272.7" y1="34" x2="272.7" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="272.7" y="362" text-anchor="middle">100</text>
+      <line class="dib-eje" x1="372.1" y1="34" x2="372.1" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="372.1" y="362" text-anchor="middle">150</text>
+      <line class="dib-eje" x1="471.4" y1="34" x2="471.4" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="471.4" y="362" text-anchor="middle">200</text>
+      <line class="dib-eje" x1="570.8" y1="34" x2="570.8" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="570.8" y="362" text-anchor="middle">250</text>
+      <line class="dib-eje" x1="670.1" y1="34" x2="670.1" y2="344" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="670.1" y="362" text-anchor="middle">300</text>
+      <line class="dib-eje" x1="74" y1="344.0" x2="690" y2="344.0" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="64" y="348.0" text-anchor="end">0</text>
+      <line class="dib-eje" x1="74" y1="270.2" x2="690" y2="270.2" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="64" y="274.2" text-anchor="end">50</text>
+      <line class="dib-eje" x1="74" y1="196.4" x2="690" y2="196.4" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="64" y="200.4" text-anchor="end">100</text>
+      <line class="dib-eje" x1="74" y1="122.6" x2="690" y2="122.6" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="64" y="126.6" text-anchor="end">150</text>
+      <line class="dib-eje" x1="74" y1="48.8" x2="690" y2="48.8" opacity="0.35"/>
+      <text class="dib-texto dib-texto--suave" x="64" y="52.8" text-anchor="end">200</text>
+      <line class="dib-linea" x1="74" y1="344" x2="690" y2="344"/>
+      <line class="dib-linea" x1="74" y1="34" x2="74" y2="344"/>
+      <text class="dib-texto dib-texto--suave" x="382" y="386" text-anchor="middle">Base interior del canal (mm)</text>
+      <text class="dib-texto dib-texto--suave" x="-189" y="20" text-anchor="middle" transform="rotate(-90)">Altura máxima de pestaña (mm)</text>
+      <line class="dib-cota" stroke-dasharray="5 4" x1="99.2" y1="34" x2="99.2" y2="344"/>
+      <line class="dib-cota" stroke-dasharray="5 4" x1="74" y1="325.3" x2="690" y2="325.3"/>
+      <text class="dib-texto dib-texto--cota" x="686" y="317.3" text-anchor="end">mínimos 12,7 mm</text>
+      <polyline points="140.7,325.3 376.7,149.9 426.1,149.7 433.2,144.5 440.2,139.3 440.2,131.9 527.2,104.6 570.4,72.5 599.8,94.4 672.1,40.7" fill="none" stroke="var(--texto-suave)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="120.7,325.3 124.4,323.6 124.6,312.5 126.7,309.5 338.9,152.1 343.3,151.1 424.3,151.1 431.4,145.9 438.3,140.7 438.3,133.3 525.4,105.9 568.5,73.9 598.0,95.7 672.1,40.7" fill="none" stroke="var(--acento)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="111.5,325.3 135.7,258.0 136.9,256.2 304.4,131.8 307.5,130.9 310.8,131.0 421.6,153.1 431.5,145.7 438.5,140.6 438.5,133.2 525.5,105.8 568.7,73.8 598.1,95.6 672.1,40.7" fill="none" stroke="var(--tarea)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="514" y1="40" x2="538" y2="40" stroke="var(--tarea)" stroke-width="2.6" stroke-linecap="round"/>
+      <text class="dib-texto" x="546" y="44">Cuello de cisne</text>
+      <line x1="514" y1="60" x2="538" y2="60" stroke="var(--acento)" stroke-width="2.6" stroke-linecap="round"/>
+      <text class="dib-texto" x="546" y="64">Agudo</text>
+      <line x1="514" y1="80" x2="538" y2="80" stroke="var(--texto-suave)" stroke-width="2.6" stroke-linecap="round"/>
+      <text class="dib-texto" x="546" y="84">Recto</text>
+      <g id="lb-marca"></g>
+    </svg>
+  </figure>
+  <div class="calc__salida" id="lb-out"></div>
+  <figure class="diagrama" style="margin:1.1rem 0 0">
+    <svg id="lb-vista" viewBox="0 0 620 300" role="img" aria-label="Vista en corte del canal ya formado con el punzón entrando, acotado con la base B y la altura de pestaña F."></svg>
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+  <p class="calc__nota">
+    Reconstruido en milímetros del verificador de un proveedor real, para
+    aluminio 5052-H32 de 3,2 mm. Los valores ya vienen con
+    <strong>1,3 mm de margen</strong> descontado: estar justo sobre el límite en
+    el papel es chocar en la máquina.
+  </p>
+</div>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Cómo se lee</div>
+  <ul>
+    <li>
+      Con canales <strong>angostos</strong> —menos de 100 mm de base— el
+      <strong>cuello de cisne</strong> es el único que da altura de pestaña
+      razonable: a 30 mm de base ya permite unos 50 mm de pestaña, contra menos
+      de 20 mm del recto.
+    </li>
+    <li>
+      El <strong>agudo</strong> queda en el medio, y suma que llega hasta 135° de
+      ángulo, donde los otros dos se quedan en 90°.
+    </li>
+    <li>
+      El <strong>recto</strong> es el más limitado en canales cerrados, pero es
+      el de uso general y el más barato de conseguir.
+    </li>
+    <li>
+      Dejá alrededor de <strong>1,3 mm de margen</strong> por debajo de la curva.
+      Estar justo sobre el límite en el papel significa chocar en la máquina.
+    </li>
+  </ul>
+</div>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Estas curvas son de un herramental concreto</div>
+  <p>
+    Valen para el juego de punzones de ese proveedor. Otro taller tiene otras
+    curvas. Lo que hay que llevarse no son los números exactos sino
+    <strong>la forma del problema</strong>: la altura de pestaña que se puede
+    plegar dentro de un canal depende del perfil del punzón, y hay que
+    preguntarla antes de diseñar el cajón. A partir de unos 180 mm de base las
+    tres curvas se juntan: ahí el límite ya no es el punzón sino el bastidor de
+    la plegadora.
+  </p>
+</div>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 620 240" role="img" aria-label="Escalón o joggle: dos pliegues opuestos y muy próximos que desplazan una cara respecto de la otra.">
+    <path class="dib-chapa" d="M 40 74 L 268 74 L 352 158 L 580 158 L 580 176 L 344 176 L 260 92 L 40 92 Z"/>
+    <!-- cota del desplazamiento -->
+    <path class="dib-cota" d="M 470 83 L 470 167 M 462 83 L 478 83 M 462 167 L 478 167"/>
+    <path class="dib-eje" d="M 268 83 L 470 83"/>
+    <text class="dib-texto dib-texto--cota" x="486" y="129">desplazamiento</text>
+    <!-- separacion entre lineas de plegado -->
+    <path class="dib-cota" d="M 268 208 L 352 208 M 268 200 L 268 216 M 352 200 L 352 216"/>
+    <text class="dib-texto dib-texto--cota" x="310" y="230" text-anchor="middle">1&times;t a 2&times;t</text>
+    <path class="dib-eje" d="M 268 92 L 268 208 M 352 158 L 352 208"/>
+  </svg>
+  <figcaption>
+    <strong>Escalón (<em>joggle</em>).</strong> Dos pliegues opuestos y muy
+    próximos que corren una cara respecto de la otra. Si las líneas de plegado
+    quedan demasiado juntas, la chapa golpea el costado de la matriz antes de
+    terminar el escalón: dejá entre uno y dos espesores de separación.
+  </figcaption>
+</figure>
+
+<div class="calc">
+  <p class="calc__titulo">Calculadora de desarrollo</p>
+  <p class="calc__intro">
+    Cuánto mide la chapa plana antes de plegar. Ingresá las cotas
+    <strong>exteriores</strong> de las dos alas.
+  </p>
+  <div class="calc__campos">
+    <label>Espesor t (mm)
+      <input id="bd-t" type="number" value="3" step="0.1" min="0.1">
+    </label>
+    <label>Radio interior R (mm)
+      <input id="bd-r" type="number" value="3" step="0.1" min="0">
+    </label>
+    <label>Ángulo de pliegue (°)
+      <input id="bd-a" type="number" value="90" step="1" min="1" max="179">
+    </label>
+    <label>Factor K
+      <input id="bd-k" type="number" value="0.42" step="0.01" min="0.1" max="0.5">
+    </label>
+    <label>Ala exterior 1 (mm)
+      <input id="bd-l1" type="number" value="50" step="0.5" min="0">
+    </label>
+    <label>Ala exterior 2 (mm)
+      <input id="bd-l2" type="number" value="30" step="0.5" min="0">
+    </label>
+  </div>
+  <div class="calc__salida" id="bd-out"></div>
+  <figure class="diagrama" style="margin-top:1.1rem">
+    <svg id="bd-svg" viewBox="0 0 620 320" role="img" aria-label="Vista en corte del pliegue, dibujada con los valores cargados arriba."></svg>
+    <figcaption id="bd-cap"></figcaption>
+  </figure>
+  <p class="calc__nota">
+    Fórmulas: <code>BA = (&pi;/180) &middot; A &middot; (R + K&middot;t)</code>,
+    <code>OSSB = (R + t) &middot; tan(A/2)</code>,
+    <code>BD = 2&middot;OSSB &minus; BA</code>,
+    <code>desarrollo = L1 + L2 &minus; BD</code>. Para más de un pliegue, restá la
+    deducción de cada uno.
+  </p>
+</div>
+
+<div class="calc">
+  <p class="calc__titulo">Pestaña mínima, distorsión y tolerancia</p>
+  <p class="calc__intro">
+    Las tres cosas que hay que verificar antes de mandar una pieza plegada.
+  </p>
+  <div class="calc__campos">
+    <label>Espesor t (mm)
+      <input id="pm-t" type="number" value="3" step="0.1" min="0.1">
+    </label>
+    <label>Radio interior R (mm)
+      <input id="pm-r" type="number" value="3" step="0.1" min="0">
+    </label>
+    <label>Pliegues que separan la cota
+      <input id="pm-n" type="number" value="1" step="1" min="1" max="12">
+    </label>
+  </div>
+  <div class="calc__salida" id="pm-out"></div>
+  <p class="calc__nota">
+    Reglas prácticas, no valores garantizados: la pestaña mínima real depende de
+    la matriz en V que use el taller. Verificá contra su tabla antes de cerrar el
+    plano.
+  </p>
+</div>
+
+<script>
+(function () {
+  var num = function (id) {
+    var el = document.getElementById(id);
+    if (!el) return NaN;
+    return parseFloat(el.value);
+  };
+  var mm = function (v, dec) {
+    if (!isFinite(v)) return "—";
+    return v.toFixed(dec === undefined ? 2 : dec).replace(".", ",") + " mm";
+  };
+  var dato = function (rotulo, valor, clase) {
+    return '<div class="calc__dato' + (clase ? " calc__dato--" + clase : "") +
+           '"><span>' + rotulo + "</span><strong>" + valor + "</strong></div>";
+  };
+
+  // --- Verificador de corte láser ---
+  function laser() {
+    var salida = document.getElementById("lc-out");
+    if (!salida) return;
+    var t = num("lc-t"), d = num("lc-d"), b = num("lc-b"), n = num("lc-n");
+    if (!(t > 0)) { salida.innerHTML = dato("Espesor", "revisá el dato", "alerta"); return; }
+    var chequeo = function (rotulo, valor) {
+      if (!isFinite(valor)) return dato(rotulo, "—");
+      var ok = valor >= t;
+      return dato(rotulo, mm(valor, 1) + (ok ? " ✓" : " ✗"), ok ? "" : "alerta");
+    };
+    salida.innerHTML =
+      chequeo("Ø agujero", d) +
+      chequeo("Distancia al borde", b) +
+      chequeo("Nervio", n) +
+      dato("Conicidad del canto", mm(t * 0.01, 3), "clave") +
+      dato("Tolerancia de corte", "±" + mm(0.13, 2));
+  }
+
+  // --- Desarrollo ---
+  function desarrollo() {
+    var salida = document.getElementById("bd-out");
+    if (!salida) return;
+    var t = num("bd-t"), r = num("bd-r"), a = num("bd-a"),
+        k = num("bd-k"), l1 = num("bd-l1"), l2 = num("bd-l2");
+    if (!(t > 0) || !(a > 0) || !(k > 0)) {
+      salida.innerHTML = dato("Datos", "incompletos", "alerta"); return;
+    }
+    var ba = (Math.PI / 180) * a * (r + k * t);
+    var ossb = (r + t) * Math.tan((a / 2) * Math.PI / 180);
+    var bd = 2 * ossb - ba;
+    var plano = l1 + l2 - bd;
+    salida.innerHTML =
+      dato("Bend allowance (BA)", mm(ba)) +
+      dato("Setback (OSSB)", mm(ossb)) +
+      dato("Deducción (BD)", mm(bd)) +
+      dato("Desarrollo plano", mm(plano), "clave");
+  }
+
+  // --- Pestaña mínima ---
+  function pestana() {
+    var salida = document.getElementById("pm-out");
+    if (!salida) return;
+    var t = num("pm-t"), r = num("pm-r"), n = Math.max(1, Math.round(num("pm-n")) || 1);
+    if (!(t > 0)) { salida.innerHTML = dato("Espesor", "revisá el dato", "alerta"); return; }
+    var minima = 4 * t;
+    var segura = minima + 1.6;
+    var distorsion = 0.75 * minima;
+    var agujero = 2.5 * t + (isFinite(r) ? r : 0);
+    salida.innerHTML =
+      dato("Pestaña mínima", mm(minima, 1)) +
+      dato("Recomendada (+1,6)", mm(segura, 1), "clave") +
+      dato("Zona de distorsión", mm(distorsion, 1)) +
+      dato("Agujero a más de", mm(agujero, 1)) +
+      dato("Tolerancia acumulada", "±" + mm(0.4 * n, 1), n > 2 ? "alerta" : "");
+  }
+
+
+  // --- Vista en corte, dibujada con los datos de la calculadora ---
+  function dibujo() {
+    var svg = document.getElementById("bd-svg");
+    if (!svg) return;
+    var W = 620, H = 320, PAD = 54;
+    var t = num("bd-t"), r = num("bd-r"), a = num("bd-a"),
+        l1 = num("bd-l1"), l2 = num("bd-l2");
+    if (!(t > 0) || !(l1 > 0) || !(l2 > 0)) { svg.innerHTML = ""; return; }
+    if (!(r >= 0)) r = 0;
+    a = Math.min(175, Math.max(5, a));
+    var phi = (180 - a) * Math.PI / 180;      // ángulo interior de la pieza
+    if (phi < 0.09) phi = 0.09;
+
+    var u1 = { x: -1, y: 0 };
+    var u2 = { x: Math.cos(Math.PI - phi), y: -Math.sin(Math.PI - phi) };
+    var bis = { x: u1.x + u2.x, y: u1.y + u2.y };
+    var bn = Math.hypot(bis.x, bis.y) || 1;
+    bis = { x: bis.x / bn, y: bis.y / bn };
+
+    var media = phi / 2;
+    var C = { x: bis.x * (r / Math.sin(media)), y: bis.y * (r / Math.sin(media)) };
+    var tanLen = r / Math.tan(media);
+    var T1 = { x: u1.x * tanLen, y: u1.y * tanLen };
+    var T2 = { x: u2.x * tanLen, y: u2.y * tanLen };
+    var Vo = { x: -bis.x * (t / Math.sin(media)), y: -bis.y * (t / Math.sin(media)) };
+
+    var fuera = function (u, p) {
+      var n = { x: -u.y, y: u.x };
+      if ((C.x - p.x) * n.x + (C.y - p.y) * n.y > 0) { n.x = -n.x; n.y = -n.y; }
+      return n;
+    };
+    var n1 = fuera(u1, T1), n2 = fuera(u2, T2);
+    var suma = function (p, v, k) { return { x: p.x + v.x * k, y: p.y + v.y * k }; };
+
+    var T1o = suma(T1, n1, t), T2o = suma(T2, n2, t);
+    var E1o = suma(Vo, u1, l1), E2o = suma(Vo, u2, l2);
+    var E1i = suma(E1o, n1, -t), E2i = suma(E2o, n2, -t);
+
+    // escala y encuadre
+    var pts = [T1, T2, T1o, T2o, E1o, E2o, E1i, E2i, Vo, C];
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (var i = 0; i < pts.length; i++) {
+      minX = Math.min(minX, pts[i].x); maxX = Math.max(maxX, pts[i].x);
+      minY = Math.min(minY, pts[i].y); maxY = Math.max(maxY, pts[i].y);
+    }
+    var s = Math.min((W - 2 * PAD) / Math.max(1e-6, maxX - minX),
+                     (H - 2 * PAD) / Math.max(1e-6, maxY - minY));
+    var offX = (W - (maxX - minX) * s) / 2 - minX * s;
+    var offY = (H - (maxY - minY) * s) / 2 - minY * s;
+    var X = function (p) { return p.x * s + offX; };
+    var Y = function (p) { return p.y * s + offY; };
+    var d2 = function (p) { return X(p).toFixed(2) + " " + Y(p).toFixed(2); };
+
+    var barrido = function (desde, hasta) {
+      var a1 = Math.atan2(Y(desde) - Y(C), X(desde) - X(C));
+      var a2 = Math.atan2(Y(hasta) - Y(C), X(hasta) - X(C));
+      var d = a2 - a1;
+      while (d <= -Math.PI) d += 2 * Math.PI;
+      while (d > Math.PI) d -= 2 * Math.PI;
+      return d > 0 ? 1 : 0;
+    };
+    var re = (r + t) * s, ri = r * s;
+    var parte =
+      "M " + d2(E1o) +
+      " L " + d2(T1o) +
+      " A " + re.toFixed(2) + " " + re.toFixed(2) + " 0 0 " + barrido(T1o, T2o) + " " + d2(T2o) +
+      " L " + d2(E2o) +
+      " L " + d2(E2i) +
+      " L " + d2(T2) +
+      (r > 0 ? " A " + ri.toFixed(2) + " " + ri.toFixed(2) + " 0 0 " + barrido(T2, T1) + " " + d2(T1) : " L " + d2(T1)) +
+      " L " + d2(E1i) + " Z";
+
+    // zona de distorsión: 75 % de la pestaña mínima práctica (4t)
+    var D = Math.min(0.75 * 4 * t, Math.min(l1, l2));
+    var banda = function (u, n, largo) {
+      var p1 = Vo, p2 = suma(Vo, u, largo);
+      var p3 = suma(p2, n, -t), p4 = suma(p1, n, -t);
+      return "M " + d2(p1) + " L " + d2(p2) + " L " + d2(p3) + " L " + d2(p4) + " Z";
+    };
+
+    var texto = function (x, y, clase, anchor, txt) {
+      return '<text class="dib-texto ' + clase + '" x="' + x.toFixed(1) + '" y="' +
+             y.toFixed(1) + '" text-anchor="' + anchor + '">' + txt + "</text>";
+    };
+    var mmTxt = function (v) { return v.toFixed(1).replace(".", ",") + " mm"; };
+
+    // cotas exteriores, corridas hacia afuera de cada ala
+    var sep = 26;
+    var c1a = suma(E1o, n1, 0), c1b = suma(Vo, n1, 0);
+    var q1a = { x: X(c1a) + n1.x * sep, y: Y(c1a) + n1.y * sep };
+    var q1b = { x: X(c1b) + n1.x * sep, y: Y(c1b) + n1.y * sep };
+    var q2a = { x: X(E2o) + n2.x * sep, y: Y(E2o) + n2.y * sep };
+    var q2b = { x: X(Vo) + n2.x * sep, y: Y(Vo) + n2.y * sep };
+    var linea = function (p, q) {
+      return "M " + p.x.toFixed(1) + " " + p.y.toFixed(1) +
+             " L " + q.x.toFixed(1) + " " + q.y.toFixed(1);
+    };
+
+    svg.innerHTML =
+      '<defs><pattern id="bd-rayas" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
+      '<line class="dib-rayado" x1="0" y1="0" x2="0" y2="8"/></pattern>' +
+      '<clipPath id="bd-clip"><path d="' + parte + '"/></clipPath></defs>' +
+      '<path class="dib-chapa" d="' + parte + '"/>' +
+      '<g clip-path="url(#bd-clip)" opacity="0.85">' +
+      '<path fill="url(#bd-rayas)" stroke="none" d="' + banda(u1, n1, D) + '"/>' +
+      '<path fill="url(#bd-rayas)" stroke="none" d="' + banda(u2, n2, D) + '"/></g>' +
+      '<path class="dib-cota" d="' + linea(q1a, q1b) + '"/>' +
+      '<path class="dib-cota" d="' + linea(q2a, q2b) + '"/>' +
+      texto((q1a.x + q1b.x) / 2, (q1a.y + q1b.y) / 2 - 8, "dib-texto--cota", "middle", mmTxt(l1)) +
+      texto((q2a.x + q2b.x) / 2, (q2a.y + q2b.y) / 2 - 8, "dib-texto--cota", "middle", mmTxt(l2)) +
+      '<circle class="dib-linea" cx="' + X(C).toFixed(1) + '" cy="' + Y(C).toFixed(1) + '" r="2.5"/>' +
+      '<path class="dib-eje" d="M ' + d2(C) + " L " + d2(T1) + '"/>' +
+      texto((X(C) + X(T1)) / 2, (Y(C) + Y(T1)) / 2 - 6, "dib-texto--suave", "middle", "R " + mmTxt(r)) +
+      texto(X(E1o) + 6, Y(E1o) - 10, "dib-texto--suave", "start", "t " + mmTxt(t)) +
+      texto(X(Vo) + bis.x * -34, Y(Vo) + bis.y * -34, "dib-texto--acento", "middle", a.toFixed(0) + "°");
+
+    var cap = document.getElementById("bd-cap");
+    if (cap) {
+      cap.innerHTML = "Pliegue de <strong>" + a.toFixed(0) +
+        "°</strong> con radio interior de " + mmTxt(r) + " en chapa de " + mmTxt(t) +
+        ". La franja rayada es la <strong>zona de distorsión</strong> (" + mmTxt(D) +
+        " desde el vértice): ahí no van agujeros, roscas ni superficies de apoyo. " +
+        "Las cotas naranjas son las medidas exteriores que cargaste.";
+    }
+  }
+
+
+  // --- Verificador de luz libre ---
+  var LB = {
+    L: 74, R: 690, T: 34, B: 344, XMAX: 310.0, YMAX: 210.0,
+    curvas: {"recto": [[33.55, 12.69], [152.34, 131.49], [177.21, 131.61], [180.76, 135.16], [184.28, 138.68], [184.28, 143.68], [228.09, 162.19], [249.81, 183.91], [264.63, 169.1], [300.99, 205.46]], "agudo": [[23.51, 12.69], [25.37, 13.81], [25.45, 21.32], [26.54, 23.37], [133.29, 130.0], [135.51, 130.68], [176.28, 130.68], [179.84, 134.23], [183.35, 137.75], [183.35, 142.75], [227.16, 161.26], [248.88, 182.99], [263.7, 168.17], [300.99, 205.46]], "cuello": [[18.85, 12.69], [31.05, 58.23], [31.63, 59.48], [115.95, 143.77], [117.51, 144.36], [119.17, 144.28], [174.93, 129.33], [179.9, 134.3], [183.42, 137.82], [183.42, 142.82], [227.23, 161.33], [248.95, 183.06], [263.77, 168.24], [300.99, 205.46]]},
+    estilo: [["cuello", "var(--tarea)", "Cuello de cisne"],
+             ["agudo", "var(--acento)", "Agudo"],
+             ["recto", "var(--texto-suave)", "Recto"]]
+  };
+  LB.sx = function (mm) { return LB.L + mm / LB.XMAX * (LB.R - LB.L); };
+  LB.sy = function (mm) { return LB.B - mm / LB.YMAX * (LB.B - LB.T); };
+  LB.alturaEn = function (clave, b) {
+    var c = LB.curvas[clave], mejor = null;
+    // más allá del último punto medido, se sostiene el último valor
+    var ultimo = c[c.length - 1][0];
+    if (b > ultimo) b = ultimo;
+    for (var i = 0; i < c.length - 1; i++) {
+      var x1 = c[i][0], y1 = c[i][1], x2 = c[i + 1][0], y2 = c[i + 1][1];
+      var lo = Math.min(x1, x2), hi = Math.max(x1, x2);
+      if (b < lo || b > hi) continue;
+      var y = (x2 === x1) ? Math.max(y1, y2) : y1 + (b - x1) * (y2 - y1) / (x2 - x1);
+      if (mejor === null || y > mejor) mejor = y;
+    }
+    return mejor;
+  };
+
+  function vistaCanal(b, f, verdicto) {
+    var svg = document.getElementById("lb-vista");
+    if (!svg) return;
+    var W = 620, H = 300, PAD = 46, esp = 3.2;
+
+    // el canal, en milimetros: interior de base b y pestañas de altura f
+    var hb = b / 2;
+    var pieza = [
+      [-hb - esp, -f], [-hb - esp, esp], [hb + esp, esp], [hb + esp, -f],
+      [hb, -f], [hb, 0], [-hb, 0], [-hb, -f]
+    ];
+    // punzon esquematico, entrando en el canal
+    var wt = Math.min(hb * 0.55, 9), alto = f + 34, land = Math.min(f * 0.45, 16);
+    var punzon = [
+      [-wt, -land], [-wt * 3.2, -land - Math.min(f * 0.9, 46)], [-wt * 3.2, -alto],
+      [wt * 3.2, -alto], [wt * 3.2, -land - Math.min(f * 0.9, 46)], [wt, -land],
+      [wt, 4], [-wt, 4]
+    ];
+
+    var todos = pieza.concat(punzon).concat([[-hb - 26, 0], [hb + 26, 0], [0, 20]]);
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (var k = 0; k < todos.length; k++) {
+      minX = Math.min(minX, todos[k][0]); maxX = Math.max(maxX, todos[k][0]);
+      minY = Math.min(minY, todos[k][1]); maxY = Math.max(maxY, todos[k][1]);
+    }
+    var s = Math.min((W - 2 * PAD) / Math.max(1e-6, maxX - minX),
+                     (H - 2 * PAD) / Math.max(1e-6, maxY - minY));
+    var ox = (W - (maxX - minX) * s) / 2 - minX * s;
+    var oy = (H - (maxY - minY) * s) / 2 - minY * s;
+    var PX = function (v) { return v * s + ox; };
+    var PY = function (v) { return v * s + oy; };
+    var poly = function (pts) {
+      return "M " + pts.map(function (q) { return PX(q[0]).toFixed(1) + " " + PY(q[1]).toFixed(1); }).join(" L ") + " Z";
+    };
+
+    // flecha de cota de doble punta, con puntas redondeadas
+    var flecha = function (x1, y1, x2, y2, clase) {
+      var ang = Math.atan2(y2 - y1, x2 - x1), L = 7, a = 0.42;
+      var cab = function (px, py, dir) {
+        var p1 = [px + L * Math.cos(dir + a), py + L * Math.sin(dir + a)];
+        var p2 = [px + L * Math.cos(dir - a), py + L * Math.sin(dir - a)];
+        return "M " + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " L " + px.toFixed(1) + " " + py.toFixed(1) +
+               " L " + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
+      };
+      return '<path class="' + clase + '" stroke-linecap="round" stroke-linejoin="round" d="' +
+             "M " + x1.toFixed(1) + " " + y1.toFixed(1) + " L " + x2.toFixed(1) + " " + y2.toFixed(1) +
+             '"/><path class="' + clase + '" fill="none" stroke-linecap="round" stroke-linejoin="round" d="' +
+             cab(x1, y1, ang) + " " + cab(x2, y2, ang + Math.PI) + '"/>';
+    };
+
+    var colorPunzon = verdicto ? "dib-util" : "dib-util";
+    var trazo = verdicto ? "var(--acento)" : "var(--aviso)";
+    var yB = PY(esp) + 30, xF = PX(hb + esp) + 30;
+
+    svg.innerHTML =
+      '<path class="dib-chapa" d="' + poly(pieza) + '"/>' +
+      '<path class="' + colorPunzon + '" stroke="' + trazo + '" stroke-width="1.8" d="' + poly(punzon) + '"/>' +
+      flecha(PX(-hb), yB, PX(hb), yB, "dib-cota") +
+      flecha(xF, PY(0), xF, PY(-f), "dib-cota") +
+      '<line class="dib-eje" x1="' + PX(-hb).toFixed(1) + '" y1="' + PY(0).toFixed(1) + '" x2="' + PX(-hb).toFixed(1) + '" y2="' + yB.toFixed(1) + '"/>' +
+      '<line class="dib-eje" x1="' + PX(hb).toFixed(1) + '" y1="' + PY(0).toFixed(1) + '" x2="' + PX(hb).toFixed(1) + '" y2="' + yB.toFixed(1) + '"/>' +
+      '<line class="dib-eje" x1="' + PX(hb + esp).toFixed(1) + '" y1="' + PY(0).toFixed(1) + '" x2="' + xF.toFixed(1) + '" y2="' + PY(0).toFixed(1) + '"/>' +
+      '<line class="dib-eje" x1="' + PX(hb + esp).toFixed(1) + '" y1="' + PY(-f).toFixed(1) + '" x2="' + xF.toFixed(1) + '" y2="' + PY(-f).toFixed(1) + '"/>' +
+      '<text class="dib-texto dib-texto--cota" x="' + ((PX(-hb) + PX(hb)) / 2).toFixed(1) + '" y="' + (yB + 18).toFixed(1) + '" text-anchor="middle">B ' + mm(b, 0) + "</text>" +
+      '<text class="dib-texto dib-texto--cota" x="' + (xF + 10).toFixed(1) + '" y="' + ((PY(0) + PY(-f)) / 2).toFixed(1) + '">F ' + mm(f, 0) + "</text>";
+  }
+
+  function luzLibre() {
+    var marca = document.getElementById("lb-marca"),
+        salida = document.getElementById("lb-out");
+    if (!marca || !salida) return;
+    var b = num("lb-n"), f = num("lb-nf");
+    if (!isFinite(b)) b = 60;
+    if (!isFinite(f)) f = 45;
+    b = Math.min(301, Math.max(5, b));
+    f = Math.min(205, Math.max(5, f));
+
+    var g = '<line class="dib-eje" x1="' + LB.sx(b).toFixed(1) + '" y1="' + LB.T +
+            '" x2="' + LB.sx(b).toFixed(1) + '" y2="' + LB.B + '" opacity="0.9"/>' +
+            '<line class="dib-eje" x1="' + LB.L + '" y1="' + LB.sy(f).toFixed(1) +
+            '" x2="' + LB.R + '" y2="' + LB.sy(f).toFixed(1) + '" opacity="0.9"/>';
+
+    var celdas = "", entra = [], alguno = false;
+    for (var i = 0; i < LB.estilo.length; i++) {
+      var clave = LB.estilo[i][0], nombre = LB.estilo[i][2];
+      var max = LB.alturaEn(clave, b);
+      var util = (max === null) ? null : Math.max(0, max - 1.3);
+      if (util === null) {
+        celdas += dato(nombre, "no llega", "alerta");
+      } else if (f <= util) {
+        alguno = true;
+        entra.push(nombre);
+        celdas += dato(nombre, "entra · máx " + mm(util, 0), "clave");
+      } else {
+        celdas += dato(nombre, "choca · máx " + mm(util, 0), "alerta");
+      }
+    }
+    g += '<circle cx="' + LB.sx(b).toFixed(1) + '" cy="' + LB.sy(f).toFixed(1) +
+         '" r="6" fill="' + (alguno ? "var(--acento)" : "var(--aviso)") +
+         '" stroke="var(--superficie)" stroke-width="2"/>';
+    marca.innerHTML = g;
+    salida.innerHTML = celdas;
+
+    vistaCanal(b, f, alguno);
+    var cap = document.getElementById("lb-cap");
+    if (cap) {
+      cap.innerHTML = alguno
+        ? "Canal de <strong>" + mm(b, 0) + "</strong> de base con pestañas de <strong>" +
+          mm(f, 0) + "</strong>: entra con " + entra.join(" o ") + "."
+        : "Canal de <strong>" + mm(b, 0) + "</strong> de base con pestañas de <strong>" +
+          mm(f, 0) + "</strong>: <strong>ningún punzón del juego llega</strong>. " +
+          "Hay que bajar la pestaña, ensanchar la base, o cambiar el orden de plegado.";
+    }
+  }
+
+  function sincronizarLB(b, f) {
+    var r = document.getElementById("lb-r"), n = document.getElementById("lb-n"),
+        rf = document.getElementById("lb-rf"), nf = document.getElementById("lb-nf");
+    if (b !== null && b !== undefined) {
+      b = Math.min(301, Math.max(5, Math.round(b)));
+      if (r) r.value = b;
+      if (n) n.value = b;
+    }
+    if (f !== null && f !== undefined) {
+      f = Math.min(205, Math.max(5, Math.round(f)));
+      if (rf) rf.value = f;
+      if (nf) nf.value = f;
+    }
+    luzLibre();
+  }
+
+  (function arrastre() {
+    var svg = document.getElementById("lb-svg");
+    if (!svg) return;
+    var activo = false;
+    var desdeEvento = function (ev) {
+      var caja = svg.getBoundingClientRect();
+      var escala = caja.width / LB.R_total;
+      var px = (ev.clientX - caja.left) / escala;
+      var py = (ev.clientY - caja.top) / escala;
+      return [(px - LB.L) / (LB.R - LB.L) * LB.XMAX,
+              (LB.B - py) / (LB.B - LB.T) * LB.YMAX];
+    };
+    LB.R_total = 720;
+    var mover = function (ev) {
+      if (!activo) return;
+      ev.preventDefault();
+      var v = desdeEvento(ev);
+      sincronizarLB(v[0], v[1]);
+    };
+    svg.addEventListener("pointerdown", function (ev) {
+      activo = true;
+      if (svg.setPointerCapture) { try { svg.setPointerCapture(ev.pointerId); } catch (e) {} }
+      var v = desdeEvento(ev);
+      sincronizarLB(v[0], v[1]);
+    });
+    svg.addEventListener("pointermove", mover);
+    svg.addEventListener("pointerup", function () { activo = false; });
+    svg.addEventListener("pointercancel", function () { activo = false; });
+  })();
+
+  var rangoLB = document.getElementById("lb-r");
+  if (rangoLB) rangoLB.addEventListener("input", function () { sincronizarLB(rangoLB.value, null); });
+  var rangoLF = document.getElementById("lb-rf");
+  if (rangoLF) rangoLF.addEventListener("input", function () { sincronizarLB(null, rangoLF.value); });
+
+  var recalcular = function () { laser(); desarrollo(); pestana(); dibujo(); luzLibre(); };
+  var campos = document.querySelectorAll(".calc input, .calc select");
+  for (var i = 0; i < campos.length; i++) {
+    campos[i].addEventListener("input", recalcular);
+  }
+  recalcular();
+})();
+</script>
+
+<h3>Pintura y tratamientos superficiales</h3>
+<ul>
+  <li><strong>Anodizado</strong> en aluminio: dureza superficial y resistencia a la corrosión.</li>
+  <li><strong>Cincado</strong> en acero: protección económica en ambientes secos.</li>
+  <li><strong>Pintura en polvo</strong>: estructuras y protecciones; agrega espesor, ojo con los ajustes.</li>
+  <li>En alimenticia y farmacéutica manda la limpieza: superficies lisas, sin rincones que acumulen suciedad, materiales compatibles con el producto.</li>
+</ul>
+
+<h3>Selección de materiales</h3>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Material</th><th>Dónde conviene</th><th>Cuidado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Aluminio</td><td>Piezas móviles del gripper: liviano y fácil de mecanizar.</td><td>Menor resistencia al desgaste; roscas que se pasan.</td></tr>
+      <tr><td>Acero al carbono</td><td>Estructuras, bases, soportes fijos.</td><td>Pesado y necesita protección contra corrosión.</td></tr>
+      <tr><td>Acero inoxidable</td><td>Contacto con alimento o ambiente de lavado.</td><td>Caro y más difícil de mecanizar.</td></tr>
+      <tr><td>Plásticos técnicos</td><td>Contacto con el producto, piezas livianas, aislación.</td><td>Menor rigidez; dilatación térmica.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">El criterio que ordena todo</div>
+  <p>
+    En el gripper, el peso es rey: cada gramo se descuenta de la carga útil del
+    robot. En la estructura fija, manda la rigidez y el costo. Son criterios
+    opuestos, y por eso no se elige un material para todo el proyecto: se elige
+    uno por pieza, y se justifica.
+  </p>
+</div>
+
+<h2>Práctica</h2>
+<p>
+  Cada grupo revisa las piezas que diseñó —cuerpo del gripper, adaptador de
+  brida, soportes, guías— y para cada una define proceso de fabricación,
+  material y tratamiento, anotando qué modificaciones de diseño hacen falta para
+  que sea fabricable.
+</p>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir la <strong>tabla de piezas propias</strong>: pieza, proceso, material,
+    tratamiento y justificación. Aplicar al CAD las correcciones de fabricación
+    que surjan —radios internos, salidas de herramienta, radios de plegado—.
+  </p>
+  <p>
+    Para cada pieza de chapa, además: <strong>desarrollo plano calculado</strong>
+    con la calculadora de arriba, verificación de pestaña mínima y de agujeros
+    fuera de la zona de distorsión, y la tolerancia acumulada de las cotas
+    críticas según cuántos pliegues las separan.
+  </p>
+  <p>Esta tabla alimenta directamente el BOM, punto 9 del informe.</p>
+</div>
+
+<h2>Recursos</h2>
+<p>
+  Guías de fabricación de un proveedor real de corte láser y plegado. Están en
+  pulgadas —los valores de esta clase ya vienen convertidos—, y son un buen
+  ejemplo del tipo de documento que hay que leer antes de mandar a fabricar.
+</p>
+<ul class="materiales">
+  <li>
+    <a href="https://www.fabworks.com/resources/guidelines/laser-cutting/general">Corte láser · guía general</a>
+    <span>Tolerancias, kerf, conicidad y terminación superficial.</span>
+  </li>
+  <li>
+    <a href="https://www.fabworks.com/resources/guidelines/laser-cutting/sheet">Corte láser · chapa</a>
+    <span>Tamaños de pieza, tolerancias y agujeros para insertos.</span>
+  </li>
+  <li>
+    <a href="https://www.fabworks.com/resources/guidelines/laser-cutting/tube">Corte láser · tubo</a>
+    <span>Perfiles, largos, agujeros, ingletes y roscado en pared fina.</span>
+  </li>
+  <li>
+    <a href="https://www.fabworks.com/resources/guidelines/bending">Plegado</a>
+    <span>Pestaña mínima, zona de distorsión, factor K y tolerancias. Incluye calculadoras propias del proveedor.</span>
+  </li>
+</ul>
+<ul>
+  <li>Referencias bibliográficas de procesos de fabricación, a profundizar según el diseño de cada grupo.</li>
+  <li><a href="../clase-06/">Clase 06</a> — diseño del gripper.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-10/"><span>Clase anterior</span><strong>10 · Seguridad industrial en celdas robotizadas</strong></a>
+  <a class="siguiente" href="../clase-12/"><span>Clase siguiente</span><strong>12 · Tolerancias, ajustes y planos de fabricación</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

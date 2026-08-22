@@ -1,0 +1,80 @@
+<!-- ===========================================================================
+     PLANTILLA DE CONTENIDO DE UNA CLASE
+     ---------------------------------------------------------------------
+     Esto es SOLO el cuerpo de la clase. El encabezado, el menú, la
+     navegación anterior/siguiente y el pie los arma solo el generador.
+
+     Cuando agregues una clase nueva en herramientas/clases.json y corras
+     "python herramientas/generar.py", este archivo se copia como punto de
+     partida. Borrá las secciones que no uses.
+
+     Marcadores disponibles (ver ejemplos abajo):
+       <div class="caja caja--nota">    caja verde, para conceptos clave
+       <div class="caja caja--aviso">   caja naranja, para advertencias
+       <div class="caja caja--tarea">   caja violeta, para consignas
+       <ul class="materiales">          lista de descargas (PDF, código, etc.)
+       <div class="tabla-scroll">       envolvé las tablas para que scrolleen
+       <div class="video">              envolvé un iframe de YouTube
+     =========================================================================== -->
+
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Objetivo 1.</li>
+  <li>Objetivo 2.</li>
+  <li>Objetivo 3.</li>
+</ul>
+
+<h2>Contenidos</h2>
+<p>Desarrollo teórico de la clase. Escribí acá en párrafos normales.</p>
+
+<h3>Subtema</h3>
+<p>Podés usar <strong>negrita</strong>, <em>cursiva</em>, <code>código en línea</code> y enlaces.</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Concepto clave</div>
+  <p>Idea central que los estudiantes tienen que llevarse de esta clase.</p>
+</div>
+
+<h2>Material de la clase</h2>
+<ul class="materiales">
+  <li>
+    <a href="archivos/presentacion.pdf">Presentación de la clase (PDF)</a>
+    <span>Diapositivas usadas en el teórico.</span>
+  </li>
+  <li>
+    <a href="archivos/apunte.pdf">Apunte teórico (PDF)</a>
+    <span>Material de lectura obligatoria.</span>
+  </li>
+</ul>
+
+<h2>Práctica</h2>
+<p>Consigna del trabajo práctico o del laboratorio.</p>
+
+<pre><code>// Ejemplo de código de la clase
+void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(13, HIGH);
+  delay(500);
+  digitalWrite(13, LOW);
+  delay(500);
+}</code></pre>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Atención</div>
+  <p>Advertencia de seguridad o error frecuente a evitar.</p>
+</div>
+
+<h2>Para la próxima clase</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Tarea</div>
+  <p>Consigna a entregar, con fecha límite y forma de entrega por el aula virtual.</p>
+</div>
+
+<h2>Recursos y bibliografía</h2>
+<ul>
+  <li>Autor, <em>Título del libro</em>, capítulo X.</li>
+  <li><a href="https://ejemplo.com">Enlace de referencia</a></li>
+</ul>

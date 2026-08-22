@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 15 · Mantenimiento y accesibilidad del diseño — Robótica Industrial UNAB</title>
+<meta name="description" content="Preventivo vs. correctivo, desgaste de componentes, plan de repuestos y tiempo de cambio de formato.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 15</p>
+    <p class="clase__numero">Clase 15 · Unidad 4 · Integración, calidad y cierre</p>
+    <h1>Mantenimiento y accesibilidad del diseño</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Distinguir mantenimiento preventivo de correctivo y entender por qué importa en una celda.</li>
+  <li>Evaluar el propio diseño desde la accesibilidad.</li>
+  <li>Estimar el tiempo de cambio de formato y prever un plan de repuestos.</li>
+</ul>
+
+<h2>Preventivo contra correctivo</h2>
+<p>
+  <strong>Correctivo</strong> es arreglar cuando se rompió. <strong>Preventivo</strong>
+  es intervenir antes, en un momento planificado.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Por qué el preventivo es crítico acá</div>
+  <p>
+    Una celda automatizada es un punto único de paso: si se detiene, se detiene
+    toda la línea aguas arriba. Una parada no planificada de veinte minutos en
+    fin de línea puede costar más que un año de mantenimiento preventivo. Además
+    destruye el OEE que declararon en la clase 03: la disponibilidad es
+    exactamente esto.
+  </p>
+</div>
+
+<h2>Accesibilidad de diseño</h2>
+<p>
+  Esta es la parte que conecta directo con el CAD, y donde muchos proyectos
+  fallan sin darse cuenta. La pregunta es simple:
+</p>
+<blockquote>
+  ¿Un técnico puede cambiar una ventosa o un cilindro sin desarmar media celda?
+</blockquote>
+
+<h3>Preguntas para auditar el propio diseño</h3>
+<ul>
+  <li>Para cambiar una ventosa gastada, ¿hay que sacar el gripper del robot?</li>
+  <li>¿Se puede acceder a los tornillos con una herramienta común, o el espacio no permite entrar con la llave?</li>
+  <li>¿Los sensores quedan visibles y alcanzables para limpiarlos y realinearlos?</li>
+  <li>¿La unidad de mantenimiento neumática y el tablero están fuera de la zona de riesgo, accesibles sin abrir la celda?</li>
+  <li>¿Hay que entrar al vallado para tareas de rutina? Si sí, ¿cómo se enclava esa puerta?</li>
+  <li>Si hay que retirar el robot, ¿hay espacio para hacerlo?</li>
+</ul>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Un diseño impecable e inmantenible es un mal diseño</div>
+  <p>
+    Compactar la celda al máximo suele verse muy bien en el layout y muy mal en
+    planta. Dejar espacio de acceso no es desperdiciar superficie: es una
+    decisión de diseño que se justifica.
+  </p>
+</div>
+
+<h2>Desgaste y plan de repuestos</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Componente</th><th>Modo de desgaste típico</th><th>Consecuencia si falla</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ventosas</td>
+        <td>Pérdida de elasticidad, cortes, suciedad acumulada.</td>
+        <td>Caída de producto en pleno traslado. Es el consumible por excelencia.</td>
+      </tr>
+      <tr>
+        <td>Cilindros neumáticos</td>
+        <td>Desgaste de juntas, pérdidas de aire, amortiguación desajustada.</td>
+        <td>Pérdida de fuerza, golpes, ciclo más lento.</td>
+      </tr>
+      <tr>
+        <td>Sensores</td>
+        <td>Suciedad en la óptica, desalineación por vibración.</td>
+        <td>Falsos disparos o falta de detección: la celda se para sola.</td>
+      </tr>
+      <tr>
+        <td>Bandas de transporte</td>
+        <td>Estiramiento, desgaste, desalineación.</td>
+        <td>Producto mal posicionado en la toma.</td>
+      </tr>
+      <tr>
+        <td>Filtros y unidad de aire</td>
+        <td>Saturación, condensado.</td>
+        <td>Caída de presión: el gripper deja de sostener con la fuerza calculada.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+  Con eso se arma el <strong>plan de repuestos</strong>: qué componentes conviene
+  tener en stock, en qué cantidad y con qué frecuencia estimada de reemplazo. El
+  criterio no es el precio de la pieza, sino <strong>cuánto cuesta la parada</strong>
+  que evita. Una ventosa vale poco; una línea detenida esperándola, mucho.
+</p>
+
+<h2>Tiempo de cambio de formato</h2>
+<p>
+  Si la planta procesa más de un producto, cada cambio implica reconfigurar la
+  celda: cambiar o ajustar el gripper, mover guías, cargar otro programa,
+  recalibrar sensores. Ese tiempo es tiempo sin producir y afecta directamente la
+  disponibilidad.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Acá se cobra la decisión de la clase 07</div>
+  <p>
+    Si eligieron cambio rápido de herramienta, este es el momento de mostrar el
+    número que lo justifica: cuántos minutos ahorra por cambio y cuántos cambios
+    hay por semana. Si eligieron conexión fija, hay que mostrar que el formato no
+    cambia lo suficiente como para que importe. Cualquiera de las dos es
+    defendible; lo que no es defendible es no haberlo pensado.
+  </p>
+</div>
+
+<h2>Práctica</h2>
+<p>
+  Auditoría cruzada: cada grupo revisa el layout y el CAD de otro grupo con la
+  lista de preguntas de accesibilidad y le devuelve observaciones. Es más fácil
+  ver el problema en el diseño ajeno que en el propio.
+</p>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir el <strong>punto 11 del informe</strong>: plan de mantenimiento
+    preventivo con sus frecuencias, análisis de accesibilidad del diseño con las
+    correcciones aplicadas, plan de repuestos y estimación del tiempo de cambio
+    de formato.
+  </p>
+  <p>
+    La próxima clase es la defensa: el informe completo y los planos tienen que
+    estar cerrados.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="../clase-07/">Clase 07</a> — cambio rápido de herramienta.</li>
+  <li><a href="../clase-09/">Clase 09</a> — layout y criterios de acceso.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-14/"><span>Clase anterior</span><strong>14 · Equipos secundarios y calidad</strong></a>
+  <a class="siguiente" href="../clase-16/"><span>Clase siguiente</span><strong>16 · Defensa final del proyecto</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

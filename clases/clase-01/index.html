@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 01 · Presentación de la materia y del proyecto — Robótica Industrial UNAB</title>
+<meta name="description" content="Objetivo del proyecto integrador, asignación de productos y metas de producción, conformación de los grupos.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 01</p>
+    <p class="clase__numero">Clase 01 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Presentación de la materia y del proyecto</h1>
+    <div class="clase__meta">
+      <span class="etiqueta etiqueta--publicada">Publicada</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Entender el problema de ingeniería que se resuelve durante todo el cuatrimestre.</li>
+  <li>Conocer el alcance del proyecto: dónde empieza y dónde termina la celda.</li>
+  <li>Conformar los grupos de trabajo y recibir el producto y la meta de producción asignados.</li>
+  <li>Conocer la metodología de trabajo y las condiciones de aprobación.</li>
+</ul>
+
+<h2>Contenidos</h2>
+
+<h3>Qué es un fin de línea</h3>
+<p>
+  En una planta, el <em>fin de línea</em> es la última etapa antes del despacho:
+  el producto ya está fabricado y llega por una cinta transportadora, y a partir
+  de ahí hay que agruparlo, encajarlo, controlarlo y prepararlo para el pallet.
+  Es una de las etapas que más se robotiza, por tres razones muy concretas:
+</p>
+<ul>
+  <li><strong>Es repetitivo:</strong> el mismo movimiento miles de veces por turno.</li>
+  <li><strong>Es físicamente exigente:</strong> ritmo alto, posturas forzadas, lesiones por esfuerzo repetitivo.</li>
+  <li><strong>Es un cuello de botella:</strong> si el fin de línea no acompaña el ritmo de producción, frena toda la planta.</li>
+</ul>
+
+<h3>El problema: pick and place de empaque</h3>
+<p>
+  Un producto sale de la cinta transportadora, un robot lo toma y lo coloca en
+  una caja o blister. Después esa caja pasa a paletizado, que
+  <strong>queda fuera del alcance</strong> del proyecto.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Dónde empieza y dónde termina la celda</div>
+  <p>
+    Entra: producto individual sobre la cinta. Sale: caja cerrada y controlada,
+    lista para paletizar. Todo lo que ocurre entre esos dos puntos es
+    responsabilidad del grupo, y nada de lo que ocurre después lo es.
+  </p>
+</div>
+
+<h3>Cada grupo, un caso distinto</h3>
+<p>
+  A cada grupo se le asigna un producto diferente —de industrias como cosmética,
+  alimenticia, farmacéutica, electrónica o electrodomésticos chicos, y bebidas—
+  junto con una meta de producción, un dato de la situación actual, o ambos.
+</p>
+<p>
+  Eso significa que <strong>no hay una solución modelo</strong>: un frasco de
+  vidrio de 400 g no se agarra igual que un blister de comprimidos, y una meta de
+  600 cajas por turno no exige el mismo robot que una de 6.000. Cada grupo tiene
+  que construir su propio caso.
+</p>
+
+<h3>Cómo vamos a trabajar</h3>
+
+<h4>El docente juega de abogado del diablo</h4>
+<p>
+  Cada decisión de diseño va a ser cuestionada en clase. La respuesta esperada no
+  es «me pareció», sino un criterio técnico: un número, una hoja de datos, una
+  norma o un cálculo. Si una decisión no se puede defender, hay que revisarla.
+  Esto no es un examen sorpresa: es exactamente lo que pasa en cualquier reunión
+  de proyecto real.
+</p>
+
+<h4>El uso de IA está permitido</h4>
+<p>
+  Se puede usar inteligencia artificial para elaborar el informe. Lo que no se
+  puede es entregar algo que el grupo no pueda explicar: en la defensa se
+  pregunta por cualquier parte del trabajo.
+</p>
+
+<h4>Se documenta lo que se descarta</h4>
+<div class="caja caja--nota">
+  <div class="caja__titulo">El árbol de ramas</div>
+  <p>
+    El informe registra el camino, no solo el destino: qué alternativas se
+    evaluaron para el robot, el gripper y el posicionamiento, por qué fallaron o
+    se descartaron, y por qué se llegó a la solución final. Un descarte bien
+    justificado vale tanto como el acierto.
+  </p>
+</div>
+
+<h3>Qué hay que entregar</h3>
+<p>
+  Informe técnico, modelo CAD, planos de ensamblaje y de fabricación, BOM, una
+  entrega intermedia de layout de planta en la
+  <a href="../clase-09/">clase 09</a> y una defensa oral final en formato pitch
+  comercial. El detalle completo está en el
+  <a href="../../proyecto.html">proyecto integrador</a>, y la evaluación en
+  <a href="../../cursada.html">condiciones de cursada</a>.
+</p>
+
+<h3>El recorrido del cuatrimestre</h3>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Etapa</th><th>Clases</th><th>Qué se produce</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Herramientas de diseño y proceso</td><td>02 a 04</td><td>CAD, tiempo de ciclo y GRAFCET</td></tr>
+      <tr><td>Selección y diseño de la celda</td><td>05 a 09</td><td>Robot, gripper, posicionamiento y layout</td></tr>
+      <tr><td>Seguridad, fabricación y documentación</td><td>10 a 13</td><td>Normas, planos y programación</td></tr>
+      <tr><td>Integración, calidad y cierre</td><td>14 a 16</td><td>Equipos secundarios, mantenimiento y defensa</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Material de la clase</h2>
+<ul class="materiales">
+  <li>
+    <a href="archivos/presentacion.pdf">Presentación de la clase (PDF)</a>
+    <span>Subir el archivo a la carpeta <code>archivos/</code> de esta clase.</span>
+  </li>
+  <li>
+    <a href="archivos/consigna-proyecto.pdf">Consigna del proyecto integrador (PDF)</a>
+    <span>Alcance, entregables y asignación de productos por grupo.</span>
+  </li>
+</ul>
+
+<h2>Práctica</h2>
+<p>
+  Conformación de los grupos y entrega de la asignación. Con el producto y la
+  meta ya en mano, cada grupo hace una primera lectura del caso y responde:
+</p>
+<ol>
+  <li>¿Qué producto es, en qué formato se vende y cómo se agrupa en la caja?</li>
+  <li>¿Cuál es la meta de producción y en qué unidad está expresada?</li>
+  <li>¿Cómo se hace hoy esa tarea de forma manual y con cuánta gente?</li>
+  <li>¿Qué problema concreto justifica robotizarla: esfuerzo, ritmo, calidad, seguridad?</li>
+</ol>
+<p>
+  Puesta en común de cinco minutos por grupo, para validar que todos entendieron
+  el alcance antes de empezar a diseñar.
+</p>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir al aula virtual la <strong>ficha del grupo</strong>, de una carilla:
+    integrantes y reparto tentativo de tareas, producto asignado, meta de
+    producción, descripción del proceso manual actual con los supuestos tomados,
+    y una foto o esquema de referencia del producto.
+  </p>
+  <p>
+    Es el punto 2 del informe en su versión más temprana: todo lo que escriban
+    acá se reutiliza.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="../../proyecto.html">El proyecto integrador</a> — alcance, entregables y estructura del informe.</li>
+  <li><a href="../../cursada.html">Condiciones de cursada y aprobación</a>.</li>
+  <li><a href="../../recursos.html">Recursos de la materia</a> — software, catálogos y normas.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="siguiente" href="../clase-02/"><span>Clase siguiente</span><strong>02 · Modelado CAD de piezas · Relevamiento del producto</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

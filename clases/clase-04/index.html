@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 04 · Planos en CAD · Secuencia funcional y GRAFCET — Robótica Industrial UNAB</title>
+<meta name="description" content="Vistas, cotas y líneas de corte. Diagrama de secuencia del proceso según la norma IEC 60848.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 04</p>
+    <p class="clase__numero">Clase 04 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Planos en CAD · Secuencia funcional y GRAFCET</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Generar un plano técnico a partir de un modelo 3D: vistas, cotas y cortes.</li>
+  <li>Distinguir un cronograma de actuadores de un GRAFCET.</li>
+  <li>Representar la secuencia funcional de la celda según IEC 60848.</li>
+</ul>
+
+<h2>Bloque A · Planos y planimetría</h2>
+
+<h3>Del 3D al papel</h3>
+<p>
+  El plano no es una foto del modelo: es el documento con el que alguien
+  <strong>fabrica</strong> la pieza. Tiene que ser suficiente y no ambiguo.
+</p>
+<ul>
+  <li><strong>Vistas:</strong> las mínimas necesarias para definir la pieza, no todas las posibles.</li>
+  <li><strong>Cortes:</strong> para mostrar geometría interna —alojamientos, agujeros ciegos, roscas—.</li>
+  <li><strong>Cotas:</strong> cada medida se acota <em>una sola vez</em>, desde una referencia funcional.</li>
+  <li><strong>Escala y formato:</strong> normalizados; la escala se declara en el cajetín.</li>
+  <li><strong>Cajetín:</strong> identifica la pieza, el material, la escala, el autor y la revisión. Se ve en detalle en la <a href="../clase-12/">clase 12</a>.</li>
+</ul>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Regla práctica de acotado</div>
+  <p>
+    Acotá desde donde se mide en el taller, no desde donde resulta cómodo
+    dibujar. Si una cota depende de otras tres para poder verificarse, el plano
+    está mal acotado aunque el dibujo esté perfecto.
+  </p>
+</div>
+
+<h2>Bloque B · Secuencia funcional</h2>
+
+<h3>Cronograma de actuadores</h3>
+<p>
+  Es la forma más simple de representar una secuencia: una línea por actuador y
+  el tiempo en el eje horizontal, mostrando cuándo avanza y cuándo retrocede cada
+  uno. Sirve para ver el solapamiento de movimientos y estimar el tiempo total
+  del ciclo, pero <strong>no representa condiciones ni decisiones</strong>.
+</p>
+
+<h3>GRAFCET</h3>
+<p>
+  GRAFCET (norma <strong>IEC 60848</strong>) es el estándar para especificar
+  lógica secuencial de procesos automatizados. Sus elementos:
+</p>
+<ul>
+  <li><strong>Etapas:</strong> estados del sistema. Una etapa está activa o no lo está.</li>
+  <li><strong>Acciones:</strong> lo que se hace mientras la etapa está activa.</li>
+  <li><strong>Transiciones:</strong> el paso de una etapa a la siguiente.</li>
+  <li><strong>Receptividades:</strong> la condición lógica que habilita cada transición, típicamente una señal de sensor.</li>
+</ul>
+<p>
+  Además permite representar <strong>divergencias</strong>: en OR, para elegir
+  entre caminos alternativos —caja conforme o rechazo—, y en AND, para procesos
+  simultáneos, como el robot tomando la siguiente unidad mientras la cinta
+  indexa.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Por qué GRAFCET y no una lista de pasos</div>
+  <p>
+    Porque obliga a declarar <strong>qué sensor autoriza cada movimiento</strong>.
+    «El robot baja y agarra» esconde la pregunta importante: ¿cómo sabe la celda
+    que hay un producto ahí y que está en posición? El GRAFCET no deja escapar
+    esa pregunta.
+  </p>
+</div>
+
+<h3>La secuencia mínima del proyecto</h3>
+<p>Como punto de partida, todo grupo va a tener que representar al menos:</p>
+<ol>
+  <li>Espera de producto en posición de toma, con su condición de sensor.</li>
+  <li>Aproximación y descenso del robot.</li>
+  <li>Activación del gripper y confirmación de agarre.</li>
+  <li>Traslado a la caja y posicionamiento según el patrón de encajado.</li>
+  <li>Liberación y retorno a posición de espera.</li>
+  <li>Conteo de unidades y, al completarse la caja, evacuación e ingreso de caja vacía.</li>
+</ol>
+
+<h2>Ejercicios</h2>
+<ul>
+  <li><strong>CAD:</strong> generar el plano de una pieza propia, con las vistas necesarias, un corte, cotas completas y cajetín.</li>
+  <li><strong>GRAFCET:</strong> modelar la secuencia mínima de arriba en grafcet.io o GRAFCET Master, y simularla paso a paso.</li>
+</ul>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir el <strong>GRAFCET del ciclo de la celda</strong>, con etapas, acciones
+    y receptividades identificadas. Junto con él, la lista de señales de entrada
+    que la secuencia necesita: qué sensor informa qué cosa.
+  </p>
+  <p>
+    Esa lista condiciona directamente la clase de posicionamiento
+    (<a href="../clase-08/">clase 08</a>): si el GRAFCET pide conocer la
+    <em>orientación</em> del producto y no solo su presencia, hace falta visión.
+  </p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="https://www.grafcet.io/">grafcet.io</a> — editor online gratuito.</li>
+  <li><strong>GRAFCET Master</strong> — editor y simulador en navegador.</li>
+  <li>Norma <strong>IEC 60848</strong> — especificación de GRAFCET.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-03/"><span>Clase anterior</span><strong>03 · Ensamblajes CAD · OEE y tiempo de ciclo</strong></a>
+  <a class="siguiente" href="../clase-05/"><span>Clase siguiente</span><strong>05 · Selección del robot</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

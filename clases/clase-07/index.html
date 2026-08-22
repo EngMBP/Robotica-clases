@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 07 · Acople al robot y neumática aplicada — Robótica Industrial UNAB</title>
+<meta name="description" content="Brida de muñeca, cambio rápido de herramienta y dimensionamiento de cilindros neumáticos.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 07</p>
+    <p class="clase__numero">Clase 07 · Unidad 2 · Selección y diseño de la celda</p>
+    <h1>Acople al robot y neumática aplicada</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Resolver la interfaz mecánica entre el gripper y la muñeca del robot.</li>
+  <li>Decidir entre conexión fija y sistema de cambio rápido de herramienta.</li>
+  <li>Dimensionar los actuadores neumáticos del gripper.</li>
+</ul>
+
+<h2>La interfaz mecánica</h2>
+
+<h3>La brida de muñeca</h3>
+<p>
+  El robot no ofrece una superficie libre: trae una <strong>brida
+  normalizada</strong> con un patrón de agujeros roscados, un diámetro de
+  centrado y una espiga de posicionamiento definidos por el fabricante. El
+  gripper se diseña <em>contra esa brida</em>, no al revés.
+</p>
+<p>
+  Cada grupo tiene que ir a la documentación del robot que eligió en la
+  <a href="../clase-05/">clase 05</a> y sacar de ahí las medidas reales: no se
+  inventan ni se estiman.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Qué tiene que resolver la interfaz</div>
+  <ul>
+    <li><strong>Posición:</strong> el centrado y la espiga garantizan que la herramienta siempre queda en el mismo lugar.</li>
+    <li><strong>Transmisión de esfuerzos:</strong> los tornillos toman el peso y los momentos del ciclo.</li>
+    <li><strong>Paso de servicios:</strong> aire comprimido, vacío y señales eléctricas tienen que llegar al gripper sin quedar colgando ni tironear en el movimiento.</li>
+  </ul>
+</div>
+
+<h3>Conexión fija o cambio rápido</h3>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th></th><th>Conexión fija</th><th>Cambio rápido</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Costo</td><td>Bajo: solo la pieza de adaptación.</td><td>Alto: se compra el par acoplador más cada plato.</td></tr>
+      <tr><td>Rigidez y repetibilidad</td><td>Máxima.</td><td>Muy buena, pero introduce una junta más.</td></tr>
+      <tr><td>Cambio de formato</td><td>Requiere desmontar con herramientas.</td><td>Segundos, sin herramientas.</td></tr>
+      <tr><td>Mantenimiento</td><td>Más lento para sacar el gripper.</td><td>Facilita el reemplazo del conjunto completo.</td></tr>
+      <tr><td>Peso en brida</td><td>Menor.</td><td>Suma el peso del acoplador, que se descuenta del payload.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Cuándo se justifica el cambio rápido</div>
+  <p>
+    Cuando la celda procesa <strong>varios formatos</strong> y el tiempo de cambio
+    afecta la producción. Si la línea corre siempre el mismo producto, es plata
+    gastada y peso perdido. Este argumento se conecta directo con el tiempo de
+    cambio de formato de la <a href="../clase-15/">clase 15</a>.
+  </p>
+</div>
+
+<h2>Neumática aplicada</h2>
+<p>
+  Repaso rápido, aplicado directamente al gripper que están diseñando. La
+  documentación de referencia son los catálogos de fabricante.
+</p>
+
+<h3>Dimensionar un cilindro</h3>
+<p>
+  La fuerza de un cilindro depende de la <strong>presión de trabajo</strong> y del
+  <strong>área del émbolo</strong>. Puntos que suelen pasarse por alto:
+</p>
+<ul>
+  <li>
+    En un cilindro de doble efecto, la carrera de retroceso da
+    <strong>menos fuerza</strong> que la de avance: el vástago le resta área al
+    émbolo. Si el agarre se hace al retroceder, esa es la condición de cálculo.
+  </li>
+  <li>
+    La presión de red no es la presión de diseño. Se calcula con la presión
+    mínima garantizada en el punto de uso, no con la del compresor.
+  </li>
+  <li>
+    Hace falta un <strong>margen sobre la fuerza teórica</strong> por rozamiento
+    interno y pérdidas de carga.
+  </li>
+  <li>
+    La velocidad se regula con reguladores de caudal en el escape, y el final de
+    carrera se amortigua: un cilindro golpeando a máxima velocidad se destruye y
+    sacude toda la herramienta.
+  </li>
+</ul>
+
+<h3>Generación de vacío</h3>
+<p>Si el gripper es de ventosas, hay que decidir cómo se genera el vacío:</p>
+<ul>
+  <li>
+    <strong>Eyector Venturi:</strong> se alimenta con aire comprimido, es chico y
+    liviano, se monta sobre el robot y responde muy rápido. Consume aire de forma
+    continua salvo que tenga función de ahorro.
+  </li>
+  <li>
+    <strong>Bomba de vacío centralizada:</strong> más eficiente para caudales
+    grandes, pero exige tendido de cañería y responde más lento.
+  </li>
+</ul>
+<p>
+  En ambos casos conviene un <strong>vacuostato</strong>: el sensor que confirma
+  que el producto está efectivamente tomado. Esa señal es una receptividad del
+  GRAFCET de la <a href="../clase-04/">clase 04</a>.
+</p>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir la <strong>definición del acople</strong> —fija o cambio rápido, con su
+    justificación y las medidas reales de la brida del robot elegido— y el
+    <strong>dimensionamiento neumático</strong> del gripper: actuadores, presión
+    de trabajo, generación de vacío y sensores de confirmación.
+  </p>
+  <p>El modelo CAD del gripper debería quedar cerrado en su geometría principal.</p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li>Documentación de la brida de muñeca del robot seleccionado.</li>
+  <li><a href="https://www.festo.com/">FESTO</a> y <a href="https://www.smcworld.com/">SMC</a> — cilindros, eyectores y vacuostatos.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-06/"><span>Clase anterior</span><strong>06 · Diseño del gripper</strong></a>
+  <a class="siguiente" href="../clase-08/"><span>Clase siguiente</span><strong>08 · Posicionamiento del producto en la cinta</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

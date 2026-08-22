@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 03 · Ensamblajes CAD · OEE y tiempo de ciclo — Robótica Industrial UNAB</title>
+<meta name="description" content="Relaciones de posición e importación de componentes comerciales. Cálculo del tiempo de ciclo a partir de la meta de producción.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 03</p>
+    <p class="clase__numero">Clase 03 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Ensamblajes CAD · OEE y tiempo de ciclo</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Armar ensamblajes con relaciones de posición entre piezas propias.</li>
+  <li>Importar un componente comercial de catálogo e integrarlo al ensamblaje.</li>
+  <li>Entender el OEE y para qué sirve al dimensionar una celda.</li>
+  <li>Calcular el tiempo de ciclo que exige la meta de producción asignada.</li>
+</ul>
+
+<h2>Bloque A · Ensamblajes</h2>
+
+<h3>De piezas sueltas a un conjunto</h3>
+<p>
+  Un ensamblaje vincula piezas mediante <strong>relaciones de posición</strong>
+  que eliminan grados de libertad. Cada pieza libre en el espacio tiene seis:
+  tres traslaciones y tres rotaciones. Ensamblar es decidir cuáles se eliminan y
+  cuáles se dejan vivas a propósito.
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Los grados de libertad que quedan vivos son el diseño</div>
+  <p>
+    Un vástago de cilindro debe conservar una traslación. Un eje de giro, una
+    rotación. Si el ensamblaje queda todo fijo, no se puede verificar el
+    movimiento ni detectar interferencias.
+  </p>
+</div>
+
+<h3>Componentes comerciales</h3>
+<p>
+  Las ventosas, cilindros, perfiles y guías no se modelan: se descargan del
+  fabricante, normalmente en formato <strong>STEP</strong>, y se importan. Dos
+  reglas:
+</p>
+<ul>
+  <li>El modelo importado <strong>no se modifica</strong>: representa una pieza que se compra tal cual.</li>
+  <li>Se anota marca, modelo y código exacto, porque va derecho al BOM.</li>
+</ul>
+
+<h2>Bloque B · OEE y tiempo de ciclo</h2>
+
+<h3>Qué es el OEE</h3>
+<p>
+  El <strong>OEE</strong> (<em>Overall Equipment Effectiveness</em>) es el
+  indicador estándar de eficiencia de un equipo productivo:
+</p>
+<pre><code>OEE = Disponibilidad × Rendimiento × Calidad</code></pre>
+<ul>
+  <li><strong>Disponibilidad:</strong> qué fracción del tiempo planificado el equipo estuvo realmente disponible —paradas, fallas, cambios de formato—.</li>
+  <li><strong>Rendimiento:</strong> qué tan cerca de su velocidad nominal trabajó —microparadas, marcha lenta—.</li>
+  <li><strong>Calidad:</strong> qué fracción de lo producido salió conforme.</li>
+</ul>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Para qué lo usamos acá</div>
+  <p>
+    Para <strong>no diseñar al límite</strong>. Si la celda se dimensiona con el
+    tiempo teórico exacto, cualquier microparada hace que no se llegue a la meta.
+    El OEE castiga el tiempo disponible y obliga a que el robot tenga margen.
+  </p>
+</div>
+
+<h3>Cómo se calcula el tiempo de ciclo</h3>
+<p>
+  El docente da el dato ancla —la meta de producción, el dato actual, o ambos—.
+  Cada grupo define y justifica su OEE objetivo, y de ahí sale el tiempo de ciclo
+  que la celda tiene que cumplir.
+</p>
+
+<h4>Ejemplo trabajado</h4>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Paso</th><th>Cálculo</th><th>Resultado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Meta del turno</td><td>dato del docente</td><td>1.200 cajas por turno</td></tr>
+      <tr><td>Duración del turno</td><td>8 h × 3.600</td><td>28.800 s</td></tr>
+      <tr><td>OEE objetivo</td><td>definido y justificado por el grupo</td><td>0,75</td></tr>
+      <tr><td>Tiempo productivo real</td><td>28.800 × 0,75</td><td>21.600 s</td></tr>
+      <tr><td>Tiempo de ciclo por caja</td><td>21.600 ÷ 1.200</td><td>18 s por caja</td></tr>
+      <tr><td>Unidades por caja</td><td>dato del relevamiento</td><td>12 unidades</td></tr>
+      <tr><td><strong>Tiempo por pick</strong></td><td>18 ÷ 12</td><td><strong>1,5 s</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>
+  Ese 1,5 s por ciclo de <em>pick and place</em> es el número que después se
+  cruza contra las hojas de datos de los robots en la
+  <a href="../clase-05/">clase 05</a>. Atención: el tiempo por pick todavía no
+  contempla el cambio de caja ni las paradas de la propia celda, así que conviene
+  dejar reserva adicional y explicar de dónde sale.
+</p>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">El OEE se justifica, no se copia</div>
+  <p>
+    Un OEE de 0,85 en una línea nueva y automatizada es optimista pero
+    defendible; un 0,95 no lo es. El valor elegido tiene que estar argumentado
+    según el tipo de industria y la madurez del proceso. Prepárense para que se
+    los discutan.
+  </p>
+</div>
+
+<h2>Ejercicio de CAD</h2>
+<ul>
+  <li>Ensamblar dos o tres piezas diseñadas por ustedes con relaciones de posición, dejando vivo al menos un grado de libertad.</li>
+  <li>Importar un componente comercial de catálogo —una ventosa o un cilindro neumático— e integrarlo al ensamblaje.</li>
+  <li>Anotar marca, modelo y código del componente importado.</li>
+</ul>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir la <strong>memoria de cálculo del tiempo de ciclo</strong>: meta
+    asignada, OEE objetivo con su justificación, tiempo disponible, tiempo por
+    caja y tiempo por pick. Planilla o documento, pero con la cuenta a la vista,
+    no solo el resultado.
+  </p>
+  <p>Es el punto 2 del informe técnico.</p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="../../recursos.html">Catálogos de FESTO, SMC y Schmalz</a> para descargar modelos STEP.</li>
+  <li><a href="../../proyecto.html">Estructura del informe técnico</a> — ver punto 2.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-02/"><span>Clase anterior</span><strong>02 · Modelado CAD de piezas · Relevamiento del producto</strong></a>
+  <a class="siguiente" href="../clase-04/"><span>Clase siguiente</span><strong>04 · Planos en CAD · Secuencia funcional y GRAFCET</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El proyecto — Robótica Industrial UNAB 2026</title>
+<meta name="description" content="Diseño de una celda robotizada de fin de línea para pick and place de empaque: alcance, entregables, informe técnico y defensa final.">
+<link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="index.html">Clases</a>
+      <a href="proyecto.html" aria-current="page">Proyecto</a>
+      <a href="cursada.html">Cursada</a>
+      <a href="programa.html">Programa</a>
+      <a href="recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article>
+
+  <header class="clase__cabecera">
+    <p class="clase__numero">Trabajo práctico integrador</p>
+    <h1>Diseño de una celda robotizada de fin de línea</h1>
+    <div class="clase__meta">
+      <span>Grupal</span>
+      <span>Todo el cuatrimestre</span>
+      <span>Un producto distinto por grupo</span>
+    </div>
+  </header>
+
+  <p>
+    Toda la materia gira alrededor de un único proyecto. Cada clase aporta una
+    pieza: primero las herramientas de diseño y el análisis del proceso, después
+    la selección del robot y el diseño de la herramienta, y por último la
+    seguridad, la documentación de fabricación y la integración con el resto de
+    la línea.
+  </p>
+
+  <h2>El problema</h2>
+  <p>
+    El producto sale de una <strong>cinta transportadora</strong> y debe ser
+    tomado por un robot —que cada grupo selecciona— y colocado en una
+    <strong>caja o blister</strong>. Es un problema clásico de
+    <em>pick and place</em> de empaque. Desde ahí el producto pasa a una etapa de
+    paletizado que <strong>queda fuera del alcance del proyecto</strong>.
+  </p>
+
+  <div class="caja caja--nota">
+    <div class="caja__titulo">Dónde empieza y dónde termina la celda</div>
+    <p>
+      Entra: producto individual sobre la cinta. Sale: caja cerrada y controlada,
+      lista para paletizar. Todo lo que pasa entre esos dos puntos es
+      responsabilidad del grupo.
+    </p>
+  </div>
+
+  <h2>Qué recibe cada grupo</h2>
+  <ul>
+    <li>
+      <strong>Un producto distinto para manipular</strong>, de industrias como
+      cosmética, alimenticia, farmacéutica, electrónica o electrodomésticos
+      chicos, y bebidas.
+    </li>
+    <li>
+      <strong>Una meta de producción</strong> (cajas por hora, por turno o por
+      día) y/o un dato de la situación actual —por ejemplo, producción manual
+      vigente y cantidad de personal afectado.
+    </li>
+  </ul>
+  <p>
+    Con ese dato ancla cada grupo arma su propio caso de negocio. Como el
+    producto y la meta cambian de grupo en grupo, no hay dos soluciones válidas
+    iguales.
+  </p>
+
+  <h2>Cómo se trabaja</h2>
+
+  <h3>El docente juega de abogado del diablo</h3>
+  <p>
+    Cada decisión de diseño va a ser cuestionada en clase. La respuesta esperada
+    no es "me pareció", sino un criterio técnico: un número, una hoja de datos,
+    una norma o un cálculo. Si una decisión no se puede defender, hay que
+    revisarla.
+  </p>
+
+  <h3>El uso de IA está permitido</h3>
+  <p>
+    Se puede usar inteligencia artificial para elaborar el informe. Lo que no se
+    puede es no entender lo que se entrega: en la defensa se pregunta por
+    cualquier parte del trabajo y hay que poder sostenerla.
+  </p>
+
+  <h3>El árbol de ramas: se documenta lo que se descartó</h3>
+  <div class="caja caja--nota">
+    <div class="caja__titulo">Historial de decisiones</div>
+    <p>
+      El informe no registra solo la solución final, sino el camino hasta ella:
+      qué alternativas se evaluaron para el robot, el gripper y el sistema de
+      posicionamiento, por qué fallaron o se descartaron, y por qué se llegó a la
+      solución elegida. Un descarte bien justificado vale tanto como el acierto.
+    </p>
+  </div>
+
+  <h2>Entregables</h2>
+  <div class="tabla-scroll">
+    <table>
+      <thead>
+        <tr><th>Entregable</th><th>Detalle</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Informe técnico</strong></td>
+          <td>Documento completo, con la estructura de doce puntos que figura más abajo.</td>
+        </tr>
+        <tr>
+          <td><strong>Modelo CAD</strong></td>
+          <td>En OnShape o el software que el grupo elija.</td>
+        </tr>
+        <tr>
+          <td><strong>Planos de ensamblaje</strong></td>
+          <td>Con vistas explotadas del conjunto.</td>
+        </tr>
+        <tr>
+          <td><strong>Planos de fabricación</strong></td>
+          <td>De las piezas diseñadas por el grupo, con tolerancias.</td>
+        </tr>
+        <tr>
+          <td><strong>BOM</strong></td>
+          <td>Lista de materiales completa del conjunto.</td>
+        </tr>
+        <tr>
+          <td><strong>Layout de planta</strong></td>
+          <td>Hito de avance intermedio. Se entrega en la <a href="clases/clase-09/">clase 09</a>.</td>
+        </tr>
+        <tr>
+          <td><strong>Defensa oral</strong></td>
+          <td>Pitch comercial final ante una gerencia ficticia.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Estructura del informe técnico</h2>
+  <ol>
+    <li><strong>Resumen ejecutivo.</strong> Pitch corto: qué problema resuelven y qué logran.</li>
+    <li><strong>Definición del problema.</strong> Meta de producción, OEE definido por el grupo y cálculo del tiempo de ciclo.</li>
+    <li><strong>Relevamiento del producto.</strong> Peso, dimensiones y tipo de blister o empaque, con datos reales de fabricante.</li>
+    <li><strong>Historial de decisiones.</strong> El árbol de ramas: opciones evaluadas y descartadas, con el motivo de cada descarte.</li>
+    <li><strong>Solución final justificada.</strong> Selección del robot con la tabla comparativa de cinco variables, diseño del gripper con memoria de cálculo propia y sistema de acople elegido.</li>
+    <li><strong>Layout de la celda</strong> con su GRAFCET o diagrama de secuencia.</li>
+    <li><strong>Consideraciones de seguridad</strong> según las normas ISO correspondientes.</li>
+    <li><strong>Planos.</strong> Ensamblaje, vistas explotadas y planos de fabricación con tolerancias.</li>
+    <li><strong>BOM.</strong> Lista de materiales.</li>
+    <li><strong>Equipos secundarios y calidad.</strong> Selección y justificación.</li>
+    <li><strong>Mantenimiento y accesibilidad</strong> del diseño.</li>
+    <li><strong>Codificación de planos y control de revisiones</strong> utilizado.</li>
+  </ol>
+
+  <div class="caja caja--aviso">
+    <div class="caja__titulo">El informe se escribe en paralelo, no al final</div>
+    <p>
+      Cada clase produce material que entra directamente en alguno de estos doce
+      puntos. La entrega intermedia del layout sirve también para verificar que
+      el informe viene avanzando.
+    </p>
+  </div>
+
+  <h2>La defensa oral</h2>
+  <p>
+    El formato no es un tribunal técnico: es un <strong>pitch comercial a un
+    dueño de empresa o gerente</strong>. El foco está puesto en la mejora de
+    producción —proceso actual contra proceso propuesto—, no en los costos.
+  </p>
+  <p>
+    El grupo tiene que traducir todo el trabajo técnico a valor de negocio:
+    aumento de productividad, cumplimiento de la meta, personal reasignado a
+    tareas de mayor valor. El dato del proceso actual es ficticio y lo arma el
+    propio grupo a partir del ancla que dio el docente, justificando los
+    supuestos que usó.
+  </p>
+
+  <div class="caja caja--nota">
+    <div class="caja__titulo">Qué se está evaluando ahí</div>
+    <p>
+      Que el equipo pueda pasar de la hoja de datos al argumento de negocio sin
+      perder el rigor técnico. Un gerente no compra un robot SCARA: compra
+      cumplir la meta de producción.
+    </p>
+  </div>
+
+  <h2>Organización de los grupos</h2>
+  <p>
+    Los grupos se conforman en la <a href="clases/clase-01/">primera clase</a> y
+    se mantienen todo el cuatrimestre. La cantidad de integrantes y el reparto
+    interno de tareas —CAD, cálculo, informe, presentación— queda a criterio del
+    propio grupo.
+  </p>
+  <p>
+    Ahora bien: la defensa es de todos. Cada integrante tiene que poder explicar
+    cualquier parte del proyecto, no solamente la que le tocó hacer.
+  </p>
+
+  <h2>El proyecto, clase por clase</h2>
+  <p>
+    Cada página de clase cierra con un bloque <em>Avance del proyecto</em>, que
+    indica qué tiene que producir el grupo esa semana para llegar a las entregas
+    sin acumular deuda. El detalle de la evaluación está en
+    <a href="cursada.html">condiciones de cursada y aprobación</a>.
+  </p>
+
+</article>
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>

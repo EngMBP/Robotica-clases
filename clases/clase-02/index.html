@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 02 · Modelado CAD de piezas · Relevamiento del producto — Robótica Industrial UNAB</title>
+<meta name="description" content="Primeros pasos en OnShape: extrusión, corte y redondeos. En paralelo, investigación del producto asignado.">
+<link rel="stylesheet" href="../../assets/css/estilos.css">
+</head>
+<body>
+
+<!-- CABECERA:INICIO -->
+<header class="cabecera">
+  <div class="cabecera__interior">
+    <a class="marca" href="../../index.html">
+      <span class="marca__materia">Robótica Industrial</span>
+      <span class="marca__uni">UNAB · 2026</span>
+    </a>
+    <nav class="menu">
+      <a href="../../index.html" aria-current="page">Clases</a>
+      <a href="../../proyecto.html">Proyecto</a>
+      <a href="../../cursada.html">Cursada</a>
+      <a href="../../programa.html">Programa</a>
+      <a href="../../recursos.html">Recursos</a>
+    </nav>
+  </div>
+</header>
+<!-- CABECERA:FIN -->
+
+<main>
+<article class="clase">
+
+<!-- ENCABEZADO:INICIO -->
+  <header class="clase__cabecera">
+    <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 02</p>
+    <p class="clase__numero">Clase 02 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Modelado CAD de piezas · Relevamiento del producto</h1>
+    <div class="clase__meta">
+      <span class="etiqueta">Pendiente</span>
+    </div>
+  </header>
+<!-- ENCABEZADO:FIN -->
+
+<!-- CONTENIDO:INICIO -->
+<h2>Objetivos de la clase</h2>
+<ul>
+  <li>Manejar el entorno de OnShape: croquis, operaciones y árbol de diseño.</li>
+  <li>Modelar una pieza simple con extrusión, corte y redondeos.</li>
+  <li>Entender por qué un croquis debe quedar totalmente restringido.</li>
+  <li>Iniciar el relevamiento técnico del producto asignado.</li>
+</ul>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Dos temas en paralelo</div>
+  <p>
+    Desde esta clase y hasta la 04 avanzan dos hilos a la vez: el aprendizaje de
+    CAD, con ejercicios genéricos independientes del proyecto, y la ingeniería de
+    proceso, que sí trabaja sobre el caso asignado. Los ejercicios de CAD son
+    para practicar la herramienta; no forman parte del informe.
+  </p>
+</div>
+
+<h2>Bloque A · Fundamentos de CAD</h2>
+
+<h3>Por qué CAD paramétrico</h3>
+<p>
+  Un modelo paramétrico guarda <em>cómo</em> se construyó la pieza, no solo su
+  forma final. Cambiar una cota reconstruye todo lo que dependía de ella. En un
+  proyecto donde el producto puede cambiar de dimensiones a mitad de camino, esa
+  diferencia decide si rehacer el diseño cuesta cinco minutos o dos días.
+</p>
+
+<h3>El flujo de trabajo</h3>
+<ol>
+  <li><strong>Croquis:</strong> geometría 2D sobre un plano.</li>
+  <li><strong>Restricciones:</strong> relaciones geométricas —paralelo, perpendicular, tangente, coincidente— que fijan la forma.</li>
+  <li><strong>Cotas:</strong> los valores numéricos que fijan el tamaño.</li>
+  <li><strong>Operación:</strong> extrusión, corte o revolución, que convierte el croquis en sólido.</li>
+  <li><strong>Detalles:</strong> redondeos y chaflanes, siempre al final.</li>
+</ol>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Error frecuente</div>
+  <p>
+    Un croquis sin restringir del todo se deforma solo cuando alguien mueve un
+    punto. Antes de extruir, verificá que el croquis esté completamente definido:
+    OnShape lo indica con un cambio de color en la geometría.
+  </p>
+</div>
+
+<h3>El árbol de operaciones</h3>
+<p>
+  El orden importa. Redondear antes de cortar puede hacer que el corte falle al
+  cambiar una medida. Regla práctica: primero el volumen principal, después los
+  cortes funcionales —agujeros, alojamientos— y al final los detalles estéticos
+  y de seguridad.
+</p>
+
+<h2>Bloque B · Relevamiento del producto</h2>
+<p>
+  En paralelo arranca el trabajo sobre el caso asignado. Antes de pensar en
+  robots hay que conocer en detalle qué se va a agarrar.
+</p>
+
+<h3>Qué hay que averiguar</h3>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Dato</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Peso del producto lleno</td><td>Define la carga útil mínima del robot y la fuerza del gripper.</td></tr>
+      <tr><td>Dimensiones y forma</td><td>Condicionan el tipo de agarre y el patrón de encajado.</td></tr>
+      <tr><td>Material y terminación del envase</td><td>Una superficie porosa o muy curva descarta ciertas ventosas.</td></tr>
+      <tr><td>Superficie disponible para el agarre</td><td>Determina el diámetro y la cantidad de ventosas, o la apertura de la pinza.</td></tr>
+      <tr><td>Fragilidad y deformabilidad</td><td>Un envase flexible o un producto frágil limita la fuerza aplicable.</td></tr>
+      <tr><td>Configuración de la caja o blister</td><td>Cuántas unidades por caja y en qué disposición: define cuántos ciclos por caja.</td></tr>
+      <tr><td>Estabilidad del producto de pie</td><td>Si vuelca, hay que resolver la orientación antes del agarre.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Datos reales, no inventados</div>
+  <p>
+    Los datos se toman de fabricantes reales: fichas de producto, catálogos de
+    envases, hojas técnicas. Si un dato no se consigue, se estima
+    <strong>y se declara como estimación</strong>, explicando de dónde salió el
+    número. Un supuesto explícito es defendible; un número mágico, no.
+  </p>
+</div>
+
+<h2>Ejercicio de CAD</h2>
+<p>
+  Modelar una <strong>pieza simple</strong> —un soporte en L o una brida— usando
+  únicamente extrusión, corte y redondeos. Requisitos:
+</p>
+<ul>
+  <li>Croquis totalmente restringido.</li>
+  <li>Al menos un agujero pasante y uno ciego.</li>
+  <li>Redondeos aplicados al final del árbol.</li>
+  <li>Cambiar una cota principal al terminar y verificar que la pieza se reconstruye sin errores.</li>
+</ul>
+
+<h2>Avance del proyecto</h2>
+<div class="caja caja--tarea">
+  <div class="caja__titulo">Para la próxima clase</div>
+  <p>
+    Subir al aula virtual la <strong>ficha de relevamiento del producto</strong>,
+    con la tabla de datos completa, la fuente de cada dato y la configuración de
+    la caja o blister. Los datos estimados van marcados como tales.
+  </p>
+  <p>Además: entregar el ejercicio de CAD, con el enlace al documento de OnShape.</p>
+</div>
+
+<h2>Recursos</h2>
+<ul>
+  <li><a href="https://www.onshape.com/">OnShape</a> — crear cuenta con el plan educativo.</li>
+  <li><a href="../../recursos.html">Recursos de la materia</a> — catálogos de fabricantes.</li>
+</ul>
+<!-- CONTENIDO:FIN -->
+
+</article>
+
+<!-- NAVCLASES:INICIO -->
+<nav class="navclases">
+  <a class="anterior" href="../clase-01/"><span>Clase anterior</span><strong>01 · Presentación de la materia y del proyecto</strong></a>
+  <a class="siguiente" href="../clase-03/"><span>Clase siguiente</span><strong>03 · Ensamblajes CAD · OEE y tiempo de ciclo</strong></a>
+</nav>
+<!-- NAVCLASES:FIN -->
+</main>
+
+<!-- PIE:INICIO -->
+<footer class="pie">
+  <div class="pie__interior">
+    <span>Robótica Industrial · Universidad Nacional de Almirante Brown · 2026</span>
+    <span></span>
+  </div>
+</footer>
+<!-- PIE:FIN -->
+
+</body>
+</html>
