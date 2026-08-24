@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 03 · Ensamblajes CAD · OEE y tiempo de ciclo — Robótica Industrial UNAB</title>
-<meta name="description" content="Relaciones de posición e importación de componentes comerciales. Cálculo del tiempo de ciclo a partir de la meta de producción.">
+<title>Clase 03 · Modelado CAD de piezas · Teoría y primeros pasos — Robótica Industrial UNAB</title>
+<meta name="description" content="Introducción a OnShape: extrusión, corte y redondeos. Buenas prácticas de modelado y estructura de componentes.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -34,8 +34,9 @@
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 03</p>
     <p class="clase__numero">Clase 03 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
-    <h1>Ensamblajes CAD · OEE y tiempo de ciclo</h1>
+    <h1>Modelado CAD de piezas · Teoría y primeros pasos</h1>
     <div class="clase__meta">
+      <span>Encuentro virtual sincrónico</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,130 +45,70 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Armar ensamblajes con relaciones de posición entre piezas propias.</li>
-  <li>Importar un componente comercial de catálogo e integrarlo al ensamblaje.</li>
-  <li>Entender el OEE y para qué sirve al dimensionar una celda.</li>
-  <li>Calcular el tiempo de ciclo que exige la meta de producción asignada.</li>
+  <li>Manejar el entorno de OnShape: croquis, operaciones y árbol de diseño.</li>
+  <li>Modelar una pieza simple con extrusión, corte y redondeos.</li>
+  <li>Entender por qué un croquis debe quedar totalmente restringido.</li>
+  <li>Practicar las buenas prácticas de estructura del árbol de operaciones.</li>
 </ul>
 
-<h2>Bloque A · Ensamblajes</h2>
-
-<h3>De piezas sueltas a un conjunto</h3>
+<h2>Por qué CAD paramétrico</h2>
 <p>
-  Un ensamblaje vincula piezas mediante <strong>relaciones de posición</strong>
-  que eliminan grados de libertad. Cada pieza libre en el espacio tiene seis:
-  tres traslaciones y tres rotaciones. Ensamblar es decidir cuáles se eliminan y
-  cuáles se dejan vivas a propósito.
+  Un modelo paramétrico guarda <em>cómo</em> se construyó la pieza, no solo su
+  forma final. Cambiar una cota reconstruye todo lo que dependía de ella. En un
+  proyecto donde el producto puede cambiar de dimensiones a mitad de camino, esa
+  diferencia decide si rehacer el diseño cuesta cinco minutos o dos días.
 </p>
 
-<div class="caja caja--nota">
-  <div class="caja__titulo">Los grados de libertad que quedan vivos son el diseño</div>
-  <p>
-    Un vástago de cilindro debe conservar una traslación. Un eje de giro, una
-    rotación. Si el ensamblaje queda todo fijo, no se puede verificar el
-    movimiento ni detectar interferencias.
-  </p>
-</div>
-
-<h3>Componentes comerciales</h3>
-<p>
-  Las ventosas, cilindros, perfiles y guías no se modelan: se descargan del
-  fabricante, normalmente en formato <strong>STEP</strong>, y se importan. Dos
-  reglas:
-</p>
-<ul>
-  <li>El modelo importado <strong>no se modifica</strong>: representa una pieza que se compra tal cual.</li>
-  <li>Se anota marca, modelo y código exacto, porque va derecho al BOM.</li>
-</ul>
-
-<h2>Bloque B · OEE y tiempo de ciclo</h2>
-
-<h3>Qué es el OEE</h3>
-<p>
-  El <strong>OEE</strong> (<em>Overall Equipment Effectiveness</em>) es el
-  indicador estándar de eficiencia de un equipo productivo:
-</p>
-<pre><code>OEE = Disponibilidad × Rendimiento × Calidad</code></pre>
-<ul>
-  <li><strong>Disponibilidad:</strong> qué fracción del tiempo planificado el equipo estuvo realmente disponible —paradas, fallas, cambios de formato—.</li>
-  <li><strong>Rendimiento:</strong> qué tan cerca de su velocidad nominal trabajó —microparadas, marcha lenta—.</li>
-  <li><strong>Calidad:</strong> qué fracción de lo producido salió conforme.</li>
-</ul>
-
-<div class="caja caja--nota">
-  <div class="caja__titulo">Para qué lo usamos acá</div>
-  <p>
-    Para <strong>no diseñar al límite</strong>. Si la celda se dimensiona con el
-    tiempo teórico exacto, cualquier microparada hace que no se llegue a la meta.
-    El OEE castiga el tiempo disponible y obliga a que el robot tenga margen.
-  </p>
-</div>
-
-<h3>Cómo se calcula el tiempo de ciclo</h3>
-<p>
-  El docente da el dato ancla —la meta de producción, el dato actual, o ambos—.
-  Cada grupo define y justifica su OEE objetivo, y de ahí sale el tiempo de ciclo
-  que la celda tiene que cumplir.
-</p>
-
-<h4>Ejemplo trabajado</h4>
-<div class="tabla-scroll">
-  <table>
-    <thead>
-      <tr><th>Paso</th><th>Cálculo</th><th>Resultado</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Meta del turno</td><td>dato del docente</td><td>1.200 cajas por turno</td></tr>
-      <tr><td>Duración del turno</td><td>8 h × 3.600</td><td>28.800 s</td></tr>
-      <tr><td>OEE objetivo</td><td>definido y justificado por el grupo</td><td>0,75</td></tr>
-      <tr><td>Tiempo productivo real</td><td>28.800 × 0,75</td><td>21.600 s</td></tr>
-      <tr><td>Tiempo de ciclo por caja</td><td>21.600 ÷ 1.200</td><td>18 s por caja</td></tr>
-      <tr><td>Unidades por caja</td><td>dato del relevamiento</td><td>12 unidades</td></tr>
-      <tr><td><strong>Tiempo por pick</strong></td><td>18 ÷ 12</td><td><strong>1,5 s</strong></td></tr>
-    </tbody>
-  </table>
-</div>
-<p>
-  Ese 1,5 s por ciclo de <em>pick and place</em> es el número que después se
-  cruza contra las hojas de datos de los robots en la
-  <a href="../clase-05/">clase 05</a>. Atención: el tiempo por pick todavía no
-  contempla el cambio de caja ni las paradas de la propia celda, así que conviene
-  dejar reserva adicional y explicar de dónde sale.
-</p>
+<h2>El flujo de trabajo</h2>
+<ol>
+  <li><strong>Croquis:</strong> geometría 2D sobre un plano.</li>
+  <li><strong>Restricciones:</strong> relaciones geométricas —paralelo, perpendicular, tangente, coincidente— que fijan la forma.</li>
+  <li><strong>Cotas:</strong> los valores numéricos que fijan el tamaño.</li>
+  <li><strong>Operación:</strong> extrusión, corte o revolución, que convierte el croquis en sólido.</li>
+  <li><strong>Detalles:</strong> redondeos y chaflanes, siempre al final.</li>
+</ol>
 
 <div class="caja caja--aviso">
-  <div class="caja__titulo">El OEE se justifica, no se copia</div>
+  <div class="caja__titulo">Error frecuente</div>
   <p>
-    Un OEE de 0,85 en una línea nueva y automatizada es optimista pero
-    defendible; un 0,95 no lo es. El valor elegido tiene que estar argumentado
-    según el tipo de industria y la madurez del proceso. Prepárense para que se
-    los discutan.
+    Un croquis sin restringir del todo se deforma solo cuando alguien mueve un
+    punto. Antes de extruir, verificá que el croquis esté completamente definido:
+    OnShape lo indica con un cambio de color en la geometría.
   </p>
 </div>
 
+<h2>El árbol de operaciones</h2>
+<p>
+  El orden importa. Redondear antes de cortar puede hacer que el corte falle al
+  cambiar una medida. Regla práctica: primero el volumen principal, después los
+  cortes funcionales —agujeros, alojamientos— y al final los detalles estéticos
+  y de seguridad.
+</p>
+
 <h2>Ejercicio de CAD</h2>
+<p>
+  Modelar una <strong>pieza simple</strong> —un soporte en L o una brida— usando
+  únicamente extrusión, corte y redondeos. Requisitos:
+</p>
 <ul>
-  <li>Ensamblar dos o tres piezas diseñadas por ustedes con relaciones de posición, dejando vivo al menos un grado de libertad.</li>
-  <li>Importar un componente comercial de catálogo —una ventosa o un cilindro neumático— e integrarlo al ensamblaje.</li>
-  <li>Anotar marca, modelo y código del componente importado.</li>
+  <li>Croquis totalmente restringido.</li>
+  <li>Al menos un agujero pasante y uno ciego.</li>
+  <li>Redondeos aplicados al final del árbol.</li>
+  <li>Cambiar una cota principal al terminar y verificar que la pieza se reconstruye sin errores.</li>
 </ul>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir la <strong>memoria de cálculo del tiempo de ciclo</strong>: meta
-    asignada, OEE objetivo con su justificación, tiempo disponible, tiempo por
-    caja y tiempo por pick. Planilla o documento, pero con la cuenta a la vista,
-    no solo el resultado.
+    Entregar el <strong>ejercicio de CAD</strong> de esta clase: pieza simple
+    con croquis restringido, operaciones básicas y redondeos. Enlace al documento de OnShape.
   </p>
-  <p>Es el punto 2 del informe técnico.</p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="../../recursos.html">Catálogos de FESTO, SMC y Schmalz</a> para descargar modelos STEP.</li>
-  <li><a href="../../proyecto.html">Estructura del informe técnico</a> — ver punto 2.</li>
+  <li><a href="https://www.onshape.com/">OnShape</a> — crear cuenta con el plan educativo.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -175,8 +116,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-02/"><span>Clase anterior</span><strong>02 · Modelado CAD de piezas · Relevamiento del producto</strong></a>
-  <a class="siguiente" href="../clase-04/"><span>Clase siguiente</span><strong>04 · Planos en CAD · Secuencia funcional y GRAFCET</strong></a>
+  <a class="anterior" href="../clase-02/"><span>Clase anterior</span><strong>02 · Taller de presentación y relevamiento del producto</strong></a>
+  <a class="siguiente" href="../clase-04/"><span>Clase siguiente</span><strong>04 · Métricas de Producción: OEE y Ciclos</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>

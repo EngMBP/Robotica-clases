@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 13 · Programación básica del robot — Robótica Industrial UNAB</title>
-<meta name="description" content="Puntos, trayectorias y simulación de la celda en RoboDK, sin necesidad de robot físico.">
+<title>Clase 13 · Acople al robot y neumática aplicada — Robótica Industrial UNAB</title>
+<meta name="description" content="Brida de muñeca, cambio rápido de herramienta, cilindros neumáticos y dimensionamiento de sistemas neumáticos.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -33,9 +33,10 @@
 <!-- ENCABEZADO:INICIO -->
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 13</p>
-    <p class="clase__numero">Clase 13 · Unidad 3 · Seguridad, fabricación y documentación</p>
-    <h1>Programación básica del robot</h1>
+    <p class="clase__numero">Clase 13 · Unidad 2 · Selección y diseño de la celda</p>
+    <h1>Acople al robot y neumática aplicada</h1>
     <div class="clase__meta">
+      <span>Encuentro virtual sincrónico</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,154 +45,126 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Entender cómo se le enseña una posición y una trayectoria a un robot industrial.</li>
-  <li>Reconocer los tipos de movimiento y cuándo usar cada uno.</li>
-  <li>Simular la celda del proyecto para verificar alcance y tiempo de ciclo.</li>
+  <li>Resolver la interfaz mecánica entre el gripper y la muñeca del robot.</li>
+  <li>Decidir entre conexión fija y sistema de cambio rápido de herramienta.</li>
+  <li>Dimensionar los actuadores neumáticos del gripper.</li>
+  <li>Especificar el sistema de generación de vacío si corresponde.</li>
 </ul>
+
+<h2>La interfaz mecánica</h2>
+
+<h3>La brida de muñeca</h3>
+<p>
+  El robot no ofrece una superficie libre: trae una <strong>brida
+  normalizada</strong> con un patrón de agujeros roscados, un diámetro de
+  centrado y una espiga de posicionamiento definidos por el fabricante. El
+  gripper se diseña <em>contra esa brida</em>, no al revés.
+</p>
+<p>
+  Cada grupo tiene que ir a la documentación del robot que eligió y sacar de ahí
+  las medidas reales: no se inventan ni se estiman.
+</p>
 
 <div class="caja caja--nota">
-  <div class="caja__titulo">Alcance de esta clase</div>
-  <p>
-    Es introductoria. No vamos a programar una aplicación completa: la idea es
-    entender la lógica, verificar que la celda diseñada es programable y
-    contrastar el tiempo de ciclo real contra el que calcularon en la
-    <a href="../clase-03/">clase 03</a>.
-  </p>
+  <div class="caja__titulo">Qué tiene que resolver la interfaz</div>
+  <ul>
+    <li><strong>Posición:</strong> el centrado y la espiga garantizan que la herramienta siempre queda en el mismo lugar.</li>
+    <li><strong>Transmisión de esfuerzos:</strong> los tornillos toman el peso y los momentos del ciclo.</li>
+    <li><strong>Paso de servicios:</strong> aire comprimido, vacío y señales eléctricas tienen que llegar al gripper sin quedar colgando ni tironear en el movimiento.</li>
+  </ul>
 </div>
 
-<h2>Cómo se define un punto</h2>
-<p>
-  Un robot no entiende «arriba de la caja»: entiende coordenadas y orientación de
-  la herramienta. Dos formas de definirlas:
-</p>
-<ul>
-  <li>
-    <strong>Por aprendizaje:</strong> se lleva físicamente el robot a la posición
-    con la consola de programación y se guarda el punto. Es lo habitual en
-    planta.
-  </li>
-  <li>
-    <strong>Offline:</strong> se generan los puntos desde el modelo 3D de la
-    celda, en un simulador, sin ocupar el robot ni frenar la producción. Es lo
-    que vamos a usar acá.
-  </li>
-</ul>
-
-<h3>Dos sistemas de referencia que hay que tener claros</h3>
-<ul>
-  <li>
-    <strong>TCP</strong> (<em>Tool Center Point</em>): el punto de la herramienta
-    que el robot posiciona. En un gripper de ventosas no está en la brida: está
-    en la cara de la ventosa. Si el TCP está mal definido, todos los puntos
-    quedan corridos.
-  </li>
-  <li>
-    <strong>Sistema de coordenadas de trabajo:</strong> un origen definido sobre
-    la pieza o la caja. Si la caja se mueve de lugar, se corrige el origen y
-    todos los puntos se acomodan solos, en vez de reprogramar uno por uno.
-  </li>
-</ul>
-
-<div class="caja caja--aviso">
-  <div class="caja__titulo">El error clásico del TCP</div>
-  <p>
-    Programar con el TCP en la brida y descubrir en la puesta en marcha que el
-    robot apoya la ventosa 120 mm más abajo de lo previsto. La definición del TCP
-    sale de la geometría del gripper que diseñaron: es un dato del CAD.
-  </p>
-</div>
-
-<h2>Tipos de movimiento</h2>
+<h3>Conexión fija o cambio rápido</h3>
 <div class="tabla-scroll">
   <table>
     <thead>
-      <tr><th>Movimiento</th><th>Qué hace</th><th>Cuándo se usa</th></tr>
+      <tr><th></th><th>Conexión fija</th><th>Cambio rápido</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td><strong>Articular</strong></td>
-        <td>Cada eje va de un valor a otro por el camino más directo para él. La herramienta describe una curva impredecible.</td>
-        <td>Traslados largos en espacio libre. Es el más rápido.</td>
-      </tr>
-      <tr>
-        <td><strong>Lineal</strong></td>
-        <td>La herramienta se mueve en línea recta en el espacio.</td>
-        <td>Aproximación y retiro: bajar sobre el producto, salir de la caja sin golpear las paredes.</td>
-      </tr>
-      <tr>
-        <td><strong>Circular</strong></td>
-        <td>Recorre un arco definido por tres puntos.</td>
-        <td>Poco frecuente en pick and place.</td>
-      </tr>
+      <tr><td>Costo</td><td>Bajo: solo la pieza de adaptación.</td><td>Alto: se compra el par acoplador más cada plato.</td></tr>
+      <tr><td>Rigidez y repetibilidad</td><td>Máxima.</td><td>Muy buena, pero introduce una junta más.</td></tr>
+      <tr><td>Cambio de formato</td><td>Requiere desmontar con herramientas.</td><td>Segundos, sin herramientas.</td></tr>
+      <tr><td>Mantenimiento</td><td>Más lento para sacar el gripper.</td><td>Facilita el reemplazo del conjunto completo.</td></tr>
+      <tr><td>Peso en brida</td><td>Menor.</td><td>Suma el peso del acoplador, que se descuenta del payload.</td></tr>
     </tbody>
   </table>
 </div>
 
-<h3>Puntos de aproximación</h3>
-<p>
-  Nunca se va directo al punto de toma. La estructura típica de un ciclo es:
-  punto de espera, aproximación por encima del producto, descenso lineal, agarre,
-  ascenso lineal, traslado articular, aproximación sobre la caja, descenso,
-  liberación, ascenso. Esos puntos intermedios son los que evitan que el robot
-  arrastre el producto contra el borde de la caja.
-</p>
-
-<h3>Precisión de paso y tiempo de ciclo</h3>
-<p>
-  Si el robot debe detenerse exactamente en cada punto, pierde tiempo. Los
-  controladores permiten <strong>redondear</strong> la trayectoria: pasar cerca
-  del punto sin frenar del todo. Es una de las palancas más efectivas para bajar
-  el tiempo de ciclo, y también una fuente de colisiones si se abusa.
-</p>
-
-<h2>Simulación de la celda</h2>
-<p>
-  Con un simulador tipo <strong>RoboDK</strong> se puede armar la celda con el
-  modelo real del robot elegido, cargar el gripper diseñado en CAD y verificar
-  cosas que el layout en planta no muestra:
-</p>
-<ul>
-  <li>Que el robot <strong>alcanza</strong> todas las posiciones de la caja, no solo el centro.</li>
-  <li>Que no hay <strong>colisiones</strong> con la cinta, el vallado ni la propia caja.</li>
-  <li>Que no aparecen <strong>singularidades</strong> ni posturas forzadas en el medio de la trayectoria.</li>
-  <li>El <strong>tiempo de ciclo estimado</strong>, para contrastarlo con el requerido.</li>
-</ul>
-
-<div class="caja caja--nota">
-  <div class="caja__titulo">Este es el momento de la verdad</div>
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Cuándo se justifica el cambio rápido</div>
   <p>
-    Si la simulación muestra que el ciclo real es de 2,1 s y el requerimiento era
-    1,5 s, hay un problema de diseño que todavía se puede resolver: multipick,
-    otro robot, acercar la caja. Descubrirlo ahora es barato; descubrirlo en la
-    defensa, no.
+    Cuando la celda procesa <strong>varios formatos</strong> y el tiempo de cambio
+    afecta la producción. Si la línea corre siempre el mismo producto, es plata
+    gastada y peso perdido.
   </p>
 </div>
 
-<h2>Práctica</h2>
+<h2>Neumática aplicada</h2>
 <p>
-  Armar la celda en el simulador, definir el TCP a partir del gripper diseñado,
-  programar el ciclo completo de pick and place con sus puntos de aproximación y
-  medir el tiempo de ciclo resultante.
+  Repaso rápido, aplicado directamente al gripper que están diseñando. La
+  documentación de referencia son los catálogos de fabricante.
+</p>
+
+<h3>Dimensionar un cilindro</h3>
+<p>
+  La fuerza de un cilindro depende de la <strong>presión de trabajo</strong> y del
+  <strong>área del émbolo</strong>. Puntos que suelen pasarse por alto:
+</p>
+<ul>
+  <li>
+    En un cilindro de doble efecto, la carrera de retroceso da
+    <strong>menos fuerza</strong> que la de avance: el vástago le resta área al
+    émbolo. Si el agarre se hace al retroceder, esa es la condición de cálculo.
+  </li>
+  <li>
+    La presión de red no es la presión de diseño. Se calcula con la presión
+    mínima garantizada en el punto de uso, no con la del compresor.
+  </li>
+  <li>
+    Hace falta un <strong>margen sobre la fuerza teórica</strong> por rozamiento
+    interno y pérdidas de carga.
+  </li>
+  <li>
+    La velocidad se regula con reguladores de caudal en el escape, y el final de
+    carrera se amortigua: un cilindro golpeando a máxima velocidad se destruye y
+    sacude toda la herramienta.
+  </li>
+</ul>
+
+<h3>Generación de vacío</h3>
+<p>Si el gripper es de ventosas, hay que decidir cómo se genera el vacío:</p>
+<ul>
+  <li>
+    <strong>Eyector Venturi:</strong> se alimenta con aire comprimido, es chico y
+    liviano, se monta sobre el robot y responde muy rápido. Consume aire de forma
+    continua salvo que tenga función de ahorro.
+  </li>
+  <li>
+    <strong>Bomba de vacío centralizada:</strong> más eficiente para caudales
+    grandes, pero exige tendido de cañería y responde más lento.
+  </li>
+</ul>
+<p>
+  En ambos casos conviene un <strong>vacuostato</strong>: el sensor que confirma
+  que el producto está efectivamente tomado. Esa señal es una receptividad del
+  GRAFCET.
 </p>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir la <strong>verificación de la celda</strong>: capturas de la simulación
-    mostrando alcance en las posiciones extremas, ausencia de colisiones y tiempo
-    de ciclo obtenido, comparado con el requerido.
-  </p>
-  <p>
-    Si el tiempo no cierra, documentar qué van a cambiar y por qué. Eso también
-    es una rama del árbol de decisiones.
+    Subir la <strong>definición del acople</strong> —fija o cambio rápido, con su
+    justificación y las medidas reales de la brida del robot elegido— y el
+    <strong>dimensionamiento neumático</strong> del gripper: actuadores, presión
+    de trabajo, generación de vacío y sensores de confirmación.
   </p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="https://robodk.com/">RoboDK</a> — simulador y programación offline.</li>
-  <li>Biblioteca de modelos del fabricante del robot seleccionado.</li>
+  <li>Documentación de la brida de muñeca del robot seleccionado.</li>
+  <li><a href="https://www.festo.com/">FESTO</a> y <a href="https://www.smcworld.com/">SMC</a> — cilindros, eyectores y vacuostatos.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -199,8 +172,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-12/"><span>Clase anterior</span><strong>12 · Tolerancias, ajustes y planos de fabricación</strong></a>
-  <a class="siguiente" href="../clase-14/"><span>Clase siguiente</span><strong>14 · Equipos secundarios y calidad</strong></a>
+  <a class="anterior" href="../clase-12/"><span>Clase anterior</span><strong>12 · Taller de diseño de gripper</strong></a>
+  <a class="siguiente" href="../clase-14/"><span>Clase siguiente</span><strong>14 · Taller de acople y neumática</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>

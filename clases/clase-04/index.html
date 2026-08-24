@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 04 · Planos en CAD · Secuencia funcional y GRAFCET — Robótica Industrial UNAB</title>
-<meta name="description" content="Vistas, cotas y líneas de corte. Diagrama de secuencia del proceso según la norma IEC 60848.">
+<title>Clase 04 · Métricas de Producción: OEE y Ciclos — Robótica Industrial UNAB</title>
+<meta name="description" content="Cálculo del OEE y tiempo de ciclo según metas de producción. Análisis de rendimiento y eficiencia operativa.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -34,8 +34,9 @@
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 04</p>
     <p class="clase__numero">Clase 04 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
-    <h1>Planos en CAD · Secuencia funcional y GRAFCET</h1>
+    <h1>Métricas de Producción: OEE y Ciclos</h1>
     <div class="clase__meta">
+      <span>Encuentro presencial</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,110 +45,404 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Generar un plano técnico a partir de un modelo 3D: vistas, cotas y cortes.</li>
-  <li>Distinguir un cronograma de actuadores de un GRAFCET.</li>
-  <li>Representar la secuencia funcional de la celda según IEC 60848.</li>
+  <li>Entender el OEE y para qué sirve al dimensionar una celda.</li>
+  <li>Calcular el tiempo de ciclo que exige la meta de producción asignada.</li>
+  <li>Definir un cronograma de actuadores para estimar tiempos de movimiento.</li>
+  <li>Armar la memoria de cálculo del proyecto.</li>
 </ul>
 
-<h2>Bloque A · Planos y planimetría</h2>
-
-<h3>Del 3D al papel</h3>
+<h2>Qué es el OEE</h2>
 <p>
-  El plano no es una foto del modelo: es el documento con el que alguien
-  <strong>fabrica</strong> la pieza. Tiene que ser suficiente y no ambiguo.
+  El <strong>OEE</strong> (<em>Overall Equipment Effectiveness</em>) es el
+  indicador estándar de eficiencia de un equipo productivo:
 </p>
+<pre><code>OEE = Disponibilidad × Rendimiento × Calidad</code></pre>
 <ul>
-  <li><strong>Vistas:</strong> las mínimas necesarias para definir la pieza, no todas las posibles.</li>
-  <li><strong>Cortes:</strong> para mostrar geometría interna —alojamientos, agujeros ciegos, roscas—.</li>
-  <li><strong>Cotas:</strong> cada medida se acota <em>una sola vez</em>, desde una referencia funcional.</li>
-  <li><strong>Escala y formato:</strong> normalizados; la escala se declara en el cajetín.</li>
-  <li><strong>Cajetín:</strong> identifica la pieza, el material, la escala, el autor y la revisión. Se ve en detalle en la <a href="../clase-12/">clase 12</a>.</li>
+  <li><strong>Disponibilidad:</strong> qué fracción del tiempo planificado el equipo estuvo realmente disponible —paradas, fallas, cambios de formato—.</li>
+  <li><strong>Rendimiento:</strong> qué tan cerca de su velocidad nominal trabajó —microparadas, marcha lenta—.</li>
+  <li><strong>Calidad:</strong> qué fracción de lo producido salió conforme.</li>
 </ul>
 
-<div class="caja caja--aviso">
-  <div class="caja__titulo">Regla práctica de acotado</div>
+<!-- OEE Visual: Los 3 Factores -->
+<div style="background: var(--superficie); border: 1px solid var(--borde); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; overflow-x: auto;">
+  <svg viewBox="0 0 900 280" role="img" aria-labelledby="oee-factors-title">
+    <title id="oee-factors-title">Los tres factores de OEE: Disponibilidad, Rendimiento, Calidad</title>
+    <defs>
+      <marker id="arrow-acento" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#0b6b5e"/>
+      </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect width="900" height="280" fill="var(--fondo)"/>
+
+    <!-- Title -->
+    <text x="450" y="30" fill="var(--texto)" font-size="14" font-weight="600" font-family="var(--mono)" text-anchor="middle" letter-spacing="0.08em">FÓRMULA: OEE = A × P × Q</text>
+
+    <!-- Box 1: Disponibilidad -->
+    <rect x="30" y="60" width="240" height="180" rx="6" fill="var(--superficie)" stroke="var(--texto)" stroke-width="1"/>
+    <rect x="50" y="75" width="200" height="20" rx="2" fill="transparent" stroke="var(--texto)" stroke-width="0.8" opacity="0.5"/>
+    <text x="150" y="90" fill="var(--texto)" font-size="8" font-weight="600" font-family="var(--mono)" text-anchor="middle" letter-spacing="0.08em">DISPONIBILIDAD</text>
+
+    <text x="150" y="125" fill="#0b6b5e" font-size="20" font-weight="600" font-family="var(--mono)" text-anchor="middle">70%</text>
+
+    <text x="150" y="155" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Tiempo real</text>
+    <text x="150" y="172" fill="var(--texto-suave)" font-size="10" font-family="var(--fuente)" text-anchor="middle">vs tiempo planificado</text>
+
+    <text x="150" y="210" fill="var(--texto-suave)" font-size="9" font-family="var(--fuente)" text-anchor="middle">Paradas, fallas,</text>
+    <text x="150" y="225" fill="var(--texto-suave)" font-size="9" font-family="var(--fuente)" text-anchor="middle">cambios de formato</text>
+
+    <!-- Box 2: Rendimiento -->
+    <rect x="330" y="60" width="240" height="180" rx="6" fill="var(--superficie)" stroke="var(--texto)" stroke-width="1"/>
+    <rect x="350" y="75" width="200" height="20" rx="2" fill="transparent" stroke="var(--texto)" stroke-width="0.8" opacity="0.5"/>
+    <text x="450" y="90" fill="var(--texto)" font-size="8" font-weight="600" font-family="var(--mono)" text-anchor="middle" letter-spacing="0.08em">RENDIMIENTO</text>
+
+    <text x="450" y="125" fill="#0b6b5e" font-size="20" font-weight="600" font-family="var(--mono)" text-anchor="middle">95%</text>
+
+    <text x="450" y="155" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Velocidad alcanzada</text>
+    <text x="450" y="172" fill="var(--texto-suave)" font-size="10" font-family="var(--fuente)" text-anchor="middle">vs velocidad nominal</text>
+
+    <text x="450" y="210" fill="var(--texto-suave)" font-size="9" font-family="var(--fuente)" text-anchor="middle">Paradas menores,</text>
+    <text x="450" y="225" fill="var(--texto-suave)" font-size="9" font-family="var(--fuente)" text-anchor="middle">marcha lenta</text>
+
+    <!-- Box 3: Calidad -->
+    <rect x="630" y="60" width="240" height="180" rx="6" fill="var(--superficie)" stroke="var(--texto)" stroke-width="1"/>
+    <rect x="650" y="75" width="200" height="20" rx="2" fill="transparent" stroke="var(--texto)" stroke-width="0.8" opacity="0.5"/>
+    <text x="750" y="90" fill="var(--texto)" font-size="8" font-weight="600" font-family="var(--mono)" text-anchor="middle" letter-spacing="0.08em">CALIDAD</text>
+
+    <text x="750" y="125" fill="#0b6b5e" font-size="20" font-weight="600" font-family="var(--mono)" text-anchor="middle">84%</text>
+
+    <text x="750" y="155" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Piezas buenas en</text>
+    <text x="750" y="172" fill="var(--texto-suave)" font-size="10" font-family="var(--fuente)" text-anchor="middle">primer intento</text>
+
+    <text x="750" y="210" fill="var(--texto-suave)" font-size="9" font-family="var(--fuente)" text-anchor="middle">Defectos de proceso,</text>
+    <text x="750" y="225" fill="var(--texto-suave)" font-size="9" font-family="var(--fuente)" text-anchor="middle">arranque lento</text>
+  </svg>
+</div>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Para qué lo usamos acá</div>
   <p>
-    Acotá desde donde se mide en el taller, no desde donde resulta cómodo
-    dibujar. Si una cota depende de otras tres para poder verificarse, el plano
-    está mal acotado aunque el dibujo esté perfecto.
+    Para <strong>no diseñar al límite</strong>. Si la celda se dimensiona con el
+    tiempo teórico exacto, cualquier microparada hace que no se llegue a la meta.
+    El OEE castiga el tiempo disponible y obliga a que el robot tenga margen.
   </p>
 </div>
 
-<h2>Bloque B · Secuencia funcional</h2>
+<h2>Cómo se calcula el tiempo de ciclo</h2>
+<p>
+  El docente da el dato ancla —la meta de producción, el dato actual, o ambos—.
+  Cada grupo define y justifica su OEE objetivo, y de ahí sale el tiempo de ciclo
+  que la celda tiene que cumplir.
+</p>
 
-<h3>Cronograma de actuadores</h3>
+<!-- Desglose Visual de Tiempo -->
+<div style="background: var(--superficie); border: 1px solid var(--borde); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; overflow-x: auto;">
+  <style>
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .tiempo-box1 { animation: slideDown 0.6s ease-out forwards; }
+    .tiempo-box2 { animation: slideUp 0.6s ease-out 0.3s forwards; opacity: 0; }
+    .tiempo-arrow1 { animation: fadeIn 0.4s ease-out 0.3s forwards; opacity: 0; }
+    .tiempo-box3 { animation: slideUp 0.6s ease-out 0.6s forwards; opacity: 0; }
+    .tiempo-arrow2 { animation: fadeIn 0.4s ease-out 0.6s forwards; opacity: 0; }
+    .tiempo-box4 { animation: slideUp 0.6s ease-out 0.9s forwards; opacity: 0; }
+    .tiempo-arrow3 { animation: fadeIn 0.4s ease-out 0.9s forwards; opacity: 0; }
+    .tiempo-box5 { animation: slideUp 0.6s ease-out 1.2s forwards; opacity: 0; }
+    .tiempo-text1 { animation: fadeIn 0.4s ease-out 1.6s forwards; opacity: 0; }
+    .tiempo-text2 { animation: fadeIn 0.4s ease-out 1.8s forwards; opacity: 0; }
+  </style>
+
+  <svg viewBox="0 0 600 420" role="img" aria-labelledby="time-breakdown-title">
+    <title id="time-breakdown-title">Desglose de tiempo desde 24 horas hasta tiempo productivo</title>
+    <defs>
+      <marker id="arrow-desc" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto-suave)"/>
+      </marker>
+    </defs>
+
+    <!-- Background -->
+    <rect width="600" height="420" fill="var(--fondo)"/>
+
+    <!-- Boxes -->
+    <g class="tiempo-box1">
+      <rect x="20" y="20" width="560" height="50" rx="6" fill="#0b6b5e" stroke="#0b6b5e" stroke-width="1"/>
+      <text x="300" y="42" fill="white" font-size="13" font-weight="600" font-family="var(--fuente)" text-anchor="middle">24 horas · Tiempo Total</text>
+      <text x="300" y="58" fill="rgba(255,255,255,0.8)" font-size="10" font-family="var(--mono)" text-anchor="middle">86.400 segundos</text>
+    </g>
+
+    <!-- Arrow -->
+    <g class="tiempo-arrow1">
+      <line x1="300" y1="70" x2="300" y2="85" stroke="var(--texto-suave)" stroke-width="1.5" marker-end="url(#arrow-desc)"/>
+    </g>
+
+    <!-- Box 2 -->
+    <g class="tiempo-box2">
+      <rect x="20" y="85" width="560" height="45" rx="6" fill="var(--superficie)" stroke="var(--texto)" stroke-width="1"/>
+      <text x="300" y="105" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Tiempo de Producción Planificado (8h)</text>
+      <text x="300" y="122" fill="var(--texto-suave)" font-size="9" font-family="var(--mono)" text-anchor="middle">28.800 s</text>
+    </g>
+
+    <!-- Arrow + Label -->
+    <g class="tiempo-arrow2">
+      <line x1="300" y1="130" x2="300" y2="145" stroke="var(--texto-suave)" stroke-width="1.5" marker-end="url(#arrow-desc)"/>
+      <text x="325" y="140" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)">DISPONIBILIDAD</text>
+    </g>
+
+    <!-- Box 3 -->
+    <g class="tiempo-box3">
+      <rect x="20" y="145" width="560" height="45" rx="6" fill="var(--acento-claro)" stroke="#0b6b5e" stroke-width="1"/>
+      <text x="300" y="165" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Tiempo de Funcionamiento (Run Time) · 70%</text>
+      <text x="300" y="182" fill="var(--texto-suave)" font-size="9" font-family="var(--mono)" text-anchor="middle">20.160 s</text>
+    </g>
+
+    <!-- Arrow + Label -->
+    <g class="tiempo-arrow3">
+      <line x1="300" y1="190" x2="300" y2="205" stroke="var(--texto-suave)" stroke-width="1.5" marker-end="url(#arrow-desc)"/>
+      <text x="325" y="200" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)">RENDIMIENTO</text>
+    </g>
+
+    <!-- Box 4 -->
+    <g class="tiempo-box4">
+      <rect x="20" y="205" width="560" height="45" rx="6" fill="var(--acento-claro)" stroke="#0b6b5e" stroke-width="1"/>
+      <text x="300" y="225" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Tiempo de Funcionamiento Neto · 95%</text>
+      <text x="300" y="242" fill="var(--texto-suave)" font-size="9" font-family="var(--mono)" text-anchor="middle">19.152 s</text>
+    </g>
+
+    <!-- Arrow + Label -->
+    <g class="tiempo-arrow1" style="animation-delay: 0.9s;">
+      <line x1="300" y1="250" x2="300" y2="265" stroke="var(--texto-suave)" stroke-width="1.5" marker-end="url(#arrow-desc)"/>
+      <text x="325" y="260" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)">CALIDAD</text>
+    </g>
+
+    <!-- Box 5 - Focal -->
+    <g class="tiempo-box5">
+      <rect x="20" y="265" width="560" height="55" rx="6" fill="var(--acento-claro)" stroke="#0b6b5e" stroke-width="1.5"/>
+      <text x="300" y="287" fill="#0b6b5e" font-size="13" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Tiempo Totalmente Productivo · 84%</text>
+      <text x="300" y="308" fill="#0b6b5e" font-size="11" font-family="var(--mono)" font-weight="600" text-anchor="middle">16.087 s ≈ 0,70 × 0,95 × 0,84 = OEE 55,9%</text>
+    </g>
+
+    <!-- Formula at bottom -->
+    <g class="tiempo-text1">
+      <text x="300" y="360" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--mono)" text-anchor="middle" letter-spacing="0.08em">REGLA: Cada factor reduce lo que queda</text>
+    </g>
+    <g class="tiempo-text2">
+      <text x="300" y="380" fill="var(--texto-suave)" font-size="10" font-family="var(--fuente)" text-anchor="middle">No es sumar pérdidas, es multiplicar factores</text>
+    </g>
+  </svg>
+</div>
+
+<h3>Ejemplo trabajado</h3>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Paso</th><th>Cálculo</th><th>Resultado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Meta del turno</td><td>dato del docente</td><td>1.200 cajas por turno</td></tr>
+      <tr><td>Duración del turno</td><td>8 h × 3.600</td><td>28.800 s</td></tr>
+      <tr><td>OEE objetivo</td><td>definido y justificado por el grupo</td><td>0,75</td></tr>
+      <tr><td>Tiempo productivo real</td><td>28.800 × 0,75</td><td>21.600 s</td></tr>
+      <tr><td>Tiempo de ciclo por caja</td><td>21.600 ÷ 1.200</td><td>18 s por caja</td></tr>
+      <tr><td>Unidades por caja</td><td>dato del relevamiento</td><td>12 unidades</td></tr>
+      <tr><td><strong>Tiempo por pick</strong></td><td>18 ÷ 12</td><td><strong>1,5 s</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+<p>
+  Ese 1,5 s por ciclo de <em>pick and place</em> es el número que después se
+  cruza contra las hojas de datos de los robots. Atención: el tiempo por pick
+  todavía no contempla el cambio de caja ni las paradas de la propia celda, así
+  que conviene dejar reserva adicional y explicar de dónde sale.
+</p>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">El OEE se justifica, no se copia</div>
+  <p>
+    Un OEE de 0,85 en una línea nueva y automatizada es optimista pero
+    defendible; un 0,95 no lo es. El valor elegido tiene que estar argumentado
+    según el tipo de industria y la madurez del proceso. Prepárense para que se
+    los discutan.
+  </p>
+</div>
+
+<h3>Las 6 Grandes Pérdidas</h3>
+<p>
+  El OEE clasifica todas las ineficiencias en 6 categorías según el factor que afectan.
+  Conocerlas te ayuda a identificar dónde optimizar tu celda:
+</p>
+
+<!-- 6 Grandes Pérdidas -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin: 1.5rem 0;">
+  <!-- Pérdida 1 -->
+  <div style="background: linear-gradient(135deg, var(--acento-claro) 0%, var(--superficie) 100%); border: 1px solid var(--borde); border-radius: var(--radio); padding: 1.25rem; border-left: 4px solid var(--acento);">
+    <p style="font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0b6b5e; font-weight: 600; margin-bottom: 0.5rem;">Disponibilidad #1</p>
+    <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--texto);">Fallas de Equipos</p>
+    <p style="font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5;">Paradas no planificadas por fallas mecánicas o eléctricas.</p>
+  </div>
+
+  <!-- Pérdida 2 -->
+  <div style="background: linear-gradient(135deg, var(--acento-claro) 0%, var(--superficie) 100%); border: 1px solid var(--borde); border-radius: var(--radio); padding: 1.25rem; border-left: 4px solid var(--acento);">
+    <p style="font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0b6b5e; font-weight: 600; margin-bottom: 0.5rem;">Disponibilidad #2</p>
+    <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--texto);">Cambios de Formato</p>
+    <p style="font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5;">Paradas para reposicionar, recalibrar, cambiar de producto.</p>
+  </div>
+
+  <!-- Pérdida 3 -->
+  <div style="background: linear-gradient(135deg, var(--acento-claro) 0%, var(--superficie) 100%); border: 1px solid var(--borde); border-radius: var(--radio); padding: 1.25rem; border-left: 4px solid var(--acento);">
+    <p style="font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0b6b5e; font-weight: 600; margin-bottom: 0.5rem;">Rendimiento #3</p>
+    <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--texto);">Paradas Menores</p>
+    <p style="font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5;">Atascos breves o desajustes resueltos por operarios (1–2 min).</p>
+  </div>
+
+  <!-- Pérdida 4 -->
+  <div style="background: linear-gradient(135deg, var(--acento-claro) 0%, var(--superficie) 100%); border: 1px solid var(--borde); border-radius: var(--radio); padding: 1.25rem; border-left: 4px solid var(--acento);">
+    <p style="font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0b6b5e; font-weight: 600; margin-bottom: 0.5rem;">Rendimiento #4</p>
+    <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--texto);">Velocidad Reducida</p>
+    <p style="font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5;">Equipo bajo capacidad nominal: desgaste, lubricación, temperatura.</p>
+  </div>
+
+  <!-- Pérdida 5 -->
+  <div style="background: linear-gradient(135deg, var(--acento-claro) 0%, var(--superficie) 100%); border: 1px solid var(--borde); border-radius: var(--radio); padding: 1.25rem; border-left: 4px solid var(--acento);">
+    <p style="font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0b6b5e; font-weight: 600; margin-bottom: 0.5rem;">Calidad #5</p>
+    <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--texto);">Defectos de Proceso</p>
+    <p style="font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5;">Piezas malas durante producción estable.</p>
+  </div>
+
+  <!-- Pérdida 6 -->
+  <div style="background: linear-gradient(135deg, var(--acento-claro) 0%, var(--superficie) 100%); border: 1px solid var(--borde); border-radius: var(--radio); padding: 1.25rem; border-left: 4px solid var(--acento);">
+    <p style="font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #0b6b5e; font-weight: 600; margin-bottom: 0.5rem;">Calidad #6</p>
+    <p style="font-weight: 700; font-size: 1rem; margin-bottom: 0.75rem; color: var(--texto);">Rendimiento Reducido</p>
+    <p style="font-size: 0.85rem; color: var(--texto-suave); line-height: 1.5;">Defectos durante arranque hasta alcanzar estabilidad.</p>
+  </div>
+</div>
+
+<h2>Cronograma de actuadores</h2>
 <p>
   Es la forma más simple de representar una secuencia: una línea por actuador y
   el tiempo en el eje horizontal, mostrando cuándo avanza y cuándo retrocede cada
   uno. Sirve para ver el solapamiento de movimientos y estimar el tiempo total
-  del ciclo, pero <strong>no representa condiciones ni decisiones</strong>.
+  del ciclo.
 </p>
 
-<h3>GRAFCET</h3>
-<p>
-  GRAFCET (norma <strong>IEC 60848</strong>) es el estándar para especificar
-  lógica secuencial de procesos automatizados. Sus elementos:
-</p>
-<ul>
-  <li><strong>Etapas:</strong> estados del sistema. Una etapa está activa o no lo está.</li>
-  <li><strong>Acciones:</strong> lo que se hace mientras la etapa está activa.</li>
-  <li><strong>Transiciones:</strong> el paso de una etapa a la siguiente.</li>
-  <li><strong>Receptividades:</strong> la condición lógica que habilita cada transición, típicamente una señal de sensor.</li>
-</ul>
-<p>
-  Además permite representar <strong>divergencias</strong>: en OR, para elegir
-  entre caminos alternativos —caja conforme o rechazo—, y en AND, para procesos
-  simultáneos, como el robot tomando la siguiente unidad mientras la cinta
-  indexa.
-</p>
+<!-- Cronograma Ejemplo -->
+<div style="background: var(--superficie); border: 1px solid var(--borde); border-radius: 10px; padding: 1.5rem; margin: 2rem 0; overflow-x: auto;">
+  <svg viewBox="0 0 900 300" role="img" aria-labelledby="timeline-actuators-title">
+    <title id="timeline-actuators-title">Cronograma de actuadores: pick and place en 1.5 segundos</title>
+    <defs>
+      <marker id="arrow-time" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto)"/>
+      </marker>
+    </defs>
 
-<div class="caja caja--nota">
-  <div class="caja__titulo">Por qué GRAFCET y no una lista de pasos</div>
-  <p>
-    Porque obliga a declarar <strong>qué sensor autoriza cada movimiento</strong>.
-    «El robot baja y agarra» esconde la pregunta importante: ¿cómo sabe la celda
-    que hay un producto ahí y que está en posición? El GRAFCET no deja escapar
-    esa pregunta.
-  </p>
+    <!-- Background -->
+    <rect width="900" height="300" fill="var(--fondo)"/>
+
+    <!-- Time axis -->
+    <line x1="80" y1="250" x2="850" y2="250" stroke="var(--texto)" stroke-width="2"/>
+
+    <!-- Time labels -->
+    <text x="80" y="275" fill="var(--texto)" font-size="10" font-weight="600" font-family="var(--mono)">0 ms</text>
+    <text x="270" y="275" fill="var(--texto)" font-size="10" font-weight="600" font-family="var(--mono)">375 ms</text>
+    <text x="465" y="275" fill="var(--texto)" font-size="10" font-weight="600" font-family="var(--mono)">750 ms</text>
+    <text x="655" y="275" fill="var(--texto)" font-size="10" font-weight="600" font-family="var(--mono)">1125 ms</text>
+    <text x="830" y="275" fill="var(--texto)" font-size="10" font-weight="600" font-family="var(--mono)">1.5 s</text>
+
+    <!-- Tick marks -->
+    <line x1="80" y1="245" x2="80" y2="255" stroke="var(--texto)" stroke-width="1.5"/>
+    <line x1="270" y1="245" x2="270" y2="255" stroke="var(--texto)" stroke-width="1.5"/>
+    <line x1="465" y1="245" x2="465" y2="255" stroke="var(--texto)" stroke-width="1.5"/>
+    <line x1="655" y1="245" x2="655" y2="255" stroke="var(--texto)" stroke-width="1.5"/>
+    <line x1="850" y1="245" x2="850" y2="255" stroke="var(--texto)" stroke-width="1.5"/>
+
+    <!-- Grid lines -->
+    <line x1="80" y1="30" x2="80" y2="250" stroke="var(--borde)" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+    <line x1="270" y1="30" x2="270" y2="250" stroke="var(--borde)" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+    <line x1="465" y1="30" x2="465" y2="250" stroke="var(--borde)" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+    <line x1="655" y1="30" x2="655" y2="250" stroke="var(--borde)" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+    <line x1="850" y1="30" x2="850" y2="250" stroke="var(--borde)" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+
+    <!-- Actuator 1: Brazo X -->
+    <text x="15" y="60" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)">Brazo X</text>
+    <rect x="80" y="50" width="95" height="14" rx="2" fill="#0b6b5e" stroke="#0b6b5e" stroke-width="1"/>
+    <text x="127" y="60" fill="white" font-size="7" font-weight="600" font-family="var(--mono)" text-anchor="middle">Ext 500ms</text>
+    <rect x="655" y="50" width="95" height="14" rx="2" fill="var(--acento-claro)" stroke="#0b6b5e" stroke-width="1"/>
+
+    <!-- Actuator 2: Brazo Y -->
+    <text x="15" y="100" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)">Brazo Y</text>
+    <rect x="95" y="90" width="72" height="14" rx="2" fill="#0b6b5e" stroke="#0b6b5e" stroke-width="1"/>
+    <text x="131" y="100" fill="white" font-size="7" font-weight="600" font-family="var(--mono)" text-anchor="middle">300ms</text>
+    <rect x="705" y="90" width="95" height="14" rx="2" fill="var(--acento-claro)" stroke="#0b6b5e" stroke-width="1"/>
+
+    <!-- Actuator 3: Pinza -->
+    <text x="15" y="140" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)">Pinza</text>
+    <rect x="265" y="130" width="48" height="14" rx="2" fill="#0b6b5e" stroke="#0b6b5e" stroke-width="1"/>
+    <text x="289" y="140" fill="white" font-size="7" font-weight="600" font-family="var(--mono)" text-anchor="middle">200ms</text>
+    <rect x="655" y="130" width="48" height="14" rx="2" fill="var(--acento-claro)" stroke="#0b6b5e" stroke-width="1"/>
+
+    <!-- Actuator 4: Elevador -->
+    <text x="15" y="180" fill="var(--texto)" font-size="11" font-weight="600" font-family="var(--fuente)">Elevador</text>
+    <rect x="80" y="170" width="48" height="14" rx="2" fill="var(--texto-suave)" stroke="var(--texto-suave)" stroke-width="1"/>
+    <text x="104" y="180" fill="white" font-size="7" font-weight="600" font-family="var(--mono)" text-anchor="middle">200ms</text>
+    <rect x="128" y="170" width="262" height="14" rx="2" fill="var(--borde)" stroke="var(--texto-suave)" stroke-width="1" opacity="0.3"/>
+    <rect x="705" y="170" width="48" height="14" rx="2" fill="var(--borde)" stroke="var(--texto-suave)" stroke-width="1"/>
+
+    <!-- Total cycle time annotation -->
+    <line x1="80" y1="15" x2="850" y2="15" stroke="#0b6b5e" stroke-width="2"/>
+    <line x1="80" y1="10" x2="80" y2="20" stroke="#0b6b5e" stroke-width="2"/>
+    <line x1="850" y1="10" x2="850" y2="20" stroke="#0b6b5e" stroke-width="2"/>
+    <text x="465" y="8" fill="#0b6b5e" font-size="11" font-weight="600" font-family="var(--mono)" text-anchor="middle">CICLO TOTAL = 1.500 ms</text>
+  </svg>
 </div>
 
-<h3>La secuencia mínima del proyecto</h3>
-<p>Como punto de partida, todo grupo va a tener que representar al menos:</p>
-<ol>
-  <li>Espera de producto en posición de toma, con su condición de sensor.</li>
-  <li>Aproximación y descenso del robot.</li>
-  <li>Activación del gripper y confirmación de agarre.</li>
-  <li>Traslado a la caja y posicionamiento según el patrón de encajado.</li>
-  <li>Liberación y retorno a posición de espera.</li>
-  <li>Conteo de unidades y, al completarse la caja, evacuación e ingreso de caja vacía.</li>
-</ol>
+<p style="font-size: 0.9rem; color: var(--texto-suave); margin-top: 1rem;">
+  <strong>Qué ves:</strong> Los movimientos X e Y ocurren en paralelo. El elevador espera mientras se pica. El retorno ocurre con solapamiento.
+  El ciclo total es 1,5 segundos, que coincide exactamente con tu meta. Sin margen: cualquier parada agrega tiempo.
+</p>
 
-<h2>Ejercicios</h2>
+<h2>Ejercicio</h2>
 <ul>
-  <li><strong>CAD:</strong> generar el plano de una pieza propia, con las vistas necesarias, un corte, cotas completas y cajetín.</li>
-  <li><strong>GRAFCET:</strong> modelar la secuencia mínima de arriba en grafcet.io o GRAFCET Master, y simularla paso a paso.</li>
+  <li>Calcular la memoria de cálculo del tiempo de ciclo con meta, OEE, y resultado.</li>
+  <li>Armar un cronograma preliminar de actuadores para visualizar el ciclo.</li>
 </ul>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir el <strong>GRAFCET del ciclo de la celda</strong>, con etapas, acciones
-    y receptividades identificadas. Junto con él, la lista de señales de entrada
-    que la secuencia necesita: qué sensor informa qué cosa.
+    Subir la <strong>memoria de cálculo del tiempo de ciclo</strong>: meta
+    asignada, OEE objetivo con su justificación, tiempo disponible, tiempo por
+    caja y tiempo por pick. Planilla o documento, pero con la cuenta a la vista,
+    no solo el resultado.
   </p>
-  <p>
-    Esa lista condiciona directamente la clase de posicionamiento
-    (<a href="../clase-08/">clase 08</a>): si el GRAFCET pide conocer la
-    <em>orientación</em> del producto y no solo su presencia, hace falta visión.
-  </p>
+  <p>Este es el punto 2 del informe técnico.</p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="https://www.grafcet.io/">grafcet.io</a> — editor online gratuito.</li>
-  <li><strong>GRAFCET Master</strong> — editor y simulador en navegador.</li>
-  <li>Norma <strong>IEC 60848</strong> — especificación de GRAFCET.</li>
+  <li><a href="../../proyecto.html">Estructura del informe técnico</a> — ver punto 2.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -155,8 +450,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-03/"><span>Clase anterior</span><strong>03 · Ensamblajes CAD · OEE y tiempo de ciclo</strong></a>
-  <a class="siguiente" href="../clase-05/"><span>Clase siguiente</span><strong>05 · Selección del robot</strong></a>
+  <a class="anterior" href="../clase-03/"><span>Clase anterior</span><strong>03 · Modelado CAD de piezas · Teoría y primeros pasos</strong></a>
+  <a class="siguiente" href="../clase-05/"><span>Clase siguiente</span><strong>05 · Ensamblajes CAD y relaciones de posición</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>

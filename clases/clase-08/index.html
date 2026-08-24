@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 08 · Posicionamiento del producto en la cinta — Robótica Industrial UNAB</title>
-<meta name="description" content="Guías mecánicas, sensores de presencia y visión artificial: tres niveles de complejidad y de costo.">
+<title>Clase 08 · Taller de planos y GRAFCET — Robótica Industrial UNAB</title>
+<meta name="description" content="Práctica: generación de planos desde ensamblajes y elaboración del diagrama de secuencia GRAFCET según IEC 60848.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -33,9 +33,10 @@
 <!-- ENCABEZADO:INICIO -->
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 08</p>
-    <p class="clase__numero">Clase 08 · Unidad 2 · Selección y diseño de la celda</p>
-    <h1>Posicionamiento del producto en la cinta</h1>
+    <p class="clase__numero">Clase 08 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Taller de planos y GRAFCET</h1>
     <div class="clase__meta">
+      <span>Encuentro presencial</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,131 +45,96 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Distinguir presencia, posición y orientación como problemas diferentes.</li>
-  <li>Conocer las tres estrategias de posicionamiento y su relación costo-complejidad.</li>
-  <li>Elegir la estrategia más simple que resuelva el caso asignado.</li>
+  <li>Distinguir un cronograma de actuadores de un GRAFCET.</li>
+  <li>Representar la secuencia funcional de la celda según IEC 60848.</li>
+  <li>Modelar y simular el ciclo completo en un editor GRAFCET.</li>
+  <li>Identificar todas las señales de entrada y salida del proceso.</li>
 </ul>
 
-<h2>El problema</h2>
+<h2>Cronograma de actuadores</h2>
 <p>
-  Un robot ejecuta coordenadas. Para que agarre algo, ese algo tiene que estar
-  donde el programa espera que esté. El producto que viene por la cinta, en
-  cambio, llega donde quiere.
+  Es la forma más simple de representar una secuencia: una línea por actuador y
+  el tiempo en el eje horizontal, mostrando cuándo avanza y cuándo retrocede cada
+  uno. Sirve para ver el solapamiento de movimientos y estimar el tiempo total
+  del ciclo, pero <strong>no representa condiciones ni decisiones</strong>.
 </p>
+
+<h2>GRAFCET · Norma IEC 60848</h2>
+
+<h3>Qué es y para qué sirve</h3>
+<p>
+  GRAFCET es el estándar para especificar lógica secuencial de procesos
+  automatizados. Obliga a declarar <strong>qué sensor autoriza cada
+  movimiento</strong>, en lugar de dejar vago un paso.
+</p>
+
+<h3>Sus elementos</h3>
+<ul>
+  <li><strong>Etapas:</strong> estados del sistema. Una etapa está activa o no lo está.</li>
+  <li><strong>Acciones:</strong> lo que se hace mientras la etapa está activa.</li>
+  <li><strong>Transiciones:</strong> el paso de una etapa a la siguiente.</li>
+  <li><strong>Receptividades:</strong> la condición lógica que habilita cada transición, típicamente una señal de sensor.</li>
+</ul>
+
+<h3>Divergencias</h3>
+<p>
+  Además permite representar:
+</p>
+<ul>
+  <li>
+    <strong>Divergencia OR:</strong> elegir entre caminos alternativos —caja
+    conforme o rechazo, por ejemplo.
+  </li>
+  <li>
+    <strong>Divergencia AND:</strong> procesos simultáneos, como el robot
+    tomando la siguiente unidad mientras la cinta indexa.
+  </li>
+</ul>
 
 <div class="caja caja--nota">
-  <div class="caja__titulo">Tres preguntas distintas</div>
-  <ul>
-    <li><strong>¿Hay un producto?</strong> — presencia.</li>
-    <li><strong>¿Dónde está exactamente?</strong> — posición.</li>
-    <li><strong>¿Cómo está apoyado y hacia dónde mira?</strong> — orientación.</li>
-  </ul>
+  <div class="caja__titulo">Por qué GRAFCET y no una lista de pasos</div>
   <p>
-    Cada pregunta adicional sube el costo de la solución. La pregunta de diseño
-    es cuáles de las tres necesita realmente su celda, y esa respuesta ya está en
-    el GRAFCET de la <a href="../clase-04/">clase 04</a>.
+    Porque obliga a declarar <strong>qué sensor autoriza cada movimiento</strong>.
+    «El robot baja y agarra» esconde la pregunta importante: ¿cómo sabe la celda
+    que hay un producto ahí y que está en posición? El GRAFCET no deja escapar
+    esa pregunta.
   </p>
 </div>
 
-<h2>Las tres estrategias, de menor a mayor complejidad</h2>
+<h3>La secuencia mínima del proyecto</h3>
+<p>Como punto de partida, todo grupo va a tener que representar al menos:</p>
+<ol>
+  <li>Espera de producto en posición de toma, con su condición de sensor.</li>
+  <li>Aproximación y descenso del robot.</li>
+  <li>Activación del gripper y confirmación de agarre.</li>
+  <li>Traslado a la caja y posicionamiento según el patrón de encajado.</li>
+  <li>Liberación y retorno a posición de espera.</li>
+  <li>Conteo de unidades y, al completarse la caja, evacuación e ingreso de caja vacía.</li>
+</ol>
 
-<h3>1 · Guías mecánicas pasivas</h3>
-<p>
-  Rieles, topes, embudos y estrellas de indexado montados sobre la cinta, que
-  obligan al producto a acomodarse solo. Sin electrónica, sin señales, sin
-  programación.
-</p>
+<h2>Ejercicio: GRAFCET y Cronograma</h2>
 <ul>
-  <li><strong>A favor:</strong> la solución más barata y más robusta; no falla por software y casi no se mantiene.</li>
-  <li><strong>En contra:</strong> es rígida —cambiar de formato implica reajustar o cambiar las guías— y puede trabar o marcar productos delicados.</li>
+  <li>Modelar la secuencia mínima de arriba en grafcet.io o GRAFCET Master, y simularla paso a paso.</li>
+  <li>Generar un cronograma de actuadores a partir de la simulación.</li>
+  <li>Identificar todas las señales de entrada (sensores) y salida (actuadores).</li>
 </ul>
-
-<div class="caja caja--nota">
-  <div class="caja__titulo">Empezar por acá siempre</div>
-  <p>
-    Si una guía de chapa resuelve el posicionamiento, no hace falta una cámara.
-    Muchos proyectos de alumnos van directo a visión artificial cuando el
-    problema se resolvía con dos topes. Ese salto injustificado es exactamente lo
-    que se va a cuestionar en la defensa.
-  </p>
-</div>
-
-<h3>2 · Sensores de presencia</h3>
-<p>
-  Fotocélulas, sensores de proximidad, barreras. Informan que hay producto y
-  disparan la secuencia, pero <strong>no dicen dónde está</strong>: se combinan
-  con una guía mecánica que garantiza la posición y con un tope o un paro de la
-  cinta que fija el instante de la toma.
-</p>
-<ul>
-  <li><strong>Aportan:</strong> sincronización entre la cinta y el robot, conteo de unidades, detección de faltantes.</li>
-  <li><strong>Requieren:</strong> elegir el tipo adecuado —barrera, réflex, difuso— según material, brillo y transparencia del envase. Un envase transparente hace fallar a un sensor mal elegido.</li>
-</ul>
-
-<h3>3 · Visión artificial</h3>
-<p>
-  Una cámara detecta la posición y la orientación del producto y corrige las
-  coordenadas del robot en tiempo real. Es la única solución cuando el producto
-  llega desordenado y no se lo puede ordenar mecánicamente.
-</p>
-<p>Introducción conceptual a lo que implica:</p>
-<ul>
-  <li>
-    <strong>Iluminación:</strong> es más determinante que la cámara. Una
-    iluminación mal resuelta arruina cualquier algoritmo; por eso se usa
-    iluminación propia y controlada, no la luz del galpón.
-  </li>
-  <li>
-    <strong>Calibración:</strong> traducir píxeles a milímetros en el sistema de
-    coordenadas del robot. Sin eso la cámara no sirve de nada.
-  </li>
-  <li>
-    <strong>Seguimiento de cinta:</strong> si el producto no se detiene, hace
-    falta un encoder en la cinta para que el robot sepa dónde estará el producto
-    en el instante de la toma.
-  </li>
-  <li>
-    <strong>Tiempo de proceso:</strong> la detección consume parte del tiempo de
-    ciclo. Entra en el cálculo de la <a href="../clase-03/">clase 03</a>.
-  </li>
-</ul>
-
-<div class="caja caja--aviso">
-  <div class="caja__titulo">Costo real de la visión</div>
-  <p>
-    No es solo la cámara: es iluminación, montaje, calibración, integración con
-    el robot, tiempo de puesta en marcha y alguien que sepa mantenerla. Si se
-    elige visión, hay que justificar por qué las dos opciones anteriores no
-    alcanzaban.
-  </p>
-</div>
-
-<h2>Práctica</h2>
-<p>
-  Cada grupo revisa su GRAFCET y responde, para su producto: ¿alcanza con
-  presencia? ¿Hace falta posición? ¿Y orientación? Sobre esa base propone la
-  estrategia y arma el esquema de la zona de toma con las guías, sensores o
-  cámara que correspondan.
-</p>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir la <strong>definición del sistema de posicionamiento</strong>: qué se
-    necesita saber del producto, qué estrategia se eligió, qué componentes la
-    implementan y por qué se descartaron los otros dos niveles.
+    Subir el <strong>GRAFCET del ciclo de la celda</strong>, con etapas, acciones
+    y receptividades identificadas. Junto con él, la lista de señales de entrada
+    que la secuencia necesita: qué sensor informa qué cosa.
   </p>
-  <p>
-    Con esto ya están todos los elementos de la celda definidos. La próxima clase
-    es el layout y la entrega intermedia: lleguen con el material al día.
-  </p>
+  <p>Incluir también el cronograma de actuadores derivado de la simulación.</p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="../clase-04/">Clase 04</a> — el GRAFCET y su lista de señales.</li>
-  <li>Catálogos de sensores industriales de los fabricantes vistos en <a href="../../recursos.html">recursos</a>.</li>
+  <li><a href="https://www.grafcet.io/">grafcet.io</a> — editor online gratuito.</li>
+  <li><strong>GRAFCET Master</strong> — editor y simulador en navegador.</li>
+  <li>Norma <strong>IEC 60848</strong> — especificación de GRAFCET.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -176,8 +142,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-07/"><span>Clase anterior</span><strong>07 · Acople al robot y neumática aplicada</strong></a>
-  <a class="siguiente" href="../clase-09/"><span>Clase siguiente</span><strong>09 · Layout de la celda · Entrega intermedia</strong></a>
+  <a class="anterior" href="../clase-07/"><span>Clase anterior</span><strong>07 · Planos en CAD y documentación técnica</strong></a>
+  <a class="siguiente" href="../clase-09/"><span>Clase siguiente</span><strong>09 · Selección del robot · Teoría y criterios</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>

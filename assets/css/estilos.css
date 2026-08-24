@@ -574,3 +574,6 @@ th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: 
   .conplano { grid-template-columns: 1fr; }
   .conplano__figura { position: static; }
 }
+
+/* Ocultar elementos visualmente sin afectar el flujo */
+.oculto { display: none; }

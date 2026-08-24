@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 06 · Diseño del gripper — Robótica Industrial UNAB</title>
-<meta name="description" content="Ventosa de vacío, pinza mecánica o gripper magnético, con memoria de cálculo propia de la fuerza de sujeción.">
+<title>Clase 06 · Taller de ensamblajes y análisis — Robótica Industrial UNAB</title>
+<meta name="description" content="Práctica: creación de ensamblajes en OnShape y validación de todos los componentes del producto.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -33,9 +33,10 @@
 <!-- ENCABEZADO:INICIO -->
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 06</p>
-    <p class="clase__numero">Clase 06 · Unidad 2 · Selección y diseño de la celda</p>
-    <h1>Diseño del gripper</h1>
+    <p class="clase__numero">Clase 06 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Taller de ensamblajes y análisis</h1>
     <div class="clase__meta">
+      <span>Encuentro presencial</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,148 +45,110 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Conocer las tecnologías de agarre disponibles y sus condiciones de uso.</li>
-  <li>Elegir una tecnología a partir de las características del producto asignado.</li>
-  <li>Construir una herramienta de cálculo propia para justificar la fuerza de sujeción.</li>
+  <li>Generar un plano técnico a partir de un modelo 3D: vistas, cotas y cortes.</li>
+  <li>Distinguir un cronograma de actuadores de un GRAFCET.</li>
+  <li>Representar la secuencia funcional de la celda según IEC 60848.</li>
 </ul>
+
+<h2>Bloque A · Planos y planimetría</h2>
+
+<h3>Del 3D al papel</h3>
+<p>
+  El plano no es una foto del modelo: es el documento con el que alguien
+  <strong>fabrica</strong> la pieza. Tiene que ser suficiente y no ambiguo.
+</p>
+<ul>
+  <li><strong>Vistas:</strong> las mínimas necesarias para definir la pieza, no todas las posibles.</li>
+  <li><strong>Cortes:</strong> para mostrar geometría interna —alojamientos, agujeros ciegos, roscas—.</li>
+  <li><strong>Cotas:</strong> cada medida se acota <em>una sola vez</em>, desde una referencia funcional.</li>
+  <li><strong>Escala y formato:</strong> normalizados; la escala se declara en el cajetín.</li>
+  <li><strong>Cajetín:</strong> identifica la pieza, el material, la escala, el autor y la revisión. Se ve en detalle en la <a href="../clase-12/">clase 12</a>.</li>
+</ul>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Regla práctica de acotado</div>
+  <p>
+    Acotá desde donde se mide en el taller, no desde donde resulta cómodo
+    dibujar. Si una cota depende de otras tres para poder verificarse, el plano
+    está mal acotado aunque el dibujo esté perfecto.
+  </p>
+</div>
+
+<h2>Bloque B · Secuencia funcional</h2>
+
+<h3>Cronograma de actuadores</h3>
+<p>
+  Es la forma más simple de representar una secuencia: una línea por actuador y
+  el tiempo en el eje horizontal, mostrando cuándo avanza y cuándo retrocede cada
+  uno. Sirve para ver el solapamiento de movimientos y estimar el tiempo total
+  del ciclo, pero <strong>no representa condiciones ni decisiones</strong>.
+</p>
+
+<h3>GRAFCET</h3>
+<p>
+  GRAFCET (norma <strong>IEC 60848</strong>) es el estándar para especificar
+  lógica secuencial de procesos automatizados. Sus elementos:
+</p>
+<ul>
+  <li><strong>Etapas:</strong> estados del sistema. Una etapa está activa o no lo está.</li>
+  <li><strong>Acciones:</strong> lo que se hace mientras la etapa está activa.</li>
+  <li><strong>Transiciones:</strong> el paso de una etapa a la siguiente.</li>
+  <li><strong>Receptividades:</strong> la condición lógica que habilita cada transición, típicamente una señal de sensor.</li>
+</ul>
+<p>
+  Además permite representar <strong>divergencias</strong>: en OR, para elegir
+  entre caminos alternativos —caja conforme o rechazo—, y en AND, para procesos
+  simultáneos, como el robot tomando la siguiente unidad mientras la cinta
+  indexa.
+</p>
 
 <div class="caja caja--nota">
-  <div class="caja__titulo">Libertad total de tecnología</div>
+  <div class="caja__titulo">Por qué GRAFCET y no una lista de pasos</div>
   <p>
-    No hay una solución impuesta. Ventosa de vacío, pinza mecánica de dedos,
-    gripper magnético o una combinación: lo que decide es la justificación
-    técnica frente al producto asignado.
+    Porque obliga a declarar <strong>qué sensor autoriza cada movimiento</strong>.
+    «El robot baja y agarra» esconde la pregunta importante: ¿cómo sabe la celda
+    que hay un producto ahí y que está en posición? El GRAFCET no deja escapar
+    esa pregunta.
   </p>
 </div>
 
-<h2>Tecnologías de agarre</h2>
-
-<h3>Ventosa de vacío</h3>
-<p>
-  Es la opción dominante en empaque. Rápida, liviana, barata y con muy poca
-  intrusión sobre el producto.
-</p>
-<ul>
-  <li><strong>Necesita:</strong> superficie lisa, continua y no porosa, y un área de apoyo suficiente.</li>
-  <li><strong>Falla con:</strong> materiales porosos, superficies muy curvas o irregulares, films flojos que se deforman al aspirar, productos con polvo o humedad superficial.</li>
-  <li><strong>Variantes:</strong> plana, con fuelle para compensar diferencias de altura, de silicona o de goma según compatibilidad alimentaria.</li>
-</ul>
-
-<h3>Pinza mecánica de dedos</h3>
-<p>
-  Dos o tres dedos que cierran sobre el producto, con accionamiento neumático o
-  eléctrico.
-</p>
-<ul>
-  <li><strong>Sirve para:</strong> productos rígidos, cilíndricos, con forma irregular o sin cara plana disponible.</li>
-  <li><strong>Cuidados:</strong> el producto debe soportar la fuerza de cierre; en envases flexibles hay riesgo de deformación o de marca.</li>
-  <li><strong>Ventaja:</strong> el agarre no depende de la calidad de la superficie.</li>
-</ul>
-
-<h3>Gripper magnético</h3>
-<p>
-  Solo para materiales ferromagnéticos: latas, tapas metálicas, piezas de acero.
-  Muy simple y robusto, pero con un problema típico —el desprendimiento
-  controlado— que hay que resolver con expulsor.
-</p>
-
-<h3>Soluciones híbridas y multipick</h3>
-<p>
-  Nada impide combinar tecnologías, ni tomar varias unidades por ciclo. El
-  <strong>multipick</strong> es la palanca más fuerte para cumplir un tiempo de
-  ciclo exigente: si el gripper toma cuatro unidades a la vez, el tiempo por pick
-  se divide por cuatro. El costo es más peso en la brida y un layout de toma más
-  complejo.
-</p>
-
-<h2>Memoria de cálculo del gripper</h2>
-<div class="caja caja--aviso">
-  <div class="caja__titulo">Acá no hay fórmula para copiar</div>
-  <p>
-    Cada grupo arma su <strong>propia herramienta de cálculo</strong> —una
-    planilla— para justificar la fuerza de sujeción. La idea es que entiendan la
-    lógica y puedan reutilizar esa herramienta en cualquier otro proyecto, no que
-    reemplacen números en una fórmula cerrada.
-  </p>
-</div>
-
-<h3>Las preguntas que la herramienta tiene que responder</h3>
+<h3>La secuencia mínima del proyecto</h3>
+<p>Como punto de partida, todo grupo va a tener que representar al menos:</p>
 <ol>
-  <li>
-    <strong>¿Cuánto pesa lo que sostengo?</strong> El producto, más lo que el
-    gripper agarra junto con él.
-  </li>
-  <li>
-    <strong>¿Con qué aceleración lo muevo?</strong> Este es el punto que más se
-    subestima. En reposo hay que vencer el peso; en un ciclo rápido, la
-    aceleración del robot puede multiplicar varias veces la fuerza necesaria. Un
-    delta acelerando fuerte exige mucho más que el peso estático del producto.
-  </li>
-  <li>
-    <strong>¿En qué dirección actúa la fuerza?</strong> No es lo mismo sostener
-    en vertical —la fuerza se opone directamente al peso— que sostener en
-    lateral, donde el producto se sostiene por rozamiento y el coeficiente de
-    fricción entra en juego.
-  </li>
-  <li>
-    <strong>¿Qué margen de seguridad tomo?</strong> Y sobre todo: por qué ese
-    valor. Producto frágil, superficie sucia, vacío que puede caer, dispersión de
-    la fricción: cada uno justifica más o menos margen.
-  </li>
-  <li>
-    <strong>¿Qué pasa si falla el suministro?</strong> Si se corta el aire o la
-    energía en pleno traslado, ¿el producto cae? La respuesta puede obligar a un
-    elemento de retención o a una válvula de seguridad.
-  </li>
+  <li>Espera de producto en posición de toma, con su condición de sensor.</li>
+  <li>Aproximación y descenso del robot.</li>
+  <li>Activación del gripper y confirmación de agarre.</li>
+  <li>Traslado a la caja y posicionamiento según el patrón de encajado.</li>
+  <li>Liberación y retorno a posición de espera.</li>
+  <li>Conteo de unidades y, al completarse la caja, evacuación e ingreso de caja vacía.</li>
 </ol>
 
-<div class="caja caja--nota">
-  <div class="caja__titulo">La aceleración es el dato oculto</div>
-  <p>
-    Un producto de 200 g sostenido con la fuerza justa para 200 g se cae apenas
-    el robot arranca. La fuerza de sujeción se dimensiona para la condición más
-    exigente del ciclo, no para el producto en reposo sobre la mesa.
-  </p>
-</div>
-
-<h3>Y además, el gripper es una pieza que hay que diseñar</h3>
-<p>
-  El elemento comercial —ventosa, pinza— se compra; el <strong>cuerpo que lo
-  vincula al robot</strong> lo diseña el grupo. Esa pieza va a CAD, a planos de
-  fabricación y al BOM. Consideren desde ahora:
-</p>
+<h2>Ejercicios</h2>
 <ul>
-  <li>Peso propio: cada gramo se descuenta de la carga útil del robot.</li>
-  <li>Rigidez: si flexa, se pierde repetibilidad.</li>
-  <li>Regulación: ¿se puede ajustar la posición de las ventosas si cambia el formato?</li>
-  <li>Accesibilidad: cambiar una ventosa gastada no debería requerir desarmar el conjunto. Se retoma en la <a href="../clase-15/">clase 15</a>.</li>
+  <li><strong>CAD:</strong> generar el plano de una pieza propia, con las vistas necesarias, un corte, cotas completas y cajetín.</li>
+  <li><strong>GRAFCET:</strong> modelar la secuencia mínima de arriba en grafcet.io o GRAFCET Master, y simularla paso a paso.</li>
 </ul>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir dos cosas:
+    Subir el <strong>GRAFCET del ciclo de la celda</strong>, con etapas, acciones
+    y receptividades identificadas. Junto con él, la lista de señales de entrada
+    que la secuencia necesita: qué sensor informa qué cosa.
   </p>
-  <ol>
-    <li>
-      La <strong>herramienta de cálculo</strong> del gripper —planilla— con la
-      tecnología elegida, los datos de entrada, los supuestos declarados y el
-      resultado de fuerza necesaria.
-    </li>
-    <li>
-      El <strong>modelo CAD preliminar</strong> del gripper, con el componente
-      comercial importado y el cuerpo de vinculación diseñado por el grupo.
-    </li>
-  </ol>
-  <p>Sumar al árbol de ramas las tecnologías de agarre que descartaron y por qué.</p>
+  <p>
+    Esa lista condiciona directamente la clase de posicionamiento
+    (<a href="../clase-08/">clase 08</a>): si el GRAFCET pide conocer la
+    <em>orientación</em> del producto y no solo su presencia, hace falta visión.
+  </p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="https://www.schmalz.com/">Schmalz</a> — tecnología de vacío y criterios de selección de ventosas.</li>
-  <li><a href="https://www.festo.com/">FESTO</a> — pinzas neumáticas y eléctricas.</li>
-  <li><a href="../clase-02/">Clase 02</a> — ficha de relevamiento del producto.</li>
+  <li><a href="https://www.grafcet.io/">grafcet.io</a> — editor online gratuito.</li>
+  <li><strong>GRAFCET Master</strong> — editor y simulador en navegador.</li>
+  <li>Norma <strong>IEC 60848</strong> — especificación de GRAFCET.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -193,8 +156,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-05/"><span>Clase anterior</span><strong>05 · Selección del robot</strong></a>
-  <a class="siguiente" href="../clase-07/"><span>Clase siguiente</span><strong>07 · Acople al robot y neumática aplicada</strong></a>
+  <a class="anterior" href="../clase-05/"><span>Clase anterior</span><strong>05 · Ensamblajes CAD y relaciones de posición</strong></a>
+  <a class="siguiente" href="../clase-07/"><span>Clase siguiente</span><strong>07 · Planos en CAD y documentación técnica</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>

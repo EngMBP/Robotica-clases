@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 05 · Selección del robot — Robótica Industrial UNAB</title>
-<meta name="description" content="SCARA, delta, antropomorfo y cartesiano. Tabla comparativa y lectura de hojas de datos reales.">
+<title>Clase 05 · Ensamblajes CAD y relaciones de posición — Robótica Industrial UNAB</title>
+<meta name="description" content="Teoría de ensamblajes: relaciones de posición, importación de componentes comerciales y simulación de movimientos.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -33,9 +33,10 @@
 <!-- ENCABEZADO:INICIO -->
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 05</p>
-    <p class="clase__numero">Clase 05 · Unidad 2 · Selección y diseño de la celda</p>
-    <h1>Selección del robot</h1>
+    <p class="clase__numero">Clase 05 · Unidad 1 · Herramientas de diseño y análisis de proceso</p>
+    <h1>Ensamblajes CAD y relaciones de posición</h1>
     <div class="clase__meta">
+      <span>Encuentro virtual sincrónico</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,143 +45,110 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Reconocer las cuatro configuraciones de robot habituales en pick and place y su nicho de aplicación.</li>
-  <li>Leer una hoja de datos de robot e identificar qué parámetros son restrictivos.</li>
-  <li>Construir una tabla comparativa con criterios explícitos.</li>
-  <li>Cruzar el tiempo de ciclo calculado en la <a href="../clase-03/">clase 03</a> con candidatos reales.</li>
+  <li>Armar ensamblajes con relaciones de posición entre piezas propias.</li>
+  <li>Importar un componente comercial de catálogo e integrarlo al ensamblaje.</li>
+  <li>Entender la importancia de dejar vivos los grados de libertad que importan.</li>
+  <li>Gestionar la información de componentes comerciales (marca, modelo, código).</li>
 </ul>
 
-<h2>Configuraciones de robot para pick and place</h2>
-
-<h3>SCARA</h3>
+<h2>De piezas sueltas a un conjunto</h2>
 <p>
-  Brazo articulado horizontal con un eje vertical. Rápido y rígido en el plano,
-  con algo de profundidad en Z. Su punto flojo es que casi no maneja
-  orientaciones fuera de la vertical.
+  Un ensamblaje vincula piezas mediante <strong>relaciones de posición</strong>
+  que eliminan grados de libertad. Cada pieza libre en el espacio tiene seis:
+  tres traslaciones y tres rotaciones. Ensamblar es decidir cuáles se eliminan y
+  cuáles se dejan vivas a propósito.
 </p>
-<p><strong>Nicho:</strong> electrónica, empaque liviano, ensamblado vertical.</p>
 
-<h3>Delta o araña</h3>
+<div class="caja caja--nota">
+  <div class="caja__titulo">Los grados de libertad que quedan vivos son el diseño</div>
+  <p>
+    Un vástago de cilindro debe conservar una traslación. Un eje de giro, una
+    rotación. Si el ensamblaje queda todo fijo, no se puede verificar el
+    movimiento ni detectar interferencias.
+  </p>
+</div>
+
+<h2>Componentes comerciales</h2>
 <p>
-  Tres brazos en paralelo desde una base superior. Los motores están fijos en la
-  base, así que las partes móviles pesan muy poco: es la configuración
-  <strong>más rápida</strong> del mercado. A cambio, su carga útil es baja y su
-  volumen de trabajo tiene forma de casquete, no de cubo.
+  Las ventosas, cilindros, perfiles y guías no se modelan: se descargan del
+  fabricante, normalmente en formato <strong>STEP</strong>, y se importan. Dos
+  reglas:
 </p>
-<p><strong>Nicho:</strong> alimenticia y cosmética a alta cadencia, productos livianos.</p>
+<ul>
+  <li>El modelo importado <strong>no se modifica</strong>: representa una pieza que se compra tal cual.</li>
+  <li>Se anota marca, modelo y código exacto, porque va derecho al BOM.</li>
+</ul>
 
-<h3>Antropomorfo de 6 ejes</h3>
-<p>
-  El más versátil: llega a cualquier punto con cualquier orientación. Maneja más
-  carga y más alcance que los anteriores, pero es más lento en ciclos cortos y
-  repetitivos, y ocupa más espacio.
-</p>
-<p><strong>Nicho:</strong> productos pesados, movimientos complejos, reorientación del producto.</p>
-
-<h3>Cartesiano o pórtico</h3>
-<p>
-  Ejes lineales perpendiculares. Escala a recorridos largos sin perder precisión
-  y su volumen de trabajo es un prisma bien aprovechable. Es más lento en
-  cambios de dirección y ocupa toda el área que cubre.
-</p>
-<p><strong>Nicho:</strong> recorridos largos sobre la línea, cargas grandes, líneas de empaque extensas.</p>
-
-<h2>Cómo se lee una hoja de datos</h2>
+<h2>Relaciones de posición típicas</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
-      <tr><th>Parámetro</th><th>Qué mirar de verdad</th></tr>
+      <tr><th>Relación</th><th>Qué fija</th><th>Grados eliminados</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td>Carga útil (payload)</td>
-        <td>Es el total en la brida: producto <strong>más el gripper completo</strong>, con sus mangueras y accesorios. Un gripper suele pesar tanto o más que el producto.</td>
+        <td><strong>Coincidente</strong></td>
+        <td>Dos caras, planos o ejes se superponen.</td>
+        <td>Hasta 3 (perpendicular a la cara)</td>
       </tr>
       <tr>
-        <td>Alcance</td>
-        <td>El máximo es a brazo estirado, donde el robot es más lento y menos preciso. El alcance útil es menor.</td>
+        <td><strong>Paralela</strong></td>
+        <td>Dos caras o planos quedan paralelos sin tocarse.</td>
+        <td>1 (orientación angular)</td>
       </tr>
       <tr>
-        <td>Repetibilidad</td>
-        <td>Dispersión al volver al mismo punto. No es precisión absoluta. Se compara contra la tolerancia del encajado.</td>
+        <td><strong>Perpendicular</strong></td>
+        <td>Dos caras forman 90°.</td>
+        <td>1 (orientación angular)</td>
       </tr>
       <tr>
-        <td>Tiempo de ciclo</td>
-        <td>Los fabricantes lo publican para un ciclo de referencia estándar y con carga nominal. Si el producto o la trayectoria difieren, el número real es peor.</td>
+        <td><strong>Tangente</strong></td>
+        <td>Una esfera o cilindro toca una cara.</td>
+        <td>1 (distancia perpendicular)</td>
       </tr>
       <tr>
-        <td>Momento de inercia admisible</td>
-        <td>Un gripper largo y liviano puede violar el límite de inercia aunque respete el de peso.</td>
-      </tr>
-      <tr>
-        <td>Grado de protección IP</td>
-        <td>Decisivo en alimenticia y farmacéutica: lavado, humedad, polvo.</td>
-      </tr>
-      <tr>
-        <td>Montaje y huella</td>
-        <td>Piso, pared o techo. El delta obliga a un pórtico superior que ocupa altura y complica el acceso.</td>
+        <td><strong>Rígida</strong></td>
+        <td>Fija posición y orientación relativa.</td>
+        <td>6 (todas)</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div class="caja caja--aviso">
-  <div class="caja__titulo">La trampa del payload</div>
-  <p>
-    Elegir un robot cuya carga útil sea apenas mayor al peso del producto es el
-    error más común del proyecto. Sumá el gripper, las mangueras y cualquier
-    pieza de adaptación, y dejá margen. Si después hay que agregar una segunda
-    ventosa, el robot ya no da.
-  </p>
-</div>
-
-<h2>La tabla comparativa</h2>
+<h2>Ensamblaje en el proyecto</h2>
 <p>
-  Cada grupo arma su propia tabla, evaluando candidatos reales contra estos cinco
-  criterios:
+  El conjunto de la celda incluye:
 </p>
-<ol>
-  <li><strong>Velocidad de ciclo</strong> — ¿cumple el tiempo por pick calculado?</li>
-  <li><strong>Alcance de trabajo</strong> — ¿cubre la cinta y la caja sin reubicar nada?</li>
-  <li><strong>Carga útil máxima</strong> — producto más gripper, con margen.</li>
-  <li><strong>Precio relativo</strong> — comparativo entre candidatos, no valor absoluto.</li>
-  <li><strong>Huella en planta</strong> — superficie y altura ocupadas, incluido el vallado.</li>
-</ol>
-
-<div class="caja caja--nota">
-  <div class="caja__titulo">La tabla no decide sola</div>
-  <p>
-    Casi nunca hay un candidato que gane en las cinco columnas. La decisión final
-    es un compromiso, y lo que se evalúa es <strong>cómo se argumenta ese
-    compromiso</strong>: qué criterio pesó más en este caso y por qué.
-  </p>
-</div>
-
-<h2>Práctica</h2>
+<ul>
+  <li><strong>Gripper diseñado:</strong> pieza propia con el mecanismo de sujeción.</li>
+  <li><strong>Componentes comerciales:</strong> robot, cilindros, ventosas, sensores (importados).</li>
+  <li><strong>Estructura:</strong> perfiles, soportes, guías (diseñadas o compradas).</li>
+</ul>
 <p>
-  Con el tiempo por pick de la clase 03 y el peso del producto de la clase 02,
-  cada grupo busca <strong>al menos tres candidatos reales</strong> de fabricantes
-  distintos, descarga sus hojas de datos y completa la tabla comparativa.
+  El ensamblaje muestra cómo encajan todos, y permite verificar que no hay
+  interferencias ni conflictos de espacio antes de fabricar nada.
 </p>
+
+<h2>Ejercicio de CAD</h2>
+<ul>
+  <li>Ensamblar dos o tres piezas diseñadas por ustedes con relaciones de posición, dejando vivo al menos un grado de libertad.</li>
+  <li>Importar un componente comercial de catálogo —una ventosa o un cilindro neumático— e integrarlo al ensamblaje.</li>
+  <li>Anotar marca, modelo y código del componente importado.</li>
+</ul>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir la <strong>selección del robot justificada</strong>: tabla comparativa
-    con los tres candidatos, hojas de datos citadas con marca, modelo y revisión,
-    y el argumento de la elección final.
-  </p>
-  <p>
-    Incluir también los <strong>descartes</strong>: por qué los otros dos no. Es
-    material directo del árbol de ramas, punto 4 del informe.
+    Subir el <strong>ensamblaje preliminar</strong> del gripper: piezas propias
+    con relaciones de posición + componentes comerciales importados. Enlace al
+    documento de OnShape.
   </p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="../../recursos.html">Fabricantes de robots</a> — KUKA, ABB, FANUC, Yaskawa, Universal Robots.</li>
-  <li><a href="../clase-03/">Clase 03</a> — tiempo de ciclo requerido.</li>
+  <li><a href="../../recursos.html">Catálogos de FESTO, SMC y Schmalz</a> para descargar modelos STEP.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -188,8 +156,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-04/"><span>Clase anterior</span><strong>04 · Planos en CAD · Secuencia funcional y GRAFCET</strong></a>
-  <a class="siguiente" href="../clase-06/"><span>Clase siguiente</span><strong>06 · Diseño del gripper</strong></a>
+  <a class="anterior" href="../clase-04/"><span>Clase anterior</span><strong>04 · Métricas de Producción: OEE y Ciclos</strong></a>
+  <a class="siguiente" href="../clase-06/"><span>Clase siguiente</span><strong>06 · Taller de ensamblajes y análisis</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>

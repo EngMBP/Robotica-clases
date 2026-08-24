@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 15 · Mantenimiento y accesibilidad del diseño — Robótica Industrial UNAB</title>
-<meta name="description" content="Preventivo vs. correctivo, desgaste de componentes, plan de repuestos y tiempo de cambio de formato.">
+<title>Clase 15 · Posicionamiento del producto y sensores — Robótica Industrial UNAB</title>
+<meta name="description" content="Normas de seguridad ISO 10218-2. Vallado, distancias, cortinas de luz. Análisis de riesgo y parada de emergencia.">
 <link rel="stylesheet" href="../../assets/css/estilos.css">
 </head>
 <body>
@@ -33,9 +33,10 @@
 <!-- ENCABEZADO:INICIO -->
   <header class="clase__cabecera">
     <p class="clase__migas"><a href="../../index.html">Clases</a> / Clase 15</p>
-    <p class="clase__numero">Clase 15 · Unidad 4 · Integración, calidad y cierre</p>
-    <h1>Mantenimiento y accesibilidad del diseño</h1>
+    <p class="clase__numero">Clase 15 · Unidad 2 · Selección y diseño de la celda</p>
+    <h1>Seguridad en celdas robotizadas</h1>
     <div class="clase__meta">
+      <span>Encuentro virtual sincrónico</span>
       <span class="etiqueta">Pendiente</span>
     </div>
   </header>
@@ -44,144 +45,172 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Distinguir mantenimiento preventivo de correctivo y entender por qué importa en una celda.</li>
-  <li>Evaluar el propio diseño desde la accesibilidad.</li>
-  <li>Estimar el tiempo de cambio de formato y prever un plan de repuestos.</li>
+  <li>Distinguir seguridad activa de seguridad pasiva.</li>
+  <li>Conocer las normas ISO que aplican a una celda robotizada y saber cuál usa el integrador.</li>
+  <li>Entender de qué depende una distancia de seguridad.</li>
+  <li>Definir el esquema de protección de la celda del proyecto.</li>
 </ul>
-
-<h2>Preventivo contra correctivo</h2>
-<p>
-  <strong>Correctivo</strong> es arreglar cuando se rompió. <strong>Preventivo</strong>
-  es intervenir antes, en un momento planificado.
-</p>
 
 <div class="caja caja--nota">
-  <div class="caja__titulo">Por qué el preventivo es crítico acá</div>
+  <div class="caja__titulo">Por qué esta clase es distinta</div>
   <p>
-    Una celda automatizada es un punto único de paso: si se detiene, se detiene
-    toda la línea aguas arriba. Una parada no planificada de veinte minutos en
-    fin de línea puede costar más que un año de mantenimiento preventivo. Además
-    destruye el OEE que declararon en la clase 03: la disponibilidad es
-    exactamente esto.
+    Todo lo anterior era optimización: hacerlo más rápido, más barato, más
+    prolijo. Esto no. Una celda robotizada mal protegida lastima gente. Es el
+    único capítulo del proyecto donde la respuesta correcta no es «depende».
   </p>
 </div>
 
-<h2>Accesibilidad de diseño</h2>
-<p>
-  Esta es la parte que conecta directo con el CAD, y donde muchos proyectos
-  fallan sin darse cuenta. La pregunta es simple:
-</p>
-<blockquote>
-  ¿Un técnico puede cambiar una ventosa o un cilindro sin desarmar media celda?
-</blockquote>
+<h2>Seguridad pasiva y activa</h2>
 
-<h3>Preguntas para auditar el propio diseño</h3>
-<ul>
-  <li>Para cambiar una ventosa gastada, ¿hay que sacar el gripper del robot?</li>
-  <li>¿Se puede acceder a los tornillos con una herramienta común, o el espacio no permite entrar con la llave?</li>
-  <li>¿Los sensores quedan visibles y alcanzables para limpiarlos y realinearlos?</li>
-  <li>¿La unidad de mantenimiento neumática y el tablero están fuera de la zona de riesgo, accesibles sin abrir la celda?</li>
-  <li>¿Hay que entrar al vallado para tareas de rutina? Si sí, ¿cómo se enclava esa puerta?</li>
-  <li>Si hay que retirar el robot, ¿hay espacio para hacerlo?</li>
-</ul>
+<h3>Pasiva: la barrera física</h3>
+<p>
+  Vallado perimetral fijo, paneles, mallas. Impide el acceso por medios
+  mecánicos. Es simple, barata y no falla por software, pero también es rígida:
+  entorpece el acceso para mantenimiento y ocupa lugar.
+</p>
+
+<h3>Activa: la detección</h3>
+<p>
+  <strong>Cortinas de luz</strong> y <strong>escáneres láser de área</strong>
+  detectan la intrusión y detienen el robot. Permiten accesos frecuentes sin
+  abrir puertas y liberan espacio, pero son más caras, requieren cálculo de
+  distancias y hay que mantenerlas —una cortina sucia o desalineada da falsos
+  paros—.
+</p>
+
+<h3>Enclavamiento de puertas</h3>
+<p>
+  Toda puerta de acceso a la celda lleva un interruptor de seguridad: si se abre,
+  el robot se detiene. En instalaciones donde el robot tarda en frenar se usa
+  además <strong>bloqueo</strong>, que impide abrir hasta que el movimiento haya
+  cesado.
+</p>
 
 <div class="caja caja--aviso">
-  <div class="caja__titulo">Un diseño impecable e inmantenible es un mal diseño</div>
+  <div class="caja__titulo">El agujero por donde pasa la cinta</div>
   <p>
-    Compactar la celda al máximo suele verse muy bien en el layout y muy mal en
-    planta. Dejar espacio de acceso no es desperdiciar superficie: es una
-    decisión de diseño que se justifica.
+    El producto tiene que entrar y salir de la celda, así que el vallado tiene
+    aberturas. Ese es el punto débil clásico: la abertura debe dimensionarse para
+    que no pase una persona, o resolverse con protección que distinga producto de
+    persona. Es un problema que casi todos los grupos descubren tarde.
   </p>
 </div>
 
-<h2>Desgaste y plan de repuestos</h2>
+<h2>Parada de emergencia</h2>
+<p>
+  Regida por <strong>ISO 13850</strong>. Puntos que importan al diseñar el layout:
+</p>
+<ul>
+  <li>Tiene que ser <strong>accesible desde donde ocurre el riesgo</strong>: no sirve un solo pulsador en el tablero si el operador trabaja a cinco metros.</li>
+  <li>Debe poder accionarse sin dudar: color y forma normalizados, pulsador tipo hongo.</li>
+  <li>El rearme nunca es automático: liberar el pulsador no debe reiniciar la máquina por sí solo.</li>
+  <li>Es una función complementaria: <strong>no reemplaza</strong> a los resguardos. Una celda no se protege «poniendo un botón de emergencia».</li>
+</ul>
+
+<h2>Distancias de seguridad</h2>
+<p>
+  Es el contenido de <strong>ISO 13855</strong>, y su lógica es la que hay que
+  entender: la distancia mínima entre el dispositivo de detección y la zona
+  peligrosa depende de tres cosas.
+</p>
+<ol>
+  <li>
+    <strong>La velocidad de aproximación</strong> de la parte del cuerpo humano
+    —la norma fija valores de referencia; una mano entra mucho más rápido que un
+    cuerpo caminando—.
+  </li>
+  <li>
+    <strong>El tiempo de respuesta total del sistema</strong>: detección, más
+    procesamiento, más el tiempo que tarda el robot en frenar efectivamente. Ese
+    último dato sale de la documentación del robot.
+  </li>
+  <li>
+    <strong>La resolución del detector</strong>: qué objeto mínimo es capaz de
+    detectar, lo que determina si alguien puede pasar un brazo sin ser visto.
+  </li>
+</ol>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">La consecuencia de diseño</div>
+  <p>
+    Un robot más rápido no solo pide más energía: pide <strong>más metros de
+    distancia de seguridad</strong>, y por lo tanto más superficie de planta. La
+    velocidad que eligieron en la clase 05 se paga en el layout.
+  </p>
+</div>
+
+<h2>Celda cerrada o colaborativa</h2>
 <div class="tabla-scroll">
   <table>
     <thead>
-      <tr><th>Componente</th><th>Modo de desgaste típico</th><th>Consecuencia si falla</th></tr>
+      <tr><th></th><th>Celda cerrada tradicional</th><th>Zona colaborativa</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Ventosas</td>
-        <td>Pérdida de elasticidad, cortes, suciedad acumulada.</td>
-        <td>Caída de producto en pleno traslado. Es el consumible por excelencia.</td>
-      </tr>
-      <tr>
-        <td>Cilindros neumáticos</td>
-        <td>Desgaste de juntas, pérdidas de aire, amortiguación desajustada.</td>
-        <td>Pérdida de fuerza, golpes, ciclo más lento.</td>
-      </tr>
-      <tr>
-        <td>Sensores</td>
-        <td>Suciedad en la óptica, desalineación por vibración.</td>
-        <td>Falsos disparos o falta de detección: la celda se para sola.</td>
-      </tr>
-      <tr>
-        <td>Bandas de transporte</td>
-        <td>Estiramiento, desgaste, desalineación.</td>
-        <td>Producto mal posicionado en la toma.</td>
-      </tr>
-      <tr>
-        <td>Filtros y unidad de aire</td>
-        <td>Saturación, condensado.</td>
-        <td>Caída de presión: el gripper deja de sostener con la fuerza calculada.</td>
-      </tr>
+      <tr><td>Protección</td><td>Vallado y detección perimetral.</td><td>El robot limita fuerza y velocidad; puede compartir espacio.</td></tr>
+      <tr><td>Velocidad</td><td>Máxima del robot.</td><td>Reducida, a veces mucho.</td></tr>
+      <tr><td>Superficie</td><td>Mayor: vallado y distancias.</td><td>Menor.</td></tr>
+      <tr><td>Norma adicional</td><td>—</td><td>ISO/TS 15066.</td></tr>
+      <tr><td>Cuándo conviene</td><td>Cadencia alta, sin interacción humana.</td><td>Cadencia baja y necesidad real de compartir espacio.</td></tr>
     </tbody>
   </table>
 </div>
 
-<p>
-  Con eso se arma el <strong>plan de repuestos</strong>: qué componentes conviene
-  tener en stock, en qué cantidad y con qué frecuencia estimada de reemplazo. El
-  criterio no es el precio de la pieza, sino <strong>cuánto cuesta la parada</strong>
-  que evita. Una ventosa vale poco; una línea detenida esperándola, mucho.
-</p>
-
-<h2>Tiempo de cambio de formato</h2>
-<p>
-  Si la planta procesa más de un producto, cada cambio implica reconfigurar la
-  celda: cambiar o ajustar el gripper, mover guías, cargar otro programa,
-  recalibrar sensores. Ese tiempo es tiempo sin producir y afecta directamente la
-  disponibilidad.
-</p>
-
-<div class="caja caja--nota">
-  <div class="caja__titulo">Acá se cobra la decisión de la clase 07</div>
+<div class="caja caja--aviso">
+  <div class="caja__titulo">Colaborativo no significa sin análisis de riesgo</div>
   <p>
-    Si eligieron cambio rápido de herramienta, este es el momento de mostrar el
-    número que lo justifica: cuántos minutos ahorra por cambio y cuántos cambios
-    hay por semana. Si eligieron conexión fija, hay que mostrar que el formato no
-    cambia lo suficiente como para que importe. Cualquiera de las dos es
-    defendible; lo que no es defendible es no haberlo pensado.
+    Que un robot sea colaborativo no lo vuelve inofensivo: la aplicación completa
+    —con el gripper y el producto— es lo que se evalúa. Un gripper con aristas o
+    un producto punzante convierten a un colaborativo en un riesgo, y hay que
+    justificarlo igual.
   </p>
 </div>
 
-<h2>Práctica</h2>
-<p>
-  Auditoría cruzada: cada grupo revisa el layout y el CAD de otro grupo con la
-  lista de preguntas de accesibilidad y le devuelve observaciones. Es más fácil
-  ver el problema en el diseño ajeno que en el propio.
-</p>
+<h2>Las normas</h2>
+<div class="tabla-scroll">
+  <table>
+    <thead>
+      <tr><th>Norma</th><th>A quién aplica</th><th>Qué cubre</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>ISO 10218-1</strong></td><td>Fabricante del robot</td><td>Requisitos de seguridad del robot como producto.</td></tr>
+      <tr><td><strong>ISO 10218-2</strong></td><td><strong>Integrador</strong></td><td>Seguridad de la celda robotizada completa. <strong>Es la del proyecto.</strong></td></tr>
+      <tr><td><strong>ISO 13855</strong></td><td>Integrador</td><td>Posición de resguardos según velocidad de aproximación.</td></tr>
+      <tr><td><strong>ISO 13850</strong></td><td>Integrador</td><td>Diseño de la parada de emergencia.</td></tr>
+      <tr><td><strong>ISO/TS 15066</strong></td><td>Integrador</td><td>Robots colaborativos. Solo si aplica.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Ustedes son el integrador</div>
+  <p>
+    El robot viene certificado por su fabricante bajo ISO 10218-1. Lo que están
+    diseñando —el conjunto de robot, gripper, cinta, vallado y producto— es una
+    máquina nueva, y su seguridad es responsabilidad de quien la integra. Esa es
+    la 10218-2.
+  </p>
+</div>
 
 <h2>Avance del proyecto</h2>
 <div class="caja caja--tarea">
   <div class="caja__titulo">Para la próxima clase</div>
   <p>
-    Subir el <strong>punto 11 del informe</strong>: plan de mantenimiento
-    preventivo con sus frecuencias, análisis de accesibilidad del diseño con las
-    correcciones aplicadas, plan de repuestos y estimación del tiempo de cambio
-    de formato.
+    Redactar el <strong>capítulo de seguridad</strong> del informe (punto 7):
+    riesgos identificados de la celda, medidas de protección adoptadas para cada
+    uno, tipo de resguardo elegido con su justificación, ubicación y cantidad de
+    paradas de emergencia, y tratamiento de las aberturas de entrada y salida de
+    producto.
   </p>
   <p>
-    La próxima clase es la defensa: el informe completo y los planos tienen que
-    estar cerrados.
+    Actualizar el <strong>layout</strong> con el vallado y las distancias
+    resultantes: es muy probable que la celda haya crecido.
   </p>
 </div>
 
 <h2>Recursos</h2>
 <ul>
-  <li><a href="../clase-07/">Clase 07</a> — cambio rápido de herramienta.</li>
-  <li><a href="../clase-09/">Clase 09</a> — layout y criterios de acceso.</li>
+  <li><a href="../../recursos.html">Listado de normas de la materia</a>.</li>
+  <li>Documentación del robot seleccionado: tiempo y distancia de parada.</li>
 </ul>
 <!-- CONTENIDO:FIN -->
 
@@ -189,8 +218,8 @@
 
 <!-- NAVCLASES:INICIO -->
 <nav class="navclases">
-  <a class="anterior" href="../clase-14/"><span>Clase anterior</span><strong>14 · Equipos secundarios y calidad</strong></a>
-  <a class="siguiente" href="../clase-16/"><span>Clase siguiente</span><strong>16 · Defensa final del proyecto</strong></a>
+  <a class="anterior" href="../clase-14/"><span>Clase anterior</span><strong>14 · Taller de acople y neumática</strong></a>
+  <a class="siguiente" href="../clase-16/"><span>Clase siguiente</span><strong>16 · Diseño para fabricación (DFM)</strong></a>
 </nav>
 <!-- NAVCLASES:FIN -->
 </main>
