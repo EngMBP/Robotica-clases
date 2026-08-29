@@ -45,45 +45,172 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Generar un plano técnico a partir de un modelo 3D: vistas, cotas y cortes.</li>
-  <li>Aplicar tolerancias y ajustes según normativa ISO.</li>
-  <li>Estructurar la información del plano: cajetín, escala, referencias.</li>
-  <li>Entender la diferencia entre un dibujo y un documento fabricable.</li>
+  <li>Entender la naturaleza viva del plano técnico y su vínculo paramétrico con el modelo 3D.</li>
+  <li>Generar vistas ortográficas, cortes y detalles a partir de un modelo 3D.</li>
+  <li>Aplicar cotas funcionales y tolerancias según normativa ISO.</li>
+  <li>Estructurar un plano: cajetín, escala, referencias y anotaciones.</li>
+  <li>Entender la diferencia entre un dibujo artístico y un documento fabricable.</li>
 </ul>
 
-<h2>Del 3D al papel</h2>
+<h2>Concepto base: vínculo vivo con el modelo 3D</h2>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 640 288" role="img" aria-labelledby="plano-vinculo-title plano-vinculo-desc">
+    <title id="plano-vinculo-title">Vínculo vivo entre el modelo 3D y el plano</title>
+    <desc id="plano-vinculo-desc">El modelo 3D es el origen: de él se derivan las vistas, los cortes y las cotas que forman el plano. Una vía de retorno indica que el vínculo es paramétrico, de modo que un cambio en el modelo actualiza el plano sin redibujarlo.</desc>
+    <defs>
+      <marker id="p7-flecha" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto-suave)"/>
+      </marker>
+      <marker id="p7-flecha-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--acento)"/>
+      </marker>
+    </defs>
+
+    <!-- contenedor del plano -->
+    <rect x="288" y="32" width="304" height="200" rx="8"
+          fill="none" stroke="var(--borde)" stroke-width="0.8" stroke-dasharray="4,4"/>
+    <rect x="416" y="36" width="48" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="440" y="45" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.14em">PLANO</text>
+
+    <!-- derivación -->
+    <line x1="176" y1="84"  x2="304" y2="84"  stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#p7-flecha)"/>
+    <line x1="176" y1="140" x2="304" y2="140" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#p7-flecha)"/>
+    <line x1="176" y1="196" x2="304" y2="196" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#p7-flecha)"/>
+    <rect x="204" y="120" width="72" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="240" y="128" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">SE DERIVAN</text>
+
+    <!-- vínculo paramétrico de vuelta -->
+    <path d="M 440 232 V 256 Q 440 264 432 264 H 112 Q 104 264 104 256 V 208"
+          fill="none" stroke="var(--acento)" stroke-width="1.2" stroke-dasharray="5,4"
+          marker-end="url(#p7-flecha-ac)"/>
+    <rect x="236" y="244" width="72" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="272" y="252" fill="var(--acento-texto)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">SE ACTUALIZA</text>
+
+    <!-- modelo 3D: la fuente -->
+    <rect x="32" y="48" width="144" height="160" rx="6" fill="var(--superficie)" stroke="var(--texto)" stroke-width="1"/>
+    <rect x="40" y="56" width="32" height="12" rx="2" fill="none" stroke="var(--borde)" stroke-width="0.8"/>
+    <text x="56" y="65" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">3D</text>
+    <text x="104" y="120" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Modelo 3D</text>
+    <text x="104" y="140" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="middle">el origen</text>
+
+    <!-- contenido derivado -->
+    <rect x="304" y="64" width="272" height="40" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="320" y="88" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)">Vistas</text>
+    <text x="560" y="88" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="end">las mínimas necesarias</text>
+
+    <rect x="304" y="120" width="272" height="40" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="320" y="144" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)">Cortes</text>
+    <text x="560" y="144" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="end">la geometría interna</text>
+
+    <rect x="304" y="176" width="272" height="40" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="320" y="200" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)">Cotas</text>
+    <text x="560" y="200" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="end">una sola vez, funcional</text>
+  </svg>
+  <figcaption>
+    El plano no es un dibujo aparte: es una salida del modelo. Por eso la flecha
+    de vuelta es la que importa — cambiar una cota en el modelo recalcula las
+    vistas, los cortes y el acotado sin redibujar nada.
+  </figcaption>
+</figure>
+
 <p>
-  El plano no es una foto del modelo: es el documento con el que alguien
-  <strong>fabrica</strong> la pieza. Tiene que ser suficiente y no ambiguo.
+  El plano no es un dibujo estático ni una fotografía del modelo: es un <strong>documento paramétrico</strong> que mantiene un vínculo vivo con el modelo 3D. Esto significa que si modificás una medida en el modelo, todas las vistas, cortes y cotas del plano se recalculan automáticamente. Esto es lo que le da al CAD su poder: un cambio temprano en el diseño se propaga a toda la documentación sin necesidad de redibujar nada.
 </p>
-<ul>
-  <li><strong>Vistas:</strong> las mínimas necesarias para definir la pieza, no todas las posibles.</li>
-  <li><strong>Cortes:</strong> para mostrar geometría interna —alojamientos, agujeros ciegos, roscas—.</li>
-  <li><strong>Cotas:</strong> cada medida se acota <em>una sola vez</em>, desde una referencia funcional.</li>
-  <li><strong>Escala y formato:</strong> normalizados; la escala se declara en el cajetín.</li>
-  <li><strong>Cajetín:</strong> identifica la pieza, el material, la escala, el autor y la revisión.</li>
-</ul>
+
+<h2>Del 3D al papel: información esencial</h2>
+
+<p>
+  El plano es el documento con el que alguien <strong>fabrica</strong> la pieza. Tiene que ser suficiente y no ambiguo. Para eso debe contener:
+</p>
+
+<dl style="margin: 1.5rem 0;">
+  <dt><strong>Vistas</strong></dt>
+  <dd>Las mínimas necesarias para definir la pieza, no todas las posibles. Típicamente: frontal, superior, lateral.</dd>
+
+  <dt><strong>Cortes / Secciones</strong></dt>
+  <dd>Para mostrar geometría interna — alojamientos, agujeros ciegos, roscas, cavidades — que no se ven desde fuera.</dd>
+
+  <dt><strong>Cotas</strong></dt>
+  <dd>Cada medida se acota <strong>una sola vez</strong>, desde una referencia funcional (no arbitraria). Las cotas deben permitir fabricar la pieza de forma independiente, sin depender de otras cotas.</dd>
+
+  <dt><strong>Escala y formato</strong></dt>
+  <dd>Normalizados según ISO: A4, A3, A2, A1. La escala se declara en el cajetín.</dd>
+
+  <dt><strong>Cajetín / Rótulo</strong></dt>
+  <dd>Bloque con número de plano, material, escala, autor, fecha, revisión. Identifica la pieza y permite trazabilidad.</dd>
+
+  <dt><strong>Tolerancias y anotaciones</strong></dt>
+  <dd>Valores de tolerancia en puntos funcionales, simbología de acabado superficial, especificaciones de material y tratamiento.</dd>
+</dl>
 
 <div class="caja caja--aviso">
-  <div class="caja__titulo">Regla práctica de acotado</div>
+  <div class="caja__titulo">Regla de oro del acotado</div>
   <p>
-    Acotá desde donde se mide en el taller, no desde donde resulta cómodo
-    dibujar. Si una cota depende de otras tres para poder verificarse, el plano
-    está mal acotado aunque el dibujo esté perfecto.
+    Acotá <strong>desde donde se mide en el taller</strong>, no desde donde resulta cómodo dibujar. Si una cota depende de otras tres para poder verificarse en el taller, el plano está mal acotado aunque el dibujo esté perfecto y legible.
+  </p>
+</div>
+
+<h2>Vistas ortográficas principales</h2>
+
+<p>
+  Las tres vistas fundamentales se proyectan automáticamente desde el modelo 3D:
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Frontal (o alzado):</strong> la vista más informativa, muestra la cara "frente".</li>
+  <li><strong>Superior (o planta):</strong> vista desde arriba, define el ancho y profundidad.</li>
+  <li><strong>Lateral (o perfil):</strong> vista desde un lado, complementa la información de profundidad y altura.</li>
+</ul>
+
+<p>
+  Otras vistas según necesidad:
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Vistas auxiliares:</strong> para caras inclinadas que no se ven correctamente de frente. Se crean a partir de una arista de proyección.</li>
+  <li><strong>Vistas de detalle:</strong> ampliación de zonas con geometría pequeña o compleja. Se indican con un círculo o rectángulo en la vista principal.</li>
+  <li><strong>Vista isométrica / 3D:</strong> para dar contexto visual general. Útil en portadas y resúmenes.</li>
+</ul>
+
+<h2>Cortes y secciones</h2>
+
+<p>
+  Un corte (sección) muestra el interior de la pieza removiendo imaginariamente una porción. Es esencial para geometría interna como agujeros ciegos, roscas, cavidades.
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Corte simple (A-A):</strong> un plano recto que atraviesa la pieza.</li>
+  <li><strong>Corte alineado:</strong> varios planos de corte en zig-zag, para ver características dispersas en una sola sección.</li>
+  <li><strong>Corte parcial:</strong> una línea de quiebre rota el corte, mostrando solo una porción del interior.</li>
+</ul>
+
+<h2>Acotado funcional</h2>
+
+<p>
+  Las cotas no son números puestos al azar: cada una debe reflejar <strong>cómo se fabrica o cómo funciona</strong> la pieza. Las cotas deben estar agrupadas desde referencias que tengan sentido físico (caras de sujeción en máquina, ejes de simetría, puntos de encaje).
+</p>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Independencia de cotas</div>
+  <p>
+    Cada cota debe ser verificable sin necesidad de medir otras cotas. Si la posición de un agujero depende de medir la distancia entre otros dos agujeros, el plano fuerza errores acumulativos en el taller.
   </p>
 </div>
 
 <h2>Tolerancias y ajustes</h2>
 
 <h3>Por qué existe la tolerancia</h3>
+
 <p>
-  Ninguna pieza sale con la medida exacta del plano. La tolerancia declara
-  <strong>cuánta desviación es aceptable</strong> sin que la pieza deje de
-  cumplir su función. No es un detalle de prolijidad: sin tolerancia, el plano no
-  se puede verificar ni rechazar.
+  Ninguna pieza sale con la medida exacta del plano: máquinas tienen precisión limitada, materiales se contraen/dilatan, herramientas se desgastan. La tolerancia es una declaración de <strong>cuánta desviación es aceptable sin que la pieza deje de cumplir su función</strong>. Sin tolerancia, el plano no se puede verificar ni rechazar.
 </p>
 
 <h3>Los tres tipos de ajuste</h3>
+
 <div class="tabla-scroll">
   <table>
     <thead>
@@ -93,39 +220,69 @@
       <tr>
         <td><strong>Con juego</strong></td>
         <td>Siempre queda holgura entre eje y agujero.</td>
-        <td>Partes que deben deslizar o girar; guías; montajes que se desarman seguido.</td>
+        <td>Partes que deben deslizar, girar libremente o separarse periódicamente. Guías, ejes, montajes modulares.</td>
       </tr>
       <tr>
         <td><strong>Indistinto</strong> (de transición)</td>
         <td>Según las medidas reales, puede quedar con leve juego o leve aprieto.</td>
-        <td>Centrado preciso con posibilidad de desarmar: espigas de posicionamiento.</td>
+        <td>Centrado preciso con posibilidad de seguir desarmando: espigas de posicionamiento, guías de alineación.</td>
       </tr>
       <tr>
         <td><strong>Con aprieto</strong></td>
-        <td>El eje siempre es mayor que el agujero: entra a presión o con temperatura.</td>
-        <td>Uniones fijas que transmiten esfuerzo y no se desarman.</td>
+        <td>El eje siempre es mayor que el agujero: entra a presión o con calor.</td>
+        <td>Uniones fijas que transmiten esfuerzo y no se desarman: pernos en anclajes, casquillos interferentes, aros de retención.</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h3>Cómo se especifican</h3>
+<h3>Notación ISO de tolerancias</h3>
+
 <p>
-  El sistema ISO combina una <strong>letra</strong>, que indica la posición de la
-  zona de tolerancia —mayúscula para agujeros, minúscula para ejes—, con un
-  <strong>número</strong>, que indica la amplitud, o grado de calidad. Cuanto
-  menor el número, más estrecha la tolerancia y más cara la pieza.
+  El sistema ISO combina:
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Una letra:</strong> posición de la zona de tolerancia. Mayúscula para agujeros (H, F, P, etc.), minúscula para ejes (h, f, p, etc.).</li>
+  <li><strong>Un número:</strong> amplitud o grado de calidad (IT01, IT0, IT1, ... IT18). Cuanto menor el número, más estrecha la tolerancia y más cara la pieza.</li>
+</ul>
+
+<p>
+  Ejemplo: <code>Ø20 H7</code> significa un agujero de 20 mm con tolerancia en zona H grado 7. La zona H es la estándar para agujeros. El grado 7 es típico para piezas mecanizadas con máquinas convencionales.
 </p>
 
 <div class="caja caja--nota">
-  <div class="caja__titulo">En el proyecto</div>
+  <div class="caja__titulo">En el proyecto de robótica</div>
   <p>
-    Los lugares donde va a hacer falta ajuste son pocos y bien identificables: el
-    centrado del adaptador contra la brida del robot, los alojamientos de guías
-    del gripper, los pasadores de posicionamiento. Todo lo demás vive con
-    tolerancia general.
+    Los lugares donde hará falta ajuste estrecho son pocos y bien identificables: el centrado del adaptador contra la brida del robot, los alojamientos de guías del gripper, los pasadores de posicionamiento. Todo lo demás vive con <strong>tolerancia general</strong> (por ejemplo, ISO 2768-m), que es más permisiva y más barata de fabricar.
   </p>
 </div>
+
+<h2>Documentación específica de ensambles</h2>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Vista explosionada:</strong> muestra las piezas ligeramente separadas, indicando cómo se arma el conjunto. Es la forma más clara de comunicar montaje.</li>
+  <li><strong>Numeración con globos (balloons):</strong> cada pieza recibe un número que se vincula directamente a la lista de materiales (BOM).</li>
+  <li><strong>Lista de materiales (BOM):</strong> tabla con número de pieza, descripción, material, cantidad, proveedor. Se genera automáticamente del ensamble.</li>
+</ul>
+
+<h2>Formatos de hoja y escalas</h2>
+
+<p>
+  La escala se elige según el tamaño de la pieza y el espacio disponible. Escalas comunes:
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>1:1</strong> — Pieza pequeña, detalle, o referencia.</li>
+  <li><strong>1:2</strong> — Pieza pequeña a media.</li>
+  <li><strong>1:5, 1:10</strong> — Pieza mediana.</li>
+  <li><strong>1:20, 1:50</strong> — Pieza grande o ensamble.</li>
+  <li><strong>2:1, 5:1</strong> — Detalles muy pequeños, ampliados.</li>
+</ul>
+
+<p>
+  Los formatos de hoja (A4, A3, A2, A1, A0) están estandarizados. La elección depende del tamaño de la pieza y la complejidad del plano. Un plano debe caber en una hoja sin requerer múltiples páginas (a menos que sea un ensamble muy grande).
+</p>
 
 <h2>Ejercicio de CAD</h2>
 <ul>

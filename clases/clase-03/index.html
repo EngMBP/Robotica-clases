@@ -45,44 +45,310 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
-  <li>Manejar el entorno de OnShape: croquis, operaciones y árbol de diseño.</li>
-  <li>Modelar una pieza simple con extrusión, corte y redondeos.</li>
-  <li>Entender por qué un croquis debe quedar totalmente restringido.</li>
+  <li>Entender qué es el diseño paramétrico y por qué es la base del CAD moderno.</li>
+  <li>Conocer la jerarquía de un proyecto CAD: piezas, ensambles y planos.</li>
+  <li>Dominar el flujo de diseño de una pieza: boceto → volumen → acabados.</li>
+  <li>Aplicar restricciones geométricas y cotas para resolver completamente un boceto.</li>
   <li>Practicar las buenas prácticas de estructura del árbol de operaciones.</li>
 </ul>
 
-<h2>Por qué CAD paramétrico</h2>
+<h2>¿Qué es el diseño paramétrico?</h2>
 <p>
-  Un modelo paramétrico guarda <em>cómo</em> se construyó la pieza, no solo su
-  forma final. Cambiar una cota reconstruye todo lo que dependía de ella. En un
-  proyecto donde el producto puede cambiar de dimensiones a mitad de camino, esa
-  diferencia decide si rehacer el diseño cuesta cinco minutos o dos días.
+  El diseño paramétrico es una forma de crear geometría en la que cada elemento no se dibuja de forma libre y definitiva, sino que se define a partir de <strong>relaciones y valores (parámetros)</strong> que quedan vivos dentro del modelo. Esto significa que una pieza no es un dibujo fijo, sino un conjunto de instrucciones geométricas y numéricas: si cambio un parámetro (una medida, un ángulo, una relación), todo el modelo se recalcula automáticamente respetando esas reglas.
+</p>
+<p>
+  La palabra clave es <strong>histórico y relacional</strong>: cada operación que hacés queda guardada en un árbol de construcción, y cada paso nuevo depende de los anteriores. Esto es lo que le da al CAD paramétrico su poder principal: <em>la capacidad de modificar un diseño completo cambiando pocos valores, sin tener que rehacer todo desde cero.</em>
 </p>
 
-<h2>El flujo de trabajo</h2>
-<ol>
-  <li><strong>Croquis:</strong> geometría 2D sobre un plano.</li>
-  <li><strong>Restricciones:</strong> relaciones geométricas —paralelo, perpendicular, tangente, coincidente— que fijan la forma.</li>
-  <li><strong>Cotas:</strong> los valores numéricos que fijan el tamaño.</li>
-  <li><strong>Operación:</strong> extrusión, corte o revolución, que convierte el croquis en sólido.</li>
-  <li><strong>Detalles:</strong> redondeos y chaflanes, siempre al final.</li>
+<h2>¿Qué es una herramienta CAD?</h2>
+<p>
+  CAD significa <strong>Diseño Asistido por Computadora</strong> (Computer Aided Design). Es un software que permite crear representaciones digitales tridimensionales de piezas y ensambles, con toda la información geométrica, dimensional y de material necesaria para luego fabricarlas, documentarlas o simularlas.
+</p>
+<p>
+  Ejemplos: SolidWorks, Autodesk Inventor, CATIA, Fusion 360, OnShape, Siemens NX. Todas comparten los mismos <strong>conceptos fundamentales</strong> aunque cambien nombres de comandos y ubicación de menús — y ese es justamente el objetivo de este curso: enseñar esos conceptos comunes.
+</p>
+
+<h2>De qué se compone un proyecto CAD</h2>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 640 168" role="img" aria-labelledby="cad-jerarquia-title cad-jerarquia-desc">
+    <title id="cad-jerarquia-title">Jerarquía del proyecto CAD</title>
+    <desc id="cad-jerarquia-desc">Tres niveles encadenados: la pieza compone el ensamble y el ensamble genera el plano. Una vía alternativa punteada muestra que una pieza suelta también puede generar su plano sin pasar por un ensamble.</desc>
+    <defs>
+      <marker id="j3-flecha" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto-suave)"/>
+      </marker>
+      <marker id="j3-flecha-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--acento)"/>
+      </marker>
+    </defs>
+
+    <!-- cadena principal -->
+    <line x1="184" y1="64" x2="248" y2="64" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#j3-flecha)"/>
+    <line x1="392" y1="64" x2="456" y2="64" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#j3-flecha)"/>
+
+    <rect x="188" y="44" width="56" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="216" y="52" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">COMPONE</text>
+    <rect x="396" y="44" width="56" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="424" y="52" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">GENERA</text>
+
+    <!-- vía alternativa: pieza suelta al plano -->
+    <path d="M 112 96 V 136 Q 112 144 120 144 H 520 Q 528 144 528 136 V 96"
+          fill="none" stroke="var(--acento)" stroke-width="1.2" stroke-dasharray="5,4"
+          marker-end="url(#j3-flecha-ac)"/>
+    <rect x="284" y="124" width="72" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="320" y="132" fill="var(--acento-texto)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">SIN ENSAMBLE</text>
+
+    <!-- niveles -->
+    <rect x="40" y="32" width="144" height="64" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="112" y="60" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Pieza</text>
+    <text x="112" y="76" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">Part</text>
+
+    <rect x="248" y="32" width="144" height="64" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="320" y="60" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Ensamble</text>
+    <text x="320" y="76" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">Assembly</text>
+
+    <rect x="456" y="32" width="144" height="64" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="528" y="60" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Plano</text>
+    <text x="528" y="76" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">Drawing</text>
+  </svg>
+  <figcaption>
+    Los tres niveles de un proyecto CAD. La vía punteada es la que se suele
+    pasar por alto: una pieza suelta puede tener su propio plano sin formar
+    parte de ningún ensamble.
+  </figcaption>
+</figure>
+
+<p>
+  Un proyecto CAD se estructura en tres niveles jerárquicos:
+</p>
+
+<dl style="margin: 1.5rem 0;">
+  <dt><strong>Pieza (Part)</strong></dt>
+  <dd>El elemento más básico, un único cuerpo sólido diseñado como una unidad. Contiene croquis, operaciones de volumen y acabados, todo grabado en un árbol de historial paramétrico.</dd>
+
+  <dt><strong>Ensamble (Assembly)</strong></dt>
+  <dd>Una combinación de piezas (y/o sub-ensambles) vinculadas entre sí mediante relaciones posicionales. Permite verificar que todas las piezas encajen sin interferencias.</dd>
+
+  <dt><strong>Plano (Drawing)</strong></dt>
+  <dd>La documentación técnica bidimensional que se genera a partir de la pieza o el ensamble, para fabricación o comunicación técnica. Es un vínculo vivo con el modelo 3D.</dd>
+</dl>
+
+<h2>Origen de las piezas: diseñadas vs. comerciales</h2>
+<p>
+  Dentro de un ensamble, las piezas que lo componen pueden tener dos orígenes distintos:
+</p>
+
+<dl style="margin: 1.5rem 0;">
+  <dt><strong>Piezas diseñadas a medida</strong></dt>
+  <dd>Geometría creada específicamente por nosotros para cumplir una función particular del proyecto. Viven en el árbol paramétrico y pueden modificarse sin límite.</dd>
+
+  <dt><strong>Componentes comerciales (off-the-shelf)</strong></dt>
+  <dd>Elementos estandarizados que ya existen en el mercado y se compran, no se diseñan: tornillos, tuercas, arandelas, rodamientos, resortes, válvulas, actuadores, etc. Muchas veces se consiguen como archivos CAD descargables directamente del fabricante. <strong>Nunca se modifican</strong> — representan una pieza que se compra tal cual.</dd>
+</dl>
+
+<p>
+  Ambos tipos de piezas conviven dentro de un mismo ensamble, y esa combinación es la que da lugar a subensambles, que a su vez pueden integrarse en ensambles de mayor nivel hasta llegar al ensamble final del producto completo.
+</p>
+
+<h2>Flujo de diseño de una pieza</h2>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 640 240" role="img" aria-labelledby="cad-flujo-title cad-flujo-desc">
+    <title id="cad-flujo-title">Flujo de creación de una pieza paramétrica</title>
+    <desc id="cad-flujo-desc">Cuatro etapas en secuencia: boceto 2D, operación de volumen, operaciones de acabado y pieza final. Debajo, cada etapa deja un nodo en el árbol de historial, y una vía de retorno indica que modificar un parámetro temprano recalcula todas las etapas posteriores.</desc>
+    <defs>
+      <marker id="f3-flecha" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto-suave)"/>
+      </marker>
+      <marker id="f3-flecha-ac" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--acento)"/>
+      </marker>
+    </defs>
+
+    <!-- secuencia -->
+    <line x1="144" y1="80" x2="176" y2="80" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#f3-flecha)"/>
+    <line x1="304" y1="80" x2="336" y2="80" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#f3-flecha)"/>
+    <line x1="464" y1="80" x2="496" y2="80" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#f3-flecha)"/>
+
+    <!-- vínculos al árbol -->
+    <line x1="80"  y1="120" x2="80"  y2="164" stroke="var(--texto-suave)" stroke-width="0.8" stroke-dasharray="4,3"/>
+    <line x1="240" y1="120" x2="240" y2="164" stroke="var(--texto-suave)" stroke-width="0.8" stroke-dasharray="4,3"/>
+    <line x1="400" y1="120" x2="400" y2="164" stroke="var(--texto-suave)" stroke-width="0.8" stroke-dasharray="4,3"/>
+    <line x1="560" y1="120" x2="560" y2="164" stroke="var(--texto-suave)" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+    <!-- vía de recálculo -->
+    <path d="M 560 176 V 208 Q 560 216 552 216 H 88 Q 80 216 80 208 V 176"
+          fill="none" stroke="var(--acento)" stroke-width="1.2" stroke-dasharray="5,4"
+          marker-end="url(#f3-flecha-ac)"/>
+    <rect x="276" y="196" width="88" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="320" y="204" fill="var(--acento-texto)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">RECALCULA TODO</text>
+
+    <!-- etapas -->
+    <rect x="16" y="40" width="128" height="80" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <rect x="24" y="48" width="20" height="12" rx="2" fill="none" stroke="var(--borde)" stroke-width="0.8"/>
+    <text x="34" y="57" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">01</text>
+    <text x="80" y="92" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Boceto 2D</text>
+
+    <rect x="176" y="40" width="128" height="80" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <rect x="184" y="48" width="20" height="12" rx="2" fill="none" stroke="var(--borde)" stroke-width="0.8"/>
+    <text x="194" y="57" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">02</text>
+    <text x="240" y="84" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Operación</text>
+    <text x="240" y="100" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">de volumen</text>
+
+    <rect x="336" y="40" width="128" height="80" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <rect x="344" y="48" width="20" height="12" rx="2" fill="none" stroke="var(--borde)" stroke-width="0.8"/>
+    <text x="354" y="57" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">03</text>
+    <text x="400" y="84" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Operaciones</text>
+    <text x="400" y="100" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">de acabado</text>
+
+    <rect x="496" y="40" width="128" height="80" rx="6" fill="var(--acento-claro)" stroke="var(--acento)" stroke-width="1"/>
+    <rect x="504" y="48" width="20" height="12" rx="2" fill="none" stroke="var(--acento)" stroke-width="0.8"/>
+    <text x="514" y="57" fill="var(--acento-texto)" font-size="8" font-family="var(--mono)" text-anchor="middle">04</text>
+    <text x="560" y="92" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Pieza final</text>
+
+    <!-- árbol de historial -->
+    <line x1="48" y1="168" x2="592" y2="168" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <circle cx="80"  cy="168" r="4" fill="var(--texto)"/>
+    <circle cx="240" cy="168" r="4" fill="var(--texto)"/>
+    <circle cx="400" cy="168" r="4" fill="var(--texto)"/>
+    <circle cx="560" cy="168" r="4" fill="var(--texto)"/>
+    <rect x="264" y="144" width="112" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="320" y="152" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.14em">ÁRBOL DE HISTORIAL</text>
+  </svg>
+  <figcaption>
+    Cada etapa deja su nodo en el árbol de historial. Eso es lo que hace que el
+    modelo sea paramétrico: volver atrás y cambiar una cota del boceto recalcula
+    todo lo que vino después, sin rehacer nada a mano.
+  </figcaption>
+</figure>
+
+<p>
+  El proceso de creación de una pieza sigue siempre esta lógica, sin importar el software:
+</p>
+
+<ol style="margin: 1.5rem 0;">
+  <li><strong>Boceto (Sketch) 2D:</strong> se dibuja la geometría base sobre un plano de referencia usando líneas, círculos, arcos, rectángulos, etc.</li>
+  <li><strong>Restricciones y cotas:</strong> se define cómo se relacionan esos elementos entre sí (paralelismo, concentricidad, simetría) y qué medidas fijan su tamaño real.</li>
+  <li><strong>Operación de volumen:</strong> el boceto 2D resuelto se transforma en un sólido 3D mediante una operación como extruir, revolucionar, barrer o solevar.</li>
+  <li><strong>Operaciones de acabado/modificación:</strong> sobre el sólido ya generado se aplican redondeos, chaflanes, vaciados (cascarón), nervaduras o patrones repetitivos.</li>
+  <li><strong>Árbol de historial paramétrico:</strong> todo el proceso queda guardado como una secuencia de pasos dependientes entre sí. Si se modifica un valor temprano en el árbol, todo lo posterior se recalcula automáticamente.</li>
 </ol>
 
+<h2>Restricciones geométricas</h2>
+<p>
+  Un boceto debe estar <strong>completamente restringido</strong> antes de convertirlo en volumen. Las restricciones geométricas definen cómo se relacionan los elementos:
+</p>
+
+<ul style="columns: 2; margin: 1.5rem 0;">
+  <li>Coincidente</li>
+  <li>Paralelo</li>
+  <li>Perpendicular</li>
+  <li>Tangente</li>
+  <li>Concéntrico</li>
+  <li>Colineal</li>
+  <li>Simétrico</li>
+  <li>Punto medio</li>
+  <li>Horizontal / Vertical</li>
+</ul>
+
+<h2>Restricciones dimensionales (cotas)</h2>
+<p>
+  Fijan valores numéricos concretos:
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li>Longitudes</li>
+  <li>Ángulos</li>
+  <li>Radios</li>
+  <li>Distancias</li>
+</ul>
+
 <div class="caja caja--aviso">
-  <div class="caja__titulo">Error frecuente</div>
+  <div class="caja__titulo">Regla esencial</div>
   <p>
-    Un croquis sin restringir del todo se deforma solo cuando alguien mueve un
-    punto. Antes de extruir, verificá que el croquis esté completamente definido:
-    OnShape lo indica con un cambio de color en la geometría.
+    El boceto se considera <strong>"resuelto"</strong> cuando queda completamente restringido: no debe quedar geometría con libertad de movimiento no intencional (subrestringido) ni relaciones contradictorias (sobrerrestringido). La mayoría de herramientas CAD lo indican con un cambio de color en la geometría (generalmente blanca/azul cuando está resuelto).
   </p>
 </div>
 
-<h2>El árbol de operaciones</h2>
+<h2>Herramientas fundamentales de boceto</h2>
+
+<h3>Geometría de dibujo</h3>
+<ul style="columns: 2; margin: 1.5rem 0;">
+  <li>Línea</li>
+  <li>Rectángulo</li>
+  <li>Círculo</li>
+  <li>Arco</li>
+  <li>Elipse</li>
+  <li>Polígono</li>
+  <li>Spline (curva libre)</li>
+</ul>
+
+<h3>Herramientas de modificación 2D</h3>
+<ul style="columns: 2; margin: 1.5rem 0;">
+  <li>Desplazamiento / Offset</li>
+  <li>Espejo (mirror)</li>
+  <li>Patrón lineal o circular</li>
+  <li>Recortar (trim)</li>
+  <li>Extender (extend)</li>
+  <li>Chaflán y redondeo 2D</li>
+</ul>
+
+<h2>Operaciones básicas para generar volumen</h2>
+
+<dl style="margin: 1.5rem 0;">
+  <dt><strong>Extruir (Extrude)</strong></dt>
+  <dd>Empuja la silueta del boceto en línea recta una distancia determinada. Es la más común.</dd>
+
+  <dt><strong>Revolucionar (Revolve)</strong></dt>
+  <dd>Gira la silueta alrededor de un eje, generando formas de simetría circular (ejes, tornillos, poleas).</dd>
+
+  <dt><strong>Barrer (Sweep)</strong></dt>
+  <dd>Desliza la silueta a lo largo de una trayectoria curva definida (tubos, molduras, perfiles ondulados).</dd>
+
+  <dt><strong>Solevado (Loft)</strong></dt>
+  <dd>Genera una transición suave de geometría entre dos o más secciones ubicadas en distintos planos (carcasas, fuselajes).</dd>
+</dl>
+
+<h2>Operaciones de modificación del sólido</h2>
+
+<dl style="margin: 1.5rem 0;">
+  <dt><strong>Redondeo (Fillet)</strong></dt>
+  <dd>Suaviza aristas. Reduce concentraciones de esfuerzo y mejora la apariencia.</dd>
+
+  <dt><strong>Chaflán (Chamfer)</strong></dt>
+  <dd>Corta las aristas en ángulo, típicamente para monaje o para evitar que se enganche geometría.</dd>
+
+  <dt><strong>Cascarón / Vaciado (Shell)</strong></dt>
+  <dd>Convierte un sólido en una pared hueca con espesor uniforme.</dd>
+
+  <dt><strong>Nervaduras o costillas de refuerzo (Rib)</strong></dt>
+  <dd>Agrega nervios internos que aumentan rigidez sin agregar peso.</dd>
+</dl>
+
+<div class="caja caja--nota">
+  <div class="caja__titulo">Orden de operaciones</div>
+  <p>
+    El orden importa. Redondear antes de cortar puede hacer que el corte falle al cambiar una medida. Regla práctica: primero el volumen principal, después los cortes funcionales —agujeros, alojamientos— y al final los detalles estéticos y de seguridad.
+  </p>
+</div>
+
+<h2>Patrones y simetrías en 3D</h2>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Patrón lineal:</strong> repite una operación a lo largo de una línea.</li>
+  <li><strong>Patrón circular:</strong> repite una operación alrededor de un eje.</li>
+  <li><strong>Espejo de pieza completa (mirror body):</strong> crea una copia especular de toda la geometría.</li>
+</ul>
+
+<h2>Planos y ejes de referencia auxiliares</h2>
 <p>
-  El orden importa. Redondear antes de cortar puede hacer que el corte falle al
-  cambiar una medida. Regla práctica: primero el volumen principal, después los
-  cortes funcionales —agujeros, alojamientos— y al final los detalles estéticos
-  y de seguridad.
+  Geometría de referencia (planos, ejes, puntos) que se crea cuando los planos por defecto no alcanzan para apoyar un nuevo boceto o una nueva operación. Es fundamental para piezas complejas con geometría en ángulos o ubicaciones no estándar.
 </p>
 
 <h2>Ejercicio de CAD</h2>

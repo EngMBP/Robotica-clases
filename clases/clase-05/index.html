@@ -45,89 +45,202 @@
 <!-- CONTENIDO:INICIO -->
 <h2>Objetivos de la clase</h2>
 <ul>
+  <li>Entender cómo se vinculan piezas mediante relaciones de posición (mates/acoples).</li>
   <li>Armar ensamblajes con relaciones de posición entre piezas propias.</li>
-  <li>Importar un componente comercial de catálogo e integrarlo al ensamblaje.</li>
+  <li>Importar componentes comerciales de catálogo e integrarlos al ensamblaje.</li>
   <li>Entender la importancia de dejar vivos los grados de libertad que importan.</li>
   <li>Gestionar la información de componentes comerciales (marca, modelo, código).</li>
+  <li>Generar y usar la lista de materiales (BOM) automática del ensamble.</li>
 </ul>
 
-<h2>De piezas sueltas a un conjunto</h2>
+<h2>Concepto central: relaciones de posición (mates/acoples)</h2>
 <p>
-  Un ensamblaje vincula piezas mediante <strong>relaciones de posición</strong>
-  que eliminan grados de libertad. Cada pieza libre en el espacio tiene seis:
-  tres traslaciones y tres rotaciones. Ensamblar es decidir cuáles se eliminan y
-  cuáles se dejan vivas a propósito.
+  Un ensamble se construye insertando piezas y vinculándolas entre sí mediante <strong>relaciones posicionales</strong>, comúnmente llamadas "mates" o "acoples": coincidente, concéntrico, paralelo, tangente, distancia, ángulo. Estas relaciones van quitando <strong>grados de libertad</strong> a cada pieza hasta dejarla completamente posicionada, o bien dejando deliberadamente algún grado de libertad si la pieza debe moverse (una bisagra, un pistón, un engranaje).
 </p>
 
 <div class="caja caja--nota">
-  <div class="caja__titulo">Los grados de libertad que quedan vivos son el diseño</div>
+  <div class="caja__titulo">Grados de libertad (DOF)</div>
   <p>
-    Un vástago de cilindro debe conservar una traslación. Un eje de giro, una
-    rotación. Si el ensamblaje queda todo fijo, no se puede verificar el
-    movimiento ni detectar interferencias.
+    Cada pieza libre en el espacio tiene seis grados de libertad: tres traslaciones (x, y, z) y tres rotaciones (roll, pitch, yaw). Ensamblar es decidir cuáles se eliminan con relaciones y cuáles se dejan vivos a propósito. <strong>Los grados de libertad que quedan vivos son el diseño.</strong>
+  </p>
+  <p style="margin-top: 1rem; font-size: 0.95em; color: #7a8399;">
+    Un vástago de cilindro debe conservar una traslación. Un eje de giro, una rotación. Si el ensamblaje queda todo fijo, no se puede verificar el movimiento ni detectar interferencias.
   </p>
 </div>
 
-<h2>Componentes comerciales</h2>
+<h2>Componentes comerciales: cuándo y cómo usarlos</h2>
 <p>
-  Las ventosas, cilindros, perfiles y guías no se modelan: se descargan del
-  fabricante, normalmente en formato <strong>STEP</strong>, y se importan. Dos
-  reglas:
+  Las ventosas, cilindros, perfiles y guías no se modelan desde cero: se descargan del fabricante, normalmente en formato <strong>STEP</strong>, y se importan. Dos reglas de oro:
 </p>
-<ul>
-  <li>El modelo importado <strong>no se modifica</strong>: representa una pieza que se compra tal cual.</li>
-  <li>Se anota marca, modelo y código exacto, porque va derecho al BOM.</li>
-</ul>
+
+<ol style="margin: 1.5rem 0;">
+  <li><strong>El modelo importado nunca se modifica</strong>: representa una pieza que se compra tal cual, y cualquier cambio lo desconectaría de su especificación de catálogo.</li>
+  <li><strong>Se anota marca, modelo y código exacto</strong>, porque esa información va directo al BOM (lista de materiales) y después a la orden de compra.</li>
+</ol>
+
+<figure class="diagrama">
+  <svg viewBox="0 0 640 328" role="img" aria-labelledby="cad-componentes-title cad-componentes-desc">
+    <title id="cad-componentes-title">Componentes, subensambles y ensamble final</title>
+    <desc id="cad-componentes-desc">Jerarquía de arriba hacia abajo. Dos orígenes alimentan el ensamble: piezas diseñadas por el grupo y componentes comerciales descargados en formato STEP, que no se modifican. Ambos orígenes convergen en subensambles funcionales, y los subensambles se integran en el ensamble final del producto.</desc>
+    <defs>
+      <marker id="c5-flecha" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="var(--texto-suave)"/>
+      </marker>
+    </defs>
+
+    <!-- orígenes al pozo común -->
+    <path d="M 152 96 V 112 Q 152 120 160 120" fill="none" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <path d="M 488 96 V 112 Q 488 120 480 120" fill="none" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <line x1="160" y1="120" x2="480" y2="120" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <line x1="176" y1="120" x2="176" y2="152" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#c5-flecha)"/>
+    <line x1="464" y1="120" x2="464" y2="152" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#c5-flecha)"/>
+
+    <rect x="276" y="100" width="88" height="12" rx="2" fill="var(--superficie)"/>
+    <text x="320" y="108" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)"
+          text-anchor="middle" letter-spacing="0.06em">AMBOS ORÍGENES</text>
+
+    <!-- subensambles al ensamble final -->
+    <path d="M 176 200 V 208 Q 176 216 184 216" fill="none" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <path d="M 464 200 V 208 Q 464 216 456 216" fill="none" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <line x1="184" y1="216" x2="456" y2="216" stroke="var(--texto-suave)" stroke-width="1.2"/>
+    <line x1="320" y1="216" x2="320" y2="240" stroke="var(--texto-suave)" stroke-width="1.2" marker-end="url(#c5-flecha)"/>
+
+    <!-- origen 1: piezas diseñadas -->
+    <rect x="48" y="32" width="208" height="64" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <rect x="56" y="40" width="48" height="12" rx="2" fill="none" stroke="var(--borde)" stroke-width="0.8"/>
+    <text x="80" y="48" fill="var(--texto-suave)" font-size="8" font-family="var(--mono)" text-anchor="middle">NATIVO</text>
+    <text x="152" y="68" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Piezas diseñadas</text>
+    <text x="152" y="84" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="middle">se modelan y se editan</text>
+
+    <!-- origen 2: componentes comerciales (foco) -->
+    <rect x="384" y="32" width="208" height="64" rx="6" fill="var(--acento-claro)" stroke="var(--acento)" stroke-width="1"/>
+    <rect x="392" y="40" width="40" height="12" rx="2" fill="none" stroke="var(--acento)" stroke-width="0.8"/>
+    <text x="412" y="48" fill="var(--acento-texto)" font-size="8" font-family="var(--mono)" text-anchor="middle">STEP</text>
+    <text x="488" y="68" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Componentes comerciales</text>
+    <text x="488" y="84" fill="var(--acento-texto)" font-size="12" font-family="var(--fuente)" text-anchor="middle">no se modifican</text>
+
+    <!-- subensambles -->
+    <rect x="96" y="152" width="160" height="48" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="176" y="180" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Subensamble A</text>
+
+    <rect x="384" y="152" width="160" height="48" rx="6" fill="var(--superficie-2)" stroke="var(--borde)" stroke-width="1"/>
+    <text x="464" y="180" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Subensamble B</text>
+
+    <!-- ensamble final -->
+    <rect x="208" y="240" width="224" height="64" rx="6" fill="var(--superficie)" stroke="var(--texto)" stroke-width="1"/>
+    <text x="320" y="264" fill="var(--texto)" font-size="12" font-weight="600" font-family="var(--fuente)" text-anchor="middle">Ensamble final</text>
+    <text x="320" y="280" fill="var(--texto-suave)" font-size="12" font-family="var(--fuente)" text-anchor="middle">el producto completo</text>
+  </svg>
+  <figcaption>
+    Los dos orígenes conviven en cualquier subensamble. La diferencia no es
+    visual sino de permisos: la pieza diseñada vive en el árbol paramétrico y se
+    edita; el componente comercial entra como STEP y queda congelado, porque su
+    marca y código ya están comprometidos con el BOM.
+  </figcaption>
+</figure>
 
 <h2>Relaciones de posición típicas</h2>
+
 <div class="tabla-scroll">
   <table>
     <thead>
-      <tr><th>Relación</th><th>Qué fija</th><th>Grados eliminados</th></tr>
+      <tr><th>Relación</th><th>Qué fija</th><th>Grados de libertad eliminados</th></tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>Coincidente</strong></td>
-        <td>Dos caras, planos o ejes se superponen.</td>
+        <td>Dos caras, planos o ejes se superponen. Es la más común y poderosa.</td>
         <td>Hasta 3 (perpendicular a la cara)</td>
       </tr>
       <tr>
         <td><strong>Paralela</strong></td>
-        <td>Dos caras o planos quedan paralelos sin tocarse.</td>
+        <td>Dos caras o planos quedan paralelos sin tocarse. Útil cuando querés distancia fija con una cota.</td>
         <td>1 (orientación angular)</td>
       </tr>
       <tr>
         <td><strong>Perpendicular</strong></td>
-        <td>Dos caras forman 90°.</td>
+        <td>Dos caras forman 90°. Común en estructuras rectangulares.</td>
         <td>1 (orientación angular)</td>
       </tr>
       <tr>
         <td><strong>Tangente</strong></td>
-        <td>Una esfera o cilindro toca una cara.</td>
+        <td>Una esfera o cilindro toca una cara sin penetrarla. Para resortes sobre planos, por ejemplo.</td>
         <td>1 (distancia perpendicular)</td>
       </tr>
       <tr>
-        <td><strong>Rígida</strong></td>
-        <td>Fija posición y orientación relativa.</td>
+        <td><strong>Distancia</strong></td>
+        <td>Dos caras paralelas quedan a una distancia exacta. Complementa paralela.</td>
+        <td>1 (traslación perpendicular a las caras)</td>
+      </tr>
+      <tr>
+        <td><strong>Ángulo</strong></td>
+        <td>Dos caras forman un ángulo específico (no necesariamente 90°).</td>
+        <td>1 (rotación alrededor del eje de la arista)</td>
+      </tr>
+      <tr>
+        <td><strong>Rígida / Fija</strong></td>
+        <td>Fija posición y orientación relativa completamente. Útil para subcomponentes muy cercanos.</td>
         <td>6 (todas)</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h2>Ensamblaje en el proyecto</h2>
+<h2>Subensambles y jerarquía</h2>
 <p>
-  El conjunto de la celda incluye:
+  Un ensamble puede contener otros ensambles más pequeños (subensambles) dentro de sí. Es clave entender la diferencia entre:
 </p>
-<ul>
-  <li><strong>Gripper diseñado:</strong> pieza propia con el mecanismo de sujeción.</li>
-  <li><strong>Componentes comerciales:</strong> robot, cilindros, ventosas, sensores (importados).</li>
-  <li><strong>Estructura:</strong> perfiles, soportes, guías (diseñadas o compradas).</li>
+
+<dl style="margin: 1.5rem 0;">
+  <dt><strong>Editar una pieza en contexto</strong></dt>
+  <dd>Dentro del ensamble, viendo cómo interactúa con las demás. Es más lento pero garantiza que los cambios respeten las restricciones del conjunto.</dd>
+
+  <dt><strong>Editar la misma pieza por separado</strong></dt>
+  <dd>De forma aislada, sin el ensamble. Es más rápido, pero los cambios podrían romper las relaciones de posición si no sos cuidadoso.</dd>
+</dl>
+
+<h2>Ensamblaje en el proyecto de robótica</h2>
+<p>
+  El conjunto de la celda incluye varios niveles:
+</p>
+
+<ul style="margin: 1.5rem 0;">
+  <li><strong>Gripper diseñado:</strong> subensamble propio con el mecanismo de sujeción (pinzas, guías, actuador).</li>
+  <li><strong>Componentes comerciales:</strong> robot, cilindros, ventosas, sensores (importados del fabricante, no modificados).</li>
+  <li><strong>Estructura:</strong> perfiles, soportes, guías de movimiento (diseñadas o compradas, integradas al subensamble de estructura).</li>
+  <li><strong>Ensamble final:</strong> todos los subensambles vinculados por relaciones que dejan vivos solo los movimientos funcionales (extensión del cilindro, giro del robot, apertura del gripper).</li>
 </ul>
+
 <p>
-  El ensamblaje muestra cómo encajan todos, y permite verificar que no hay
-  interferencias ni conflictos de espacio antes de fabricar nada.
+  El ensamblaje muestra cómo encajan todos, y permite verificar que no hay interferencias ni conflictos de espacio antes de fabricar nada. Es el documento de ingeniería central: de él se derivarán los planos, las listas de compra y la guía de montaje.
 </p>
+
+<h2>Patrones de componentes</h2>
+<p>
+  Una herramienta muy poderosa que permite repetir automáticamente componentes iguales (tornillos, remaches, pernos) sin necesidad de insertarlos y vincularlos uno por uno. Por ejemplo: si una estructura tiene 12 agujeros de sujeción, en lugar de insertar 12 tornillos individualmente, defines un patrón que los replica.
+</p>
+
+<h2>Detección de interferencias</h2>
+<p>
+  Herramienta que verifica si dos o más piezas del ensamble ocupan el mismo espacio físico (colisión). Algo crítico para detectar errores de diseño antes de fabricar. Muchas herramientas CAD permiten generar un reporte de interferencias que lista cada par de piezas que se solapan.
+</p>
+
+<h2>Análisis de movimiento / simulación cinemática básica</h2>
+<p>
+  Permite simular cómo se mueve el mecanismo ensamblado una vez que ciertas piezas tienen grados de libertad vivos. Por ejemplo: ver el recorrido de un pistón mientras el cilindro se extiende, o el giro de un engranaje mientras la rueda motora avanza. Esencial para validar que el diseño funciona antes de construir.
+</p>
+
+<h2>Lista de materiales (BOM - Bill of Materials)</h2>
+<p>
+  Tabla que se genera <strong>automáticamente</strong> a partir del ensamble, indicando qué piezas lo componen y en qué cantidad — incluyendo tanto las piezas diseñadas como los componentes comerciales. Cada componente comercial debe tener anotados marca, modelo y código exacto, porque esa información alimenta la orden de compra.
+</p>
+
+<div class="caja caja--aviso">
+  <div class="caja__titulo">BOM es un documento vivo</div>
+  <p>
+    Si agregas o eliminás piezas del ensamble, el BOM se recalcula solo. Por eso es importante mantener el ensamble coherente y completo: es la fuente de verdad para saber qué se necesita comprar y qué se necesita fabricar.
+  </p>
+</div>
 
 <h2>Ejercicio de CAD</h2>
 <ul>
